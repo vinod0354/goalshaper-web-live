@@ -1,0 +1,74 @@
+<div>
+  <div class="row">
+
+
+
+    <div class="col-3" style="padding:28px; padding-left: 3%;">
+      <div class="row">
+        <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+        <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+          REPORTS
+        </span>
+      </div>
+    </div>
+
+
+    <div class="col-9" style="padding-top:15px;">
+      <table style="width:100%;">
+        <tr>
+
+          <td style="align-content: right; text-align: right; float: right;">
+
+            <table>
+              <tr>
+                <td>
+                  <div class="md-form col-xs-12 col-12 col-md-12" style="padding-right:10px; margin-top: -16px;">
+                    <input type="text" style="width:250px;" placeholder="Select Date Range" class="form-control"
+                      #drp="bsDaterangepicker" bsDaterangepicker  [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                    <i  style="margin-top: -25px;
+                    position: absolute;
+                    margin-left: -21px; color:#2196f3" class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
+                </td>
+
+                <td style="line-height: 3; ">
+                  &nbsp;&nbsp;&nbsp;&nbsp; <button  class="btn btn-primary pull-right"
+                    style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                    <i class="fa fa-bar-chart "></i>
+                    &nbsp;Get Report</button>
+                </td>
+
+                <td style="line-height: 3; ">
+                  &nbsp;&nbsp;&nbsp;&nbsp; <button  class="btn btn-primary pull-right"
+                    style="line-height: 1.5; font-size: small; background-color: green;">
+                    <i class="fa fa-file-excel-o"></i>
+                    &nbsp;Export</button>
+                </td>
+
+
+              </tr>
+            </table>
+
+
+
+          </td>
+        </tr>
+      </table>
+
+
+
+    </div>
+
+
+
+  </div>
+  <hr>
+</div>
+
+
+<div style="width:100%; padding-left:1%">
+  <div  class="alert alert alert-danger fade show" style="background-color: #1089CE; border:solid 1px #1089CE; color:#ffffff;">
+    <strong>Info!</strong> Reports will be generated and exported to excel.
+    <button type="button" class="close" data-dismiss="alert"></button>
+  </div>
+</div>

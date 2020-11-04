@@ -1,0 +1,545 @@
+<!-- <div >
+    <div class="row">
+      <div class="col-3" style="padding:28px; padding-left: 3%;">
+        <div class="row">
+          <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+          <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+            ACTIONS
+          </span>
+        </div>
+      </div>
+      
+      <div class="col-9" style="padding-top:15px;">
+        <table style="width:100%;">
+          <tr>
+            <td>
+                <table style="width:100%;">
+                    <tr>
+                        <td>
+                            <div  style="padding-right:10px; margin-top: -16px; text-align: left; float: left;">
+                                <input  style="width:380px; margin-left:-50px" [(ngModel)]='quickActionName' type="text" (keyup.enter)="triggerQUickAction($event)" (blur)="triggerQUickAction($event)" placeholder="Add a quick Action" class="form-control">
+                              </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="align-content: right; text-align: right; float: right;">
+              <table>
+                <tr>
+                  <td style="line-height: 3">
+                    <div class="form-group has-search">
+                      <span (click)="getSearchDetailsFromServer()" class="fa fa-search form-control-feedback fa-xs"
+                        style="font-size: small; cursor: pointer; line-height: 2.5;"></span>
+                      <input type="text" (keyup)="refreshSearch()" class="form-control" [(ngModel)]="searchText"
+                        #txtSearch placeholder="Search ">
+                    </div>
+                  </td>
+                  <td style="line-height: 3;">
+                    &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="openActionsModal('create','')" class="btn btn-primary pull-right"
+                      style="margin-top: -8px;cursor: pointer; line-height: 1.5; font-size: small; background-color: #1089CE;">
+                      <i class="fa fa-plus "></i>
+                      &nbsp;Create</button>
+                  </td>
+                  <td style="line-height: 3;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button (click)="refreshPageData()" class="btn btn-primary pull-right" style="margin-top: -8px;cursor: pointer;line-height: 1.5; font-size: small; background-color: #1089CE;">
+                        <i class="fa fa-refresh "></i> &nbsp;Refresh
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <hr>
+</div> -->
+
+<div class="row" style="margin-bottom: 20px;margin-top: 20px;">
+  <!-- <div class="col-2">
+    <span style="font-size: 28px; font-weight: bold; color: #363648;">Actions</span>
+  </div> -->
+  <div class="col-10 mx-auto">
+    <div class="row">
+      <ul class="nav nav-pills action-tab" id="pills-tab" role="tablist">
+        <li class="nav-item" style="width: 33.3%;" (click)="findTab()">
+          <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" style="justify-content: center; font-size: 20px;">Find</a>
+        </li>
+        <li class="nav-item" style="width: 33.3%;" (click)="sortTab()">
+          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" style="justify-content: center; font-size: 20px;">Sort</a>
+        </li>
+        <li class="nav-item" style="width: 33.3%;" (click)="refresh()">
+          <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" style="justify-content: center; font-size: 20px;">Do</a>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+      <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+    </div> -->
+  </div>
+</div>
+
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <!-- Find Tab --> 
+          <div class="row" cdkDropListGroup>
+            <div class="col-4">
+                <div class="card" style="max-height: 50vh;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border: none; box-shadow: none; background: transparent;">
+                  <div class="card-body" style="overflow-y: auto;">
+                    <div class="card" style="margin: 10px;text-align: center; border: none; box-shadow: none; background: transparent;">
+                      <span style="padding:10px;cursor: pointer;">
+                        <div class="row">
+                          <div class="col-10">
+                            <input type="text" class="default-input" placeholder="Add Action" [(ngModel)]='quickActionName' (keyup.enter)="triggerQUickAction($event)">
+                          </div>
+                          <div class="col-2" (click)="triggerQUickAction($event)">
+                            <i class="fa fa-plus" style="color: #f18a11;" type="submit"></i>
+                          </div>
+                        </div>
+                      </span>
+                    </div>
+                    <div cdkDropList
+                      id = 'moviesList'
+                      [cdkDropListData]="dumpActions"
+                      [cdkDropListConnectedTo]="catogeryNames"
+                      class="movie-list"
+                      class="card-content"
+                      (cdkDropListDropped)="onDropFind($event)">
+                      <div (click)="openActionsModal('find',item)" class="movie-block" *ngFor="let item of dumpActions | searchpipe: searchBy " class="card" style="margin-bottom: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);" cdkDrag>
+                        <span style="padding:10px;cursor: grab;"><img class="icon-find"><a >{{item.action | slice:0:20}}</a> </span>
+                      </div>
+                      <div *ngIf="dumpActions.length == 0" style="text-align: center;"> No Actions</div>
+                      <div   class="card" style="margin: 0px;border: none; box-shadow: none;" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card" style="margin: 10px;text-align: center; border: none; box-shadow: none; background: transparent;">
+                  <div class="row">
+                    <div class="col-12">
+                      <div *ngIf="dumpActions.length == 0" style="text-align: center;"><img src="assets/img/action-rings.png" alt="" style="height: 205px;"></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-4" style="display: inline-block;">
+              <div class="card" style="max-height: 50vh; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border: none; box-shadow: none; background: transparent;">
+                <div class="card-body" style="overflow-y: auto">
+                  <div *ngIf="displayIfNoCategories" style="text-align:center">No Categories</div>
+                  <div   *ngFor="let action of chunkActions;index as i " class="card"  style="margin-bottom: 15px; box-shadow: inset -10px -10px 10px 0 #ffffff, inset 10px 10px 10px 0 #ededed;" [style.border-color]="action.color">
+                    <div (click)="clickheader(i, 'find')" class="card-header" style="cursor: pointer; border: none; background: transparent;" >
+                      <span style="font-size: 16px">{{action.name}}</span>
+                      <span style="font-size: 16px;" class="pull-right" [style.color]="action.color">
+                        <i class="fa fa-caret-up" *ngIf="action.visible == true"></i>
+                        <i class="fa fa-caret-down" *ngIf="action.visible == false"></i>
+                      </span>
+                    </div>
+                    
+                    <div cdkDropList
+                    id = "{{action.name}}"
+                    [cdkDropListData]="action.actions"
+                    [cdkDropListConnectedTo]="['moviesList']"
+                    class="movie-list"
+                    (cdkDropListDropped)="onDrop($event)"
+                    class="card-content" *ngIf="action.visible" >
+                      <div   class="card" style="margin: 0px;border: none; box-shadow: none;" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div  *ngIf="action.visible"  class="card" style="margin: 10px;text-align: center; border: none; box-shadow: none; background: transparent;">
+                        <span style="padding:10px;cursor: pointer;">
+                          <div class="row">
+                            <div class="col-10">
+                              <input type="text" class="default-input" [style.border-color]="action.color" placeholder="Add Action to {{action.name}}" [(ngModel)]="sortTitle[i]" (keyup.enter)="sortQUickAction($event,i)">
+                            </div>
+                            <div class="col-2" (click)="openActionsModal('sortplus',action,i)">
+                              <i class="fa fa-plus" [style.color]="action.color" type="submit"></i>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                      <div   class="card" style="margin: 0px; border: none; box-shadow: none" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div  class="movie-block" *ngFor="let data of action.actions | searchpipe: searchBy ;index as j" class="card" style="margin: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);" (click)="openActionsModal('edit',data)" cdkDrag [cdkDragData]="data">
+                        <div *cdkDragPlaceholder></div>
+                        <span style="padding:10px;cursor: grab;">
+                          <img class="item-tag" *ngIf="(data.completed_date == '' || data.completed_date.includes('1900'))" [style.border-color]="data.color">
+                          <i class="fa fa-check item-done" *ngIf="(data.completed_date != '' && ! data.completed_date.includes('1900'))" [style.color]="data.color"></i>
+                          {{data.action | slice:0:20}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4" style="display: inline-block;">
+              <div class="card" style="max-height: 50vh; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border: none; box-shadow: none; background: transparent;">
+                <div class="card-body" style="overflow-y: auto">
+                  <div   *ngFor="let day of days;let i = index" class="card"  style="margin-bottom: 15px; box-shadow: inset -10px -10px 10px 0 #ffffff, inset 10px 10px 10px 0 #ededed;">
+                    <div (click)="clickDateHeader(i,day.visible)" class="card-header" style="cursor: pointer; border: none; background: transparent;" >
+                      <span style="font-size: 16px">{{ day.displayDate }}</span>
+                      <span style="font-size: 16px;" class="pull-right">
+                        <i class="fa fa-caret-up" *ngIf="day.visible == true"></i>
+                        <i class="fa fa-caret-down" *ngIf="day.visible == false"></i>
+                      </span>
+                    </div>
+                    
+                    <div cdkDropList
+                      id = "{{day.id}}"
+                      [cdkDropListData]="day.actions"
+                      class="movie-list"
+                      (cdkDropListDropped)="onDropDate($event,day.formatDate)"
+                      class="card-content" *ngIf="day.visible" style="min-height: 60px !important;">
+                      <div   class="card" style="margin: 0px;border: none; box-shadow: none;" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div   class="card" style="margin: 0px; border: none; box-shadow: none" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div  class="movie-block" *ngFor="let data of day.actions" class="card" style="margin: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);" (click)="openActionsModal('edit',data)" cdkDrag>
+                        <div *cdkDragPlaceholder></div>
+                        <span style="padding:10px;cursor: pointer;">
+                          <img class="item-tag" *ngIf="(data.completed_date == '' || data.completed_date.includes('1900'))" [style.border-color]="data.color">
+                          <i class="fa fa-check item-done" *ngIf="(data.completed_date != '' && ! data.completed_date.includes('1900'))" [style.color]="data.color"></i>
+                          {{data.action | slice:0:20}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card" style="box-shadow: inset -10px -10px 10px 0 #ffffff, inset 10px 10px 10px 0 #ededed;" *ngIf="days">
+                    <div class="card-header" style="cursor: pointer; border: none; background: transparent;"  (click)="clickAnotherDateHeader(otherDate.visible)" >
+                      <span style="font-size: 16px">{{otherDate.displayDate}}</span>
+                      <span style="font-size: 16px;" class="pull-right">
+                        <i class="fa fa-caret-up" *ngIf="otherDate.visible == true"></i>
+                        <i class="fa fa-caret-down" *ngIf="otherDate.visible == false"></i>
+                      </span>
+                    </div>
+                    
+                    <div cdkDropList
+                    id="anotherDate"       
+                    [cdkDropListData]="otherDate.actions"
+                    (cdkDropListDropped)="anotherDate($event,anotherDate)"
+                    class="movie-list"
+                    class="card-content" style="min-height: 60px !important; margin-top: unset !important;" *ngIf="otherDate.visible">
+                      <div   class="card" style="margin: 0px;border: none; box-shadow: none;" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div   class="card" style="margin: 0px; border: none; box-shadow: none" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div  class="movie-block" *ngFor="let data of otherDate.actions" class="card" style="margin: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);" (click)="openActionsModal('edit',data)" cdkDrag>
+                        <div *cdkDragPlaceholder></div>
+                        <span style="padding:10px;cursor: pointer;">
+                          <img class="item-tag" *ngIf="(data.completed_date == '' || data.completed_date.includes('1900'))" [style.border-color]="data.color">
+                          <i class="fa fa-check item-done" *ngIf="(data.completed_date != '' && ! data.completed_date.includes('1900'))" [style.color]="data.color"></i>
+                          {{data.action | slice:0:20}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      <!-- End Find Tab -->
+      </div>
+      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <!-- Sort Tab -->
+          <div class="row">
+            <div class="col-8">
+              <p (click)="quickAction()" class="text-right" style="color: #f78f11;cursor: pointer;" *ngIf="collapseFlag">Collapse All</p>
+              <p (click)="quickAction()" class="text-right" style="color: #f78f11;cursor: pointer;" *ngIf="!collapseFlag">Expand All</p>
+            </div>
+          </div>
+          <div class="row" cdkDropListGroup>
+            <div class="col-9" style="display: inline-block;">
+              <div class="card" style="max-height: 50vh; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border: none; box-shadow: none; background: transparent;">
+                <div class="card-body" style="overflow-y: auto">
+                  <div class="row" style="width: 100%;">
+                    <div class="col-4" *ngFor="let action2 of chunkActions;index as i ">
+                      <div class="card"  style="margin-bottom: 15px; box-shadow: inset -10px -10px 10px 0 #ffffff, inset 10px 10px 10px 0 #ededed;" [style.border-color]="action2.color">
+                        <div (click)="clickheader(i, 'sort')" class="card-header" style="cursor: pointer; border: none; background: transparent;" >
+                          <span style="font-size: 16px">{{action2.name}}</span>
+                          <span style="font-size: 16px;" class="pull-right" [style.color]="action2.color">
+                            <i class="fa fa-caret-up" *ngIf="action2.visible == true"></i>
+                            <i class="fa fa-caret-down" *ngIf="action2.visible == false"></i>
+                          </span>
+                        </div>
+                        
+                        <div cdkDropList
+                        id = "{{action2.name}}"
+                        [cdkDropListData]="action2.actions"
+                        [cdkDropListConnectedTo]="['moviesList']"
+                        class="movie-list"
+                        (cdkDropListDropped)="onDrop($event)"
+                        class="card-content" *ngIf="action2.sortvisible" >
+                          <div   class="card" style="margin: 0px;border: none; box-shadow: none;" cdkDrag>
+                            <div  *cdkDragPlaceholder style="border: none;"></div>
+                          </div>
+                          <div class="card" style="margin: 10px;text-align: center; border: none; box-shadow: none; background: transparent;">
+                            <span style="padding:10px;cursor: pointer;">
+                              <div class="row">
+                                <div class="col-10">
+                                  <input type="text" class="default-input" [style.border-color]="action2.color" placeholder="Add Action to {{action2.name}}" [(ngModel)]="sortTitle[i]" (keyup.enter)="sortQUickAction($event,i)">
+                                </div>
+                                <div class="col-2" (click)="openActionsModal('sortplus',action2,i)">
+                                  <i class="fa fa-plus" [style.color]="action2.color" type="submit"></i>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                          <div   class="card" style="margin: 0px; border: none; box-shadow: none" cdkDrag>
+                            <div  *cdkDragPlaceholder style="border: none;"></div>
+                          </div>
+                          <div  class="movie-block" *ngFor="let data of action2.actions | searchpipe: searchBy ;index as j" class="card" style="margin: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);" (click)="openActionsModal('edit',data)" cdkDrag [cdkDragData]="data">
+                            <div *cdkDragPlaceholder></div>
+                            <span style="padding:10px;cursor: grab;">
+                              <img class="item-tag" *ngIf="(data.completed_date == '' || data.completed_date.includes('1900'))" [style.border-color]="data.color">
+                              <i class="fa fa-check item-done" *ngIf="(data.completed_date != '' && ! data.completed_date.includes('1900'))" [style.color]="data.color"></i>
+                              {{data.action | slice:0:20}}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="card" style="max-height: 50vh; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border: none; box-shadow: none; background: transparent;">
+                <div class="card-body" style="overflow-y: auto">
+                  <div   *ngFor="let day of days;let i = index" class="card"  style="margin-bottom: 15px; box-shadow: inset -10px -10px 10px 0 #ffffff, inset 10px 10px 10px 0 #ededed;">
+                    <div (click)="clickSortDate(i,day.sortvisible)" class="card-header" style="cursor: pointer; border: none; background: transparent;" >
+                      <span style="font-size: 16px">{{ day.displayDate }}</span>
+                      <span style="font-size: 16px;" class="pull-right">
+                        <i class="fa fa-caret-up" *ngIf="day.visible == true"></i>
+                        <i class="fa fa-caret-down" *ngIf="day.visible == false"></i>
+                      </span>
+                    </div>
+                    
+                    <div cdkDropList
+                      id = "{{day.id}}"
+                      [cdkDropListData]="day.actions"
+                      class="movie-list"
+                      (cdkDropListDropped)="onDropDate($event,day.formatDate)"
+                      class="card-content" *ngIf="day.sortvisible" style="min-height: 60px !important;">
+                      <div   class="card" style="margin: 0px;border: none; box-shadow: none;" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div   class="card" style="margin: 0px; border: none; box-shadow: none" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div  class="movie-block" *ngFor="let data of day.actions" class="card" style="margin: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);" (click)="openActionsModal('edit',data)" cdkDrag>
+                        <div *cdkDragPlaceholder></div>
+                        <span style="padding:10px;cursor: pointer;">
+                          <img class="item-tag" *ngIf="(data.completed_date == '' || data.completed_date.includes('1900'))" [style.border-color]="data.color">
+                          <i class="fa fa-check item-done" *ngIf="(data.completed_date != '' && ! data.completed_date.includes('1900'))" [style.color]="data.color"></i>
+                          {{data.action | slice:0:20}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card" style="box-shadow: inset -10px -10px 10px 0 #ffffff, inset 10px 10px 10px 0 #ededed;" *ngIf="days">
+                    <div class="card-header" style="cursor: pointer; border: none; background: transparent;" (click)="clickAnotherDateHeader(otherDate.visible)">
+                      <span style="font-size: 16px">{{otherDate.displayDate}}</span>
+                    </div>
+                    
+                    <div cdkDropList
+                    id="anotherDate"       
+                    [cdkDropListData]="otherDate.actions"
+                    (cdkDropListDropped)="anotherDate($event,anotherDate)"
+                    class="movie-list"
+                    class="card-content" style="min-height: 60px !important; margin-top: unset !important;" *ngIf="otherDate.visible">
+                      <div   class="card" style="margin: 0px;border: none; box-shadow: none;" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div   class="card" style="margin: 0px; border: none; box-shadow: none" cdkDrag>
+                        <div  *cdkDragPlaceholder style="border: none;"></div>
+                      </div>
+                      <div  class="movie-block" *ngFor="let data of otherDate.actions" class="card" style="margin: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);" (click)="openActionsModal('edit',data)" cdkDrag>
+                        <div *cdkDragPlaceholder></div>
+                        <span style="padding:10px;cursor: pointer;">
+                          <img class="item-tag" *ngIf="(data.completed_date == '' || data.completed_date.includes('1900'))" [style.border-color]="data.color">
+                          <i class="fa fa-check item-done" *ngIf="(data.completed_date != '' && ! data.completed_date.includes('1900'))" [style.color]="data.color"></i>
+                          {{data.action | slice:0:20}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- End Sort Tab -->
+      </div>
+      <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <!-- Do Tab -->
+        <div class="row">
+          <div class="col-10"></div>
+          <div class="col-2">
+            <div class="row">
+              <!-- <div class="col-6"><p style="color:#265b8f;font-weight: bolder;">Do Date</p></div>
+              <div class="col-6"><p>Due Date</p></div> -->
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="width: 100%;">
+                <li class="nav-item" style="width: 50%;" (click)="onTabChange('do')">
+                  <a class="nav-link1 active" id="do-date-tab" data-toggle="pill" href="#do-date" role="tab" aria-controls="do-date" aria-selected="false" style="justify-content: center;">Do Date</a>
+                </li>
+                <li class="nav-item" style="width: 50%;" (click)="onTabChange('due')">
+                  <a class="nav-link1" id="due-date-tab" data-toggle="pill" href="#due-date" role="tab" aria-controls="due-date" aria-selected="true" style="justify-content: center;">Due Date</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade show active" id="do-date" role="tabpanel" aria-labelledby="do-date-tab">
+          <div class="row">
+            <div class="col-4">
+              <div class="row">
+                <div class="col-6">
+                  <h4 style="color: #104a84;" *ngIf="tab == 'do'">Do Today</h4>
+                  <h4 style="color: #104a84;" *ngIf="tab != 'do'">Due Today</h4>
+                </div>
+                <!-- <div class="col-6 text-right">
+                  <span style="color: #f78f11; cursor: pointer;" (click)="openShare()"><i class="fa fa-external-link"></i> &nbsp;Share</span>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="card-sort" style="max-height: 60vh; background-color: transparent;">
+                <div class="card-body" style="overflow-y: auto;overflow-x: hidden;">
+                  <div class="form-group row">
+                    <div class="col-10">
+                        <input type="text" class="default-input" placeholder="Add Action" [(ngModel)]='quickActionDo' type="text"  (keyup.enter)="triggerQUickActionDo($event)">
+                    </div>
+                    <label class="col-2 col-form-label"><i class="fa fa-plus" style="color: #f18a11;" type="submit" (click)="openActionsModal('create',quickActionDo)"></i></label>
+                  </div>
+                  <!-- <div class="card" style="margin-bottom: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);">
+                    <span style="padding:10px;cursor: pointer;"><i class="fa fa-check" style="color: #af5db7;padding: 5px;border-radius: 50%;margin-right: 10px;box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);"></i>Make a mojito</span>
+                  </div>
+                  <div class="card" style="margin-bottom: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);">
+                    <span style="padding:10px;cursor: pointer;">
+                      <div class="row">
+                        <div class="col-12"><i class="icon-sort" style="border-color: #bee25f;"></i>Take Cosmo for a wlak</div>
+                      </div>
+                    </span>
+                  </div> -->
+                  <div *ngFor="let item2 of todayActionList | searchpipe: searchBy " (click)="openActionsModal('edit',item2)" class="card" style="margin-bottom: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);">
+                    <span style="padding:10px;cursor: pointer;">
+                      <div class="row" >
+                        <div class="col-12">
+                          <!-- <span><i class="icon-sort" [style.border-color]="item2.color"></i>{{item2.action}}</span> -->
+                          <span>
+                            <img class="item-tag" *ngIf="(item2.completed_date == '' || item2.completed_date.includes('1900'))" [style.border-color]="item2.color">
+                            <i class="fa fa-check item-done" *ngIf="(item2.completed_date != '' && ! item2.completed_date.includes('1900'))" [style.color]="item2.color"></i>
+                            {{item2.action | slice:0:20}}</span>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                  <!-- Over Due -->
+                  <div class="card" style="margin-bottom: 10px; border: none; background: transparent; box-shadow: none;" >
+                    <div style="color: #FF5252; cursor: pointer;font-weight: bolder; font-size: 18px; border: none; background: transparent;" (click)="calender_below_overdue = !calender_below_overdue" class="card-header">Overdue 
+                      <span  style="float: right;">
+                        <i class="fa fa-angle-down" *ngIf="calender_below_overdue == false" aria-hidden="true" style="color: #FF5252;"></i>
+                        <i class="fa fa-angle-up" *ngIf="calender_below_overdue == true" aria-hidden="true" style="color: #FF5252;"></i>
+                      </span>
+                    </div>
+                    <div *ngIf="calender_below_overdue">
+                      <div *ngFor="let item1 of overdueActionList | searchpipe: searchBy " (click)="openActionsModal('edit',item1)" class="card" style="margin-bottom: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);">
+                        <span style="padding:10px;cursor: pointer;">
+                          <div class="row">
+                            <div class="col-12">
+                              <div>
+                                <span>
+                                  <img class="item-tag" *ngIf="(item1.completed_date == '' || item1.completed_date.includes('1900'))" [style.border-color]="item1.color">
+                                  <!-- <i class="fa fa-check item-done" *ngIf="(item1.completed_date != '' && ! item1.completed_date.includes('1900'))" [style.color]="item1.color"></i> -->
+                                  {{item1.action | slice:0:20}}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Today -->
+                  <!-- <div class="card" style="margin-bottom: 10px">
+                    <div style="color:#FFD600; cursor: pointer;font-weight: bolder;" (click)="calender_below_today = !calender_below_today" class="card-header">Today<span  style="float: right;"><i class="fa fa-angle-down" aria-hidden="true" style="color:#FFD600;"></i></span></div>
+                    <div *ngIf="calender_below_today" class="card-body">
+                      <div *ngIf="todayActionList.length == 0" style="text-align:center">No Actions</div>
+                      <div *ngFor="let item2 of todayActionList | searchpipe: searchBy " (click)="openActionsModal('edit',item2)"  class="row" style="cursor: pointer;padding: 5px; text-align: left;">
+                        <div class="col-2">
+                          <div [style.background-color]="item2.color" style="height: 25px; width:25px; text-align: center;">
+                            <span style=" color: white;">{{item2.category_name | slice:0:1}}</span>
+                          </div>
+                        </div>
+                        <div class="col-3">
+                            <span>{{item2.target_date ? (item2.target_date | date: 'MMM d') : ''}}</span>
+                        </div>
+                        <div class="col-1">
+                            <span>{{item2.priority_name | slice:0:1}}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>{{item2.action | slice:0:20}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="card" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                <!-- <div class="card-header"><span style="font-weight:bolder; ">Do</span> <span style=" text-align:center;padding:2px; border-radius:30px;width:30px;height:30px; float: right; border: gray 1px solid;"> {{doActions.length<10 ? '0'+doActions.length : doActions.length }}</span></div> -->
+                <div class="card-body" style="padding: 10px 15px 10px 15px !important;overflow-y: auto">
+                    <!-- <div class="mbsc-col-sm-12 mbsc-col-md-4">
+                        <mbsc-form-group style="background-color: white !important;">
+                            <mbsc-calendar  style="background-color: white !important;cursor: pointer;" (onSet)="getDetailsofClick($event)" [(ngModel)]="markedDay" display="inline" [marked]="markedDays"></mbsc-calendar>
+                        </mbsc-form-group>
+                    </div> -->
+                    <div style="overflow-y: auto;overflow-x: scroll !important; height: 40vh !important">
+                      <table>
+                        <tr>
+                          <td *ngFor="let item1 of selectedWeekList;  let i = index">
+                            <div class="card-sort" style="background-color: transparent; width: 165px;" >
+                              <div class="card-body">
+                                <div>
+                                  <h5>{{item1.displayDate}}</h5>
+                                </div>
+                                <div style="height: 100px;">
+                                  <div   *ngFor="let item of item1.actions | searchpipe: searchBy " class="card" style="margin-bottom: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);" (click)="openActionsModal('edit',item)">
+                                    <span style="padding:10px;cursor: pointer;">
+                                      <img class="item-tag" *ngIf="(item.completed_date == '' || item.completed_date.includes('1900'))" [style.border-color]="item.color">
+                                      <i class="fa fa-check item-done" *ngIf="(item.completed_date != '' && ! item.completed_date.includes('1900'))" [style.color]="item.color"></i>
+                                      {{item.action | slice:0:14}}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                </div>
+                <!-- <div class="card-footer">Footer</div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- End Do Tab -->
+      </div>
+    </div>
+
+  

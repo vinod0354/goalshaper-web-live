@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 8 Copy</title>
+    <defs>
+        <linearGradient x1="17.0703125%" y1="0%" x2="82.5585937%" y2="85.8940972%" id="linearGradient-1">
+            <stop stop-color="#C31D83" offset="0%"></stop>
+            <stop stop-color="#2B86C7" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="New-functionality" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group-8-Copy" transform="translate(1.000000, 1.000000)" stroke="url(#linearGradient-1)" stroke-width="2">
+            <circle id="Oval" cx="10" cy="10" r="10"></circle>
+            <circle id="Oval" cx="10" cy="10" r="6"></circle>
+            <circle id="Oval" cx="10" cy="10" r="2"></circle>
+        </g>
+    </g>
+</svg>

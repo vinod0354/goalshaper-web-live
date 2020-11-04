@@ -1,0 +1,176 @@
+<!-- <div>
+    <div class="row">
+        <div class="col-3" style="padding:28px; padding-left: 3%;">
+            <div class="row">
+              <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+              <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+                Pulse
+              </span>
+            </div>
+          </div>
+    </div>
+    <hr>
+ </div> -->
+ 
+ <div class="" style="padding:0px !important;">
+   <div class="row">
+      <div class="col-6" style="padding:28px; padding-left: 3%;">
+          <div class="row">
+            <div style="width: 10px; height: 10px; line-height: 2.5;"></div>
+            <h4 style="font-weight:600;padding-left: 5px; line-height: 0.8;">
+              Professional
+            </h4>
+          </div>
+        </div>
+        <div class="col-6" style="padding:28px; padding-left: 3%;">
+         <div class="row">
+           <div style="width: 10px; height: 10px; line-height: 2.5;"></div>
+           <h4 style="font-weight:600;padding-left: 5px; line-height: 0.8;">
+             Personal
+           </h4>
+         </div>
+       </div>
+   </div>
+
+   <div>
+      <div class="modal-body">
+         <div class="row" >
+            <div class="col-6">
+               <div class="row">
+                  <div class="col-12">
+                     <div class="padding-5-top">
+                        <label *ngIf="questions" >{{questions[1].question}}</label>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <div class="form-group custom-slider padding-5-top" *ngIf="questions">
+                        <ng5-slider [(value)]="questions[1].score" [options]="options2"  (userChange)="questionChange($event,questions[1],'Professional')"></ng5-slider>
+                     </div>            
+                  </div>
+                  <div class="col-12">
+                     <div class="padding-5-top">
+                        <label *ngIf="questions">{{questions[2].question}}</label>
+                     </div>       
+                  </div>
+                  <div class="col-12">
+                     <div class="form-group custom-slider2 padding-5-top" *ngIf="questions"> 
+                        <ng5-slider [(value)]="questions[2].score" [options]="options3" (userChange)="questionChange($event,questions[2],'Professional')"></ng5-slider>
+                     </div>           
+                  </div>
+                  <div class="col-12">
+                     <div class="form-group padding-5-top">
+                        <textarea type="text" placeholder="Add Comments" [(ngModel)]="professionalComments" class="form-control input-class" maxlength="500"></textarea>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <div class="padding-10px-top" [ngClass]="{'choiceSelection':commentPreference == 'name'}" (click)="submitChoice('name')">
+                        <i class="fa fa-unlock-alt fa-lg"></i>
+                        <label for="submit with name" style="cursor: pointer; margin-left: 10px;">Submit with Name</label>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <div class="padding-10px-top" [ngClass]="{'choiceSelection':commentPreference == 'Anony'}" (click)="submitChoice('Anony')">
+                        <i class="fa fa-lock fa-lg"></i>
+                        <label style="cursor: pointer; margin-left: 10px;">Submit Anonymously</label>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <div class="form-group padding-15px-top text-center">
+                        <button type="button"  class="btn buttons" (click)="submitProfessionalQuestions()">
+                        <img src="assets/img/arrow-up-circle.svg" style="margin-right: 10px;">
+                        <span style="font-size: 20px;color:#ffffff; vertical-align: middle;">Submit</span></button>               
+                     </div>
+                  </div>             
+               </div>
+               <div class="row padding-5-top">
+                  <div class="col-12">
+                     <div class="col-12">
+                        <label style="padding-left:10px; font-weight: bold; font-size: 20px;">History</label>
+                     </div>
+                     <div class="card" style="max-height: 80vh;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                        <div class="card-body" style="padding: 10px 15px 10px 15px !important;overflow-y: auto">                    
+                           <div class="col-12">
+                              <label style="font-size: 20px;">2020</label>
+                           </div>
+                           <div class="table-responsive">                    
+                              <table>
+                                 <tbody>
+                                    <tr *ngFor="let comment of totalProfComments; let rowNumber = index">
+                                       <td style="vertical-align: middle;width:85px;">{{ comment.created_date ? (comment.created_date | date: 'MMM dd') : '-'  }}</td>
+                                       <td>{{ comment.comment }}</td>
+                                       <td style="width: 14%; text-align: center;" *ngIf = !comment.comment_type><i class="fa fa-lock"></i></td>  
+                                       <td style="width: 14%; text-align: center;" *ngIf = comment.comment_type><i class="fa fa-unlock"></i></td>                      
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>             
+            </div>
+      
+            <div class="col-6">
+               <div class="row">
+                  <div class="col-12"> 
+                     <div class="col-12">
+                        <div class="padding-5-top">
+                           <label *ngIf="questions">{{questions[0].question}}</label>
+                        </div>                   
+                     </div>
+                     <div class="col-12 padding-5-top">
+                        <div class="form-group custom-slider" *ngIf="questions">                 
+                           <ng5-slider [(value)]="questions[0].score" [options]="options" (userChange)="questionChange($event,questions[0],'Personal')"></ng5-slider>
+                        </div>                  
+                     </div>
+                     <div class="col-12">
+                        <div class="form-group padding-5-top">
+                           <textarea type="text" placeholder="Add Comments"  [(ngModel)]="personalComments" class="form-control input-class"  maxlength="500"></textarea>
+                        </div>
+                     </div>           
+                     <div class="col-12">
+                        <div class="text-center padding-10px-top">
+                           <i class="fa fa-lock fa-lg"></i>
+                           <label style="margin-left: 10px;">Always Private Never Shared</label>
+                        </div>   
+                     </div> 
+                     <div class="col-12">
+                        <div class="form-group text-center padding-15px-top">
+                           <button type="submit"  class="btn buttons" (click)="submitPersonalQuestions()">
+                                 <img src="assets/img/arrow-up-circle.svg" style="margin-right: 10px;">
+                              <span style="font-size: 20px; color:#ffffff; vertical-align: middle;">Submit</span> 
+                           </button>
+                        </div>
+                     </div>                 
+                  </div>
+               </div>
+               <div class="row padding-5-top">
+                  <div class="col-12">
+                     <div class="col-12">
+                           <label style="padding-left:10px; font-weight: bold; font-size: 20px;">History</label>
+                     </div>
+                     <div class="card" style="max-height: 80vh;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                        <div class="card-body" style="padding: 10px 15px 10px 15px !important;overflow:auto">                    
+                           <div class="col-12">
+                              <label style="font-size: 20px;">2020</label>
+                           </div>
+                           <div class="table-responsive">                    
+                              <table>
+                                 <tbody>
+                                    <tr *ngFor="let comment of totalPersonalComments; let rowNumber = index">
+                                       <td style="vertical-align: middle;width:85px;">{{ comment.created_date ? (comment.created_date | date: 'MMM dd') : '-'  }}</td>
+                                       <td>{{ comment.comment }}</td>
+                                       <td style="width: 14%; text-align: center;"><i class="fa fa-lock"></i></td>                      
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div> 
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

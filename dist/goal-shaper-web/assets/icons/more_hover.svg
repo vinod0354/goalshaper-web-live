@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="4px" viewBox="0 0 18 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Combined Shape</title>
+    <defs>
+        <linearGradient x1="16.8640137%" y1="45.4048157%" x2="81.3110352%" y2="54.1320801%" id="linearGradient-1">
+            <stop stop-color="#C31D83" offset="0%"></stop>
+            <stop stop-color="#2B86C7" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="New-functionality" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="more-horizontal-copy" transform="translate(1.000000, 1.000000)" stroke="url(#linearGradient-1)" stroke-width="2">
+            <path d="M8,0 C8.55228475,0 9,0.44771525 9,1 C9,1.55228475 8.55228475,2 8,2 C7.44771525,2 7,1.55228475 7,1 C7,0.44771525 7.44771525,0 8,0 Z M15,0 C15.5522847,0 16,0.44771525 16,1 C16,1.55228475 15.5522847,2 15,2 C14.4477153,2 14,1.55228475 14,1 C14,0.44771525 14.4477153,0 15,0 Z M1,0 C1.55228475,0 2,0.44771525 2,1 C2,1.55228475 1.55228475,2 1,2 C0.44771525,2 0,1.55228475 0,1 C0,0.44771525 0.44771525,0 1,0 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

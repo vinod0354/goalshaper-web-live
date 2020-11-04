@@ -1,0 +1,266 @@
+<!--
+<div style="width:100%; margin-top:5%;">
+    <div style="width:60%" class="alert alert-warning alert-dismissible fade show" style="background-color: transparent; border:solid 1px transparent; width:100%; text-align: center; color:#1089CE;">
+   <h3><strong>Home!</strong> Coming soon.</h3>
+   <button type="button" class="close" data-dismiss="alert"></button>
+ <div>
+</div> -->
+
+    <div class="content-wrapper">
+      <div class="row">
+        <div *ngIf="roleId == 4" class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card" (click)="goalsScreen()" style="cursor: pointer;">
+          <div class="card card-statistics">
+            <div class="card-body">
+              <div class="clearfix">
+                <div class="float-left">
+                  <fa name="dot-circle-o fa-lg" style='color:#1089CE; font-size: xx-large;'></fa>
+                </div>
+                <div class="float-right">
+                  <p class="mb-0 text-right">Total</p>
+                  <div class="fluid-container">
+                    <h3 class="font-weight-medium text-right mb-0">{{summaryInfo.totalGoals}}</h3>
+                  </div>
+                </div>
+              </div>
+              <p class="text-muted mt-3 mb-0" style="font-weight: bold; color:#333333;">
+
+                Goals </p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="roleId != 4" class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="goalsScreen()" style="cursor: pointer;">
+          <div class="card card-statistics">
+            <div class="card-body">
+              <div class="clearfix">
+                <div class="float-left">
+                  <fa name="dot-circle-o fa-lg" style='color:#1089CE; font-size: xx-large;'></fa>
+                </div>
+                <div class="float-right">
+                  <p class="mb-0 text-right">Total</p>
+                  <div class="fluid-container">
+                    <h3 class="font-weight-medium text-right mb-0">{{summaryInfo.totalGoals}}</h3>
+                  </div>
+                </div>
+              </div>
+              <p class="text-muted mt-3 mb-0" style="font-weight: bold; color:#333333;">
+
+                Goals </p>
+            </div>
+          </div>
+        </div>
+
+        <div  *ngIf="roleId == 4" class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card" (click)="objectivesScreen()" style="cursor: pointer;">
+          <div class="card card-statistics">
+            <div class="card-body">
+              <div class="clearfix">
+                <div class="float-left">
+                  <fa name="tasks" style='color:#1089CE; font-size: xx-large;'></fa>
+                </div>
+                <div class="float-right">
+                  <p class="mb-0 text-right">Total</p>
+                  <div class="fluid-container">
+                    <h3 class="font-weight-medium text-right mb-0">{{summaryInfo.totalObjectives}}</h3>
+                  </div>
+                </div>
+              </div>
+              <p class="text-muted mt-3 mb-0" style="font-weight: bold; color:#333333;">
+
+                Objectives </p>
+            </div>
+          </div>
+        </div>
+
+        <div  *ngIf="roleId != 4" class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="objectivesScreen()" style="cursor: pointer;">
+          <div class="card card-statistics">
+            <div class="card-body">
+              <div class="clearfix">
+                <div class="float-left">
+                  <fa name="tasks" style='color:#1089CE; font-size: xx-large;'></fa>
+                </div>
+                <div class="float-right">
+                  <p class="mb-0 text-right">Total</p>
+                  <div class="fluid-container">
+                    <h3 class="font-weight-medium text-right mb-0">{{summaryInfo.totalObjectives}}</h3>
+                  </div>
+                </div>
+              </div>
+              <p class="text-muted mt-3 mb-0" style="font-weight: bold; color:#333333;">
+
+                Objectives </p>
+            </div>
+          </div>
+        </div>
+
+
+        <div *ngIf="roleId == 4" class="col-xl-4 col-lg-4 col-md-4 col-sm-6 grid-margin stretch-card">
+          <div class="card card-statistics">
+            <div class="card-body">
+              <div class="clearfix">
+                <div class="float-left">
+                  <fa name="check-square-o" style='color:#1089CE; font-size: xx-large;'></fa>
+                </div>
+                <div class="float-right">
+                  <p class="mb-0 text-right">Total</p>
+                  <div class="fluid-container">
+                    <h3 class="font-weight-medium text-right mb-0">{{summaryInfo.totalActions}}</h3>
+                  </div>
+                </div>
+              </div>
+              <p class="text-muted mt-3 mb-0" style="font-weight: bold; color:#333333;">
+
+                Actions </p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="roleId != 4" class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="teamScreen()" style="cursor: pointer;">
+          <div class="card card-statistics">
+            <div class="card-body">
+              <div class="clearfix">
+                <div class="float-left">
+                  <fa name="users" style='color:#1089CE; font-size: xx-large;'></fa>
+                </div>
+                <div class="float-right">
+                  <p class="mb-0 text-right">Total</p>
+                  <div class="fluid-container">
+                    <h3 class="font-weight-medium text-right mb-0">{{summaryInfo.totalTeams}}</h3>
+                  </div>
+                </div>
+              </div>
+              <p class="text-muted mt-3 mb-0" style="font-weight: bold; color:#333333;">
+
+                Teams </p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="roleId != 4" class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card" (click)="individualScreen()" style="cursor: pointer;">
+          <div class="card card-statistics">
+            <div class="card-body">
+              <div class="clearfix">
+                <div class="float-left">
+                  <fa name="user fa-lg" style='color:#1089CE; font-size: xx-large;'></fa>
+                </div>
+                <div class="float-right">
+                  <p class="mb-0 text-right">Total</p>
+                  <div class="fluid-container">
+                    <h3 class="font-weight-medium text-right mb-0">{{summaryInfo.totalIndividuals}}</h3>
+                  </div>
+                </div>
+              </div>
+              <p class="text-muted mt-3 mb-0" style="font-weight: bold; color:#333333;">
+
+                Individuals </p>
+            </div>
+          </div>
+        </div>
+
+
+    </div>
+
+
+    <!-- Table code continues from here -->
+
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Summary Information</h4>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Days</th>
+                      <th>Goals</th>
+                      <th>Objectives</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align: middle;">Today</td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let goal of summaryDetails.today.goals" >
+                          <label class="badge badge-danger">{{goal.title ? goal.title : '-'}}</label>
+                        </div>
+                        <label class="badge badge-light" *ngIf="summaryDetails.today.goals.length == 0">No Goals</label>
+                      </td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let objective of summaryDetails.today.objectives">
+                          <label class="badge badge-danger">{{objective.title ? objective.title : '-'}}</label>
+                        </div>
+                        <label disabled class="badge badge-light" *ngIf="summaryDetails.today.objectives.length == 0">No Objectives</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: middle;">Next 7 Days</td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let goal of summaryDetails.next7Days.goals" >
+                          <label class="badge badge-warning">{{goal.title ? goal.title : '-'}}</label>
+                        </div>
+                        <label class="badge badge-light" *ngIf="summaryDetails.next7Days.goals.length == 0">No Goals</label>
+                      </td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let objective of summaryDetails.next7Days.objectives">
+                          <label class="badge badge-warning">{{objective.title ? objective.title : '-'}}</label>
+                        </div>
+                        <label class="badge badge-light" *ngIf="summaryDetails.next7Days.objectives.length == 0">No Objectives</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="vertical-align: middle;">Next 30 Days</td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let goal of summaryDetails.next30Days.goals" >
+                          <label class="badge badge-info">{{goal.title ? goal.title : '-'}}</label>
+                        </div>
+                        <label class="badge badge-light" *ngIf="summaryDetails.next30Days.goals.length == 0">No Goals</label>
+                      </td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let objective of summaryDetails.next30Days.objectives">
+                          <label class="badge badge-info">{{objective.title ? objective.title : '-'}}</label>
+                        </div>
+                        <label class="badge badge-light" *ngIf="summaryDetails.next30Days.objectives.length == 0">No Objectives</label>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="vertical-align: middle;">Next 6 Months</td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let goal of summaryDetails.next6Months.goals" >
+                          <label class="badge badge-success">{{goal.title ? goal.title : '-'}}</label>
+                        </div>
+                        <label class="badge badge-light" *ngIf="summaryDetails.next6Months.goals.length == 0">No Goals</label>
+                      </td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let objective of summaryDetails.next6Months.objectives">
+                          <label class="badge badge-success">{{objective.title ? objective.title : '-'}}</label>
+                        </div>
+                        <label class="badge badge-light" *ngIf="summaryDetails.next6Months.objectives.length == 0">No Objectives</label>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td style="vertical-align: middle;">Next 12 Months</td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let goal of summaryDetails.next12Months.goals" >
+                          <label class="badge badge-primary" >{{goal.title ? goal.title : '-'}}</label>
+                        </div>
+                        <label class="badge badge-light"  *ngIf="summaryDetails.next12Months.goals.length == 0">No Goals</label>
+                      </td>
+                      <td style="vertical-align: middle;">
+                        <div style="line-height: 1.5;" *ngFor="let objective of summaryDetails.next12Months.objectives">
+                          <label class="badge badge-primary" >{{objective.title ? objective.title : '-'}}</label>
+                        </div>
+                        <label class="badge badge-light"  *ngIf="summaryDetails.next12Months.objectives.length == 0">No Objectives</label>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    </div>

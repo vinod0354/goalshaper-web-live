@@ -1,0 +1,76 @@
+<div class="row" style="margin-top: 20px;">
+    <div class="col-6" style="padding-left: 5%;">
+        <span>
+            <img style="height: 70px; width:70px; padding: 3px; border-radius: 50%; border: 1px solid white; background: linear-gradient(147deg, #c354a3 18%, #4466a4 92%);" src="{{currentUserInfo.profile_photo}}" alt="">&nbsp;
+            <span *ngIf="roleId == 2">{{enterpriseInfo.contact_name}}</span>
+            <span *ngIf="roleId == 3">{{currentUserInfo.firstname}} {{currentUserInfo.lastname}}</span>
+            <span *ngIf="roleId == 4">{{currentUserInfo.firstname}} {{currentUserInfo.lastname}}</span>
+        </span>
+    </div>
+    <div class="col-6" style="padding-left: 5%;">
+        <div (mouseenter)="showEdit=true" (mouseleave)="showEdit=false">
+            <span><img style="height: 50px;" src="{{enterpriseInfo.logo}}" alt=""> 
+                <span *ngIf="roleId == 2">
+                    <span class="btn btn-link btn-file" style="margin-left: 15px; font-size: unset !important;" *ngIf="showEdit"><i class="fa fa-pencil fa-1x text-primary" style="cursor: pointer;"></i>
+                        <input type="file" id="upload-img" (change)="onSelectFile($event)" accept="image/*">
+                    </span>
+                    <!-- <span (click)="onSubmit()" *ngIf="saveBtn" class="text-primary" style="cursor: pointer;">Save</span> -->
+                </span>
+            </span>
+        </div>
+        <span>
+            <p style="padding-top:10px; font-size: 1rem;">{{enterpriseInfo.name}}</p>
+        </span>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 25px;">
+    <div class="col-6" style="padding-left: 5%;">
+        <table style="width:100%;">
+            <tr *ngFor="let item of individual; let i = index">
+                <td>
+                    <div >
+                        <span style="font-weight:bold; line-height: 0.8;" class="padding-bottom:5px; purpose" (mouseenter)="showIcon(i,'gp_alias_name_edit','individual')" (mouseleave)="hideIcon(i,'gp_alias_name_edit','individual')" *ngIf="!item.title_clicked">
+                            {{item.gp_alias_name}} <i class="fa fa-pencil fa-1x text-primary" style="cursor: pointer;" *ngIf="item.gp_alias_name_edit" (click)="editItem(i,'title_clicked','individual',item.gp_alias_name)"></i>
+                        </span>
+                        <div *ngIf="item.title_clicked" style="padding-top:10px; padding-bottom: 10px;">
+                            <input type="text" [(ngModel)]="gpdata.details" #details="ngModel" (mouseleave)="onEvent(i,'title_clicked','individual','gp_alias_name')">
+                        </div>
+                    </div>
+                    <div >
+                        <span (mouseenter)="showIcon(i,'details_edit','individual')" (mouseleave)="hideIcon(i,'details_edit','individual')" *ngIf="!item.details_clicked">
+                            <p style="padding-top:10px;">{{item.details}} <span *ngIf="item.details == ''">Enter description</span>&nbsp;<i class="fa fa-pencil fa-1x text-primary" style="cursor: pointer;" *ngIf="item.details_edit"  (click)="editItem(i,'details_clicked','individual',item.details)"></i></p>
+                        </span> 
+                        <div *ngIf="item.details_clicked" style="padding-top:10px; padding-bottom: 10px;">
+                            <input type="text" [(ngModel)]="gpdata.details" #details="ngModel" (mouseleave)="onEvent(i,'details_clicked','individual','details')">
+                        </div>
+                    </div>
+                </td>
+            </tr> 
+        </table>
+    </div>
+    <div class="col-6" style="padding-left: 5%;">
+        <table style="width:50%;" *ngFor="let principle of principles; let i = index">
+            <tr>
+                <td style="padding-top:5px;">
+                    <div>
+                        <span style="font-weight: bold;  line-height: 0.8; " (mouseenter)="showIcon(i,'gp_alias_name_edit','principles')" (mouseleave)="hideIcon(i,'gp_alias_name_edit','principles')" *ngIf="!principle.title_clicked">
+                            {{principle.gp_alias_name}} <span *ngIf="roleId == 2"><i class="fa fa-pencil fa-1x text-primary" style="cursor: pointer;" *ngIf="principle.gp_alias_name_edit" (click)="editItem(i,'title_clicked','principles',principle.gp_alias_name)"></i></span>
+                        </span>
+                        <div *ngIf="principle.title_clicked" style="padding-top:10px; padding-bottom: 10px;">
+                            <input type="text" [(ngModel)]="gpdata.details" #details="ngModel" (mouseleave)="onEvent(i,'title_clicked','principles','gp_alias_name')">
+                        </div>
+                    </div>
+                    <div>
+                        <span (mouseenter)="showIcon(i,'details_edit','principles')" (mouseleave)="hideIcon(i,'details_edit','principles')" *ngIf="!principle.details_clicked">
+                            <p style="padding-top:10px;">{{principle.details}} <span *ngIf="principle.details == ''">Enter Description</span>&nbsp;<span *ngIf="roleId == 2"><i class="fa fa-pencil fa-1x text-primary" style="cursor: pointer;" *ngIf="principle.details_edit"  (click)="editItem(i,'details_clicked','principles',principle.details)"></i></span></p>
+                        </span>
+                        <div *ngIf="principle.details_clicked" style="padding-top:10px; padding-bottom: 10px;">
+                            <textarea [(ngModel)]="gpdata.details" #details="ngModel" class="form-control" (mouseleave)="onEvent(i,'details_clicked','principles','details')"></textarea>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

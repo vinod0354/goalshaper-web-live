@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>compass copy</title>
+    <g id="New-functionality" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="compass-copy" transform="translate(1.000000, 1.000000)" stroke="#FFFFFF" stroke-width="2">
+            <circle id="Oval" cx="10" cy="10" r="10"></circle>
+            <polygon id="Path" points="14.24 5.76 12.12 12.12 5.76 14.24 7.88 7.88"></polygon>
+        </g>
+    </g>
+</svg>

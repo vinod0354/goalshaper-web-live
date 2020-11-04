@@ -1,0 +1,102 @@
+
+.margin-3-left{
+    margin-left: 2%;
+}
+
+.tab button {
+    background-color: #fff;
+    opacity: 0.9;
+    float: left;
+    border: 1px solid lightgrey;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 16px;
+    font-size: 15px;
+    transition: 0.3s;
+    width: 25%;
+}
+  
+  
+.tab button:hover {
+    color: white;
+    background-color: #ddd;
+}
+/* Create an active/current tablink class */
+.tab button.active {
+    color: white;
+    background: linear-gradient(to bottom, #419ebe, #3e7ebf);
+    display: block;
+    box-shadow: 18px 8px 16px -7px lightslategrey;
+}
+  
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent { 
+    display: none;
+    padding: 50px 20px;
+    height: 100%;
+}
+  
+  
+.wp-table td, 
+.wp-table th {
+    padding: 15px 8px;
+    display: table-cell;
+    vertical-align: top;
+    text-align:center;
+}
+.wp-table th{
+    width:10%;
+}
+.wp-table td{
+    width: 18%;
+}
+  
+.wp-table th {
+    font-weight: bold;
+}
+  
+.wp-table {
+    background-color: #ffffff;
+    border-collapse: separate;
+    border-spacing: 50px 0;
+    width: 100%;
+    display: table;
+}
+.wp-table td {
+    border:1px solid #ccc;
+}
+.chart-wrapper {
+    background: transparent url('/assets/img/lotus2.png') no-repeat center;
+}
+  
+#button{
+    position: absolute;  
+}
+
+.action-tab {
+    background: white;
+    border-radius: 0px;
+    width: 100%;
+    box-shadow: 10px 10px 30px 0 rgba(174, 174, 192, 0.4);
+    border: 1px solid lightgrey;
+  
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-image: linear-gradient(to bottom, #419ebe, #3e7ebf);
+    border-radius: 0px;
+    font-weight: bolder;
+    justify-content: center;
+}
+
+.nav-pills .nav-link1.active, .nav-pills .show>.nav-link1 {
+  color: #265b8f;
+  font-weight: bold;
+  justify-content: center;
+}
+.nav-pills .nav-item .nav-link{
+    line-height: 2.5;
+    border-radius: 0px;
+    border: 0.5px solid lightgrey;
+}

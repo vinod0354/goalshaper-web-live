@@ -1,0 +1,18 @@
+.btn-add {
+    color: #fff;
+    background-color: #9ac81b;
+    border-color: #9ac81b;
+    box-shadow: 5px 5px 15px -4px #688510;
+    width: 278px;
+    height: 72px;
+    border-radius: 36px;
+    text-align: left;
+}
+
+.add-icon {
+    padding: 10px;
+    border: 1px solid #fafafa;
+    border-radius: 50%;
+    background-color: white;
+    color: #9ac81b;
+}

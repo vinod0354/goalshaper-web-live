@@ -1,0 +1,248 @@
+<form  novalidate (ngSubmit)="f.form.valid && saveGoals()" #f="ngForm">
+    <div class="modal-header modal-lg" style="background-color: #0072BB;  color: #FFFFFF; border: 1px white;">
+       <div style="width:100%; font-size:medium; ">Goal Information</div>
+       <button style="color:#ffffff;" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+       <span aria-hidden="true" style="color:#ffffff;">&times;</span>
+       </button>
+    </div>
+    <div class="modal-body modal-lg" style=" background-color: white; border: 1px white;">
+        <div class="row ">
+            <div class="col-12">
+               <div class="form-group border-bottom border-primary">
+                  <label for="" style="font-weight: bold;">Basic Info</label>
+               </div>
+            </div>
+         </div>
+         <div class="form-group">
+            <label for="title">Goal Title<span style="color:red;">*</span></label>
+            <input type="text" appFocus autocomplete="off" minlength="1" maxlength="100" placeholder="Title" name="title" class="form-control" [(ngModel)]="goalInfo.goal_title" #title="ngModel" [ngClass]="{ 'is-invalid': f.submitted && title.invalid }" required>
+            <div *ngIf="f.submitted && title.invalid" class="invalid-feedback">
+                <div *ngIf="title.errors.required">Goal Title is required</div>
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label for="description">Description </label>
+            <textarea autocomplete="off" minlength="1" maxlength="100" placeholder="Description" name="description" class="form-control" [(ngModel)]="goalInfo.description" #description="ngModel"> </textarea>
+         </div>
+
+         <!-- <div class="form-group">
+            <label for="scheduled_date">Scheduled Date<span style="color:red;">*</span></label>
+            <div class="input-group" >
+                <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                    <i class="fa fa-calendar"></i>
+                </span>
+            <input (ngModelChange)="trigger($event,'s')" type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Scheduled Date" name="scheduled_date" class="form-control" [(ngModel)]="goalInfo.scheduled_date" #scheduled_date="ngModel" [ngClass]="{ 'is-invalid': f.submitted && scheduled_date.invalid }" required bsDatepicker placement="bottom-left" [minDate]="scheduledMinDate"  [bsValue]="goalInfo.scheduled_date" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}" >
+            <div *ngIf="f.submitted && scheduled_date.invalid" class="invalid-feedback">
+                <div *ngIf="scheduled_date.errors.required">Scheduled Date is required</div>
+            </div>
+        </div>
+         </div> -->
+
+         <div class="form-group" >
+            <div class="row">
+                <div class="col">
+                    <label >Goal Type<span style="color:red;">*</span></label>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col">
+                    <span *ngFor="let item of goal_Types;let i = index;">
+                        <input type="radio" [(ngModel)]="goalInfo.goal_type_id"  id="professional_{{i}}" name="goalType" [value]="item.goal_type_id" style="color: #0072BB;" (change)="onGoalTypeChange(item.goal_type_id)">
+                        <label for="professional_{{i}}" style="margin:6px 0px 0px 5px;margin-right:20px">{{item.type_name}}</label>
+                    </span>
+                    <!-- <input type="radio" [(ngModel)]="goalInfo.goal_type_id"  id="professional" name="goalType" value="1" style="color: #0072BB;" (change)="onGoalTypeChange($event)">
+                    <label for="professional" style="margin:6px 0px 0px 5px;">Professional</label>
+                    <input type="radio" [(ngModel)]="goalInfo.goal_type_id" id="personal" name="goalType" value="2" style="color:#0072BB;; margin-left:20px" (change)="onGoalTypeChange($event)">
+                    <label for="personal" style="margin:6px 0px 0px 5px;">Personal</label> -->
+                </div>
+            </div>
+         </div>
+
+
+         <div class="form-group" *ngIf='show_category'>
+            <div class="row">
+                <div class="col">
+                   <label for="category">Select Goal Category<span style="color:red;">*</span></label>
+                </div>
+            </div>
+            <div class="row">
+               <div class="col-4">
+                   <select name="category"  [(ngModel)]="goalInfo.goal_category_id"  class="form-control" (change)="onChangeCategory($event)">
+                       <option value=''>Select Category</option>
+                       <!-- <option *ngFor="let goal of allGoals" [value]="goal.title">{{goal.title}}</option> -->
+                       <option *ngFor="let catogery of modalCategories" value="{{catogery.category_id}}">{{catogery.name}}</option>
+                   </select>
+               </div>
+            </div>
+         </div>
+
+
+         <div class="form-group">
+            <label for="target_date">Due Date<span style="color:red;">*</span></label>
+            <div class="input-group" >
+                <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                    <i class="fa fa-calendar"></i>
+                </span>
+            <input  type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Due Date" name="target_date" class="form-control" [(ngModel)]="goalInfo.target_date" #target_date="ngModel" [ngClass]="{ 'is-invalid': f.submitted && target_date.invalid }" required bsDatepicker placement="bottom-left" [minDate]="targetMinDate"  [bsValue]="goalInfo.target_date" [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}">
+            <div *ngIf="f.submitted && target_date.invalid" class="invalid-feedback">
+                <div *ngIf="target_date.errors.required">Target Date is required</div>
+            </div>
+         </div>
+         </div>
+
+         <div class="form-group">
+            <label for="completedDate">Completion Date </label>
+            <div class="input-group" >
+                <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                    <i class="fa fa-calendar"></i>
+                </span>
+            <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Completion Date" name="completed_date" class="form-control" [(ngModel)]="goalInfo.completed_date" #completed_date="ngModel" [ngClass]="{ 'is-invalid': f.submitted && completed_date.invalid }" bsDatepicker placement="bottom-left" [minDate]="completedMinDate"  [bsValue]="goalInfo.completed_date" [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}">
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-12">
+               <div class="form-group border-bottom border-primary">
+                  <label for="" style="font-weight: bold;">Milestones </label>
+               </div>
+            </div>
+         </div>
+
+         <!-- mile stone 1 -->
+         <div class="row"  *ngFor="let milestoneData_1 of milestonesData; let i = index">
+            <div class="col-4">
+               <div class="form-group">
+                <input type="text" autocomplete="off" minlength="1" maxlength="100" placeholder="{{'Milestone '  + (i+1) + ' optional'}}" name="milestoneone{{i}}" class="form-control" [(ngModel)]="milestoneData_1.milestone" #milestone="ngModel" >
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group">
+                <div class="input-group" >
+                    <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Due Date" name="milestoneOneTargetDate{{i}}" class="form-control" [(ngModel)]="milestoneData_1.target_date" #target_date="ngModel" bsDatepicker placement="bottom-left" [minDate]="targetMinDate" [maxDate]="goalInfo.target_date" [bsValue]="goalInfo.completedDate" [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}">
+                </div>
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group">
+                <div class="input-group" >
+                    <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Completion Date" name="completedDate{{i}}" class="form-control" [(ngModel)]="milestoneData_1.completion_date" #completed_date="ngModel"  bsDatepicker placement="bottom-left" [minDate]="targetMinDate"  [bsValue]="goalInfo.completedDate" [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}">
+                </div>
+               </div>
+            </div>
+
+        </div>
+
+           <!-- mile stone 2 -->
+           <!-- <div class="row">
+            <div class="col-4">
+               <div class="form-group">
+                <input type="text" autocomplete="off" minlength="1" maxlength="100" placeholder="Milestone 2 Optional" name="milestoneone" class="form-control" [(ngModel)]="milestoneData_2.milestoneone" #milestoneone="ngModel" >
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group">
+                <div class="input-group" >
+                    <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Target Date" name="milestoneOneTargetDate" class="form-control" [(ngModel)]="milestoneData_2.target_date" #target_date="ngModel" bsDatepicker placement="bottom-left" [minDate]="completedMinDate"  [bsValue]="goalInfo.completedDate" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                </div>
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group">
+                <div class="input-group" >
+                    <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Completion Date" name="completedDate" class="form-control" [(ngModel)]="milestoneData_2.completed_date" #completed_date="ngModel"  bsDatepicker placement="bottom-left" [minDate]="completedMinDate"  [bsValue]="goalInfo.completedDate" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                </div>
+               </div>
+            </div>
+
+        </div> -->
+
+        <!-- mile stone 3 -->
+        <!-- <div class="row">
+            <div class="col-4">
+               <div class="form-group">
+                <input type="text" autocomplete="off" minlength="1" maxlength="100" placeholder="Milestone 3 Optional" name="milestoneone" class="form-control" [(ngModel)]="milestoneData_3.milestoneone" #milestoneone="ngModel" >
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group">
+                <div class="input-group" >
+                    <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Target Date" name="milestoneOneTargetDate" class="form-control" [(ngModel)]="milestoneData_3.target_date" #target_date="ngModel" bsDatepicker placement="bottom-left" [minDate]="completedMinDate"  [bsValue]="goalInfo.completedDate" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                </div>
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group">
+                <div class="input-group" >
+                    <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Completion Date" name="completedDate" class="form-control" [(ngModel)]="milestoneData_3.completed_date" #completed_date="ngModel"  bsDatepicker placement="bottom-left" [minDate]="completedMinDate"  [bsValue]="goalInfo.completedDate" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                </div>
+               </div>
+            </div>
+
+        </div> -->
+
+        <!-- mile stone 4 -->
+        <!-- <div class="row">
+            <div class="col-4">
+               <div class="form-group">
+                <input type="text" autocomplete="off" minlength="1" maxlength="100" placeholder="Milestone 4 Optional" name="milestoneone" class="form-control" [(ngModel)]="milestoneData_3.milestoneone" #milestoneone="ngModel" >
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group">
+                <div class="input-group" >
+                    <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Target Date" name="milestoneOneTargetDate" class="form-control" [(ngModel)]="milestoneData_3.target_date" #target_date="ngModel" bsDatepicker placement="bottom-left" [minDate]="completedMinDate"  [bsValue]="goalInfo.completedDate" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                </div>
+               </div>
+            </div>
+            <div class="col-4">
+               <div class="form-group">
+                <div class="input-group" >
+                    <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Completion Date" name="completedDate" class="form-control" [(ngModel)]="milestoneData_3.completed_date" #completed_date="ngModel"  bsDatepicker placement="bottom-left" [minDate]="completedMinDate"  [bsValue]="goalInfo.completedDate" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                </div>
+               </div>
+            </div>
+
+        </div> -->
+
+    </div>
+    <div class="modal-footer">
+
+
+       <button [disabled]="diable_update_button" *ngIf="f.form.valid" type="submit"  class="btn btn-primary" style="background-color: #0072BB; color:#ffffff;">
+       <i class="fa fa-save"></i> {{ButtonText}}
+       </button>
+       <button [disabled]="diable_update_button" *ngIf="!f.form.valid" type="submit" class="btn btn-light" style="background-color: #0072BB;color:#ffffff;">
+       <i class="fa fa-save"></i> {{ButtonText}}
+       </button>
+
+
+       <button type="button" class="btn btn-danger close-button-color" (click)="closeModal()">
+       <i class="fa fa-close"></i> Close
+       </button>
+    </div>
+    </form>

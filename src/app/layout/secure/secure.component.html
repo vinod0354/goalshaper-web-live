@@ -1,0 +1,338 @@
+<div class="d-flex" id="wrapper" style="background-color: #ffffff !important; margin-bottom: 3.5%;">
+
+  <div id="page-content-wrapper">
+    <div class="row" style="margin-top: 12px; margin-bottom: 8px;">
+      <div class="col-6 text-left">
+        <img src="assets/img/logo.png" (click)="navigateToHome()" class="logo" style="cursor: pointer;" alt="">
+      </div>
+      <div class="col-6 text-right">
+        <span (click)="navigateToProfile()" style=" cursor: pointer; margin-right: 54px;">Profile &nbsp;&nbsp;<img src="{{profilePhoto}}" alt="" style="height: 40px; width:40px;padding: 3px; border-radius: 50%; border: 1px solid white; background: linear-gradient(147deg, #c354a3 18%, #4466a4 92%);"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <nav class="navbar horizontal-layout header p-0" style="width: 100%;">
+          <div class="nav-bottom" style="background: none;">
+            <div class="containers" style="padding-left:2%; padding-right:2%;width:100%; height: 88px;">
+              <ul *ngIf="currentUserRoleId==1" class="nav page-navigation" style="background: none;">
+                <li id="menuPOHome" (click)="navigateToHome()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active-menu' : currentActiveMenu=='menuPOHome'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <fa name="home fa-lg" class="padding-for-menu-icons"></fa>
+                      </div>
+                      <div class="col-12">
+                        <span class="menu-title">Home</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li id="menuPOEntpFeatures" (click)="navigateToEnterpriseFeatures()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active-menu' : currentActiveMenu=='menuPOEntpFeatures'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <fa name="check-square-o fa-lg"  class="padding-for-menu-icons"></fa>
+                      </div>
+                      <div class="col-12">
+                        <span class="menu-title">Enterprise Features</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li  id="menuENTSettings"  style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link" data-toggle="dropdown" style="height: 88px;" (click)="dropMenuPowner = !dropMenuPowner">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <fa name="ellipsis-h fa-lg" class="padding-for-menu-icons"></fa>
+                      </div>
+                      <div class="col-12">
+                        <span class="menu-title">More</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+    
+              <ul *ngIf="currentUserRoleId==2 || currentUserRoleId==3 || currentUserRoleId==4" class="nav page-navigation" style="background: none;">
+                <!-- <li id="menuENTHome" (click)="navigateToHome()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active-menu' : currentActiveMenu=='menuENTHome'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <fa name="home fa-lg" class="padding-for-menu-icons"></fa>
+                      </div>
+                      <div class="col-12">
+                        <span class="menu-title">Home</span>
+                      </div>
+                    </div>
+                  </a>
+                </li> -->
+                <li id="menuENTActions" (click)="navigateToEnterpriseActions()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link icon" [ngClass]="{'active-menu' : currentActiveMenu=='menuENTActions'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <!-- <fa name="bullseye fa-lg" class="padding-for-menu-icons"></fa> -->
+                        <img src="assets/icons/actions.svg" class="padding-for-menu-icons active" alt="">
+                        <img src="assets/icons/actions_hover.svg" class="padding-for-menu-icons hover" alt="">
+                        <img src="assets/icons/actions_selected.svg" class="padding-for-menu-icons selected" alt="">
+                      </div>
+                      <div class="col-12" style="height: 20px;">
+                        <span class="menu-title">Actions</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li id="menuENTCalendar" (click)="navigateToEnterpriseCalendar()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link icon" [ngClass]="{'active-menu' : currentActiveMenu=='menuENTCalendar'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <!-- <fa name="bullseye fa-lg" class="padding-for-menu-icons"></fa> -->
+                        <img src="assets/icons/actions.svg" class="padding-for-menu-icons active" alt="">
+                        <img src="assets/icons/actions_hover.svg" class="padding-for-menu-icons hover" alt="">
+                        <img src="assets/icons/actions_selected.svg" class="padding-for-menu-icons selected" alt="">
+                      </div>
+                      <div class="col-12" style="height: 20px;">
+                        <span class="menu-title">Calendar</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li id="menuENTGoals" (click)="navigateToEnterpriseGoals()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link icon" [ngClass]="{'active-menu' : currentActiveMenu=='menuENTGoals'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <!-- <fa name="dot-circle-o fa-lg" class="padding-for-menu-icons"></fa> -->
+                        <img src="assets/icons/goals_unselected.svg" class="padding-for-menu-icons active" alt="">
+                        <img src="assets/icons/goals_hover.svg" class="padding-for-menu-icons hover" alt="">
+                        <img src="assets/icons/goals_selected.svg" class="padding-for-menu-icons selected" alt="">
+                      </div>
+                      <div class="col-12" style="height: 20px;">
+                        <span class="menu-title">Goals & <br>Milestones</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <!-- <li id="menuENTObjectives" (click)="navigateToEnterpriseObjectives()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link" [ngClass]="{'active-menu' : currentActiveMenu=='menuENTObjectives'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <fa name="tasks fa-lg" class="padding-for-menu-icons"></fa>
+                      </div>
+                      <div class="col-12">
+                        <span class="menu-title">Objectives</span>
+                      </div>
+                    </div>
+                  </a>
+                </li> -->
+                <li id="menuENTGuiding" (click)="navigateToEnterpriseGuding()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link icon" [ngClass]="{'active-menu' : currentActiveMenu=='menuENTGuiding'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <!-- <fa name="arrow-circle-o-up fa-lg" class="padding-for-menu-icons"></fa> -->
+                        <img src="assets/icons/guiding_principles_unselected.svg" class="padding-for-menu-icons active" alt="">
+                        <img src="assets/icons/guiding_principles_hover.svg" class="padding-for-menu-icons hover" alt="">
+                        <img src="assets/icons/guiding_principles_selected.svg" class="padding-for-menu-icons selected" alt="">
+                      </div>
+                      <div class="col-12" style="height: 20px;">
+                        <span class="menu-title">Guiding <br>Principles</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li id="menuENTCompass" (click)="navigateToEnterpriseCompass()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link icon" [ngClass]="{'active-menu' : currentActiveMenu=='menuENTCompass'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <!-- <fa name="compass fa-lg" class="padding-for-menu-icons"></fa> -->
+                        <img src="assets/icons/compass.svg" class="padding-for-menu-icons active" alt="">
+                        <img src="assets/icons/compass_hover.svg" class="padding-for-menu-icons hover" alt="">
+                        <img src="assets/icons/compass_selected.svg" class="padding-for-menu-icons selected" alt="">
+                      </div>
+                      <div class="col-12" style="height: 20px;">
+                        <span class="menu-title">Compass</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li id="menuENTPulse" (click)="navigateToEnterprisePulse()" style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link icon" [ngClass]="{'active-menu' : currentActiveMenu=='menuENTPulse'}" style="height: 88px;">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <!-- <fa name="tasks fa-lg" class="padding-for-menu-icons"></fa> -->
+                        <img src="assets/icons/pulse.svg" class="padding-for-menu-icons active" alt="">
+                        <img src="assets/icons/pulse_hover.svg" class="padding-for-menu-icons hover" alt="">
+                        <img src="assets/icons/pulse_selected.svg" class="padding-for-menu-icons selected" alt="">
+                      </div>
+                      <div class="col-12" style="height: 20px;">
+                        <span class="menu-title">Pulse</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li  id="menuENTSettings"  style="cursor: pointer;" class="nav-item">
+                    <a class="nav-link icon" data-toggle="dropdown" [ngClass]="{'active-menu' : currentActiveMenu=='menuENTSettings'}" style="height: 88px;">
+                      <div class="row">
+                        <div class="col-12" style="margin-bottom: 6px;">
+                          <!-- <fa name="chevron-circle-down fa-lg" class="padding-for-menu-icons"></fa> -->
+                          <img src="assets/icons/more_unselected.svg" class="padding-for-menu-icons active" alt="">
+                          <img src="assets/icons/more_hover.svg" class="padding-for-menu-icons hover" alt="">
+                          <img src="assets/icons/more_selected.svg" class="padding-for-menu-icons selected" alt="">
+                        </div>
+                        <div class="col-12" style="height: 20px;">
+                          <span class="menu-title">More</span>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="dropdown">
+                      <div class="dropdown-menu" style="width:100%;">
+                        <!-- <a *ngIf="currentUserRoleId == 2" (click)="navigateToEnterprisePulse()" class="dropdown-item" style="line-height: 3; vertical-align: middle;">
+                          <fa name="heartbeat"  class="padding-for-menu-icons"></fa>
+                          Pulse</a> -->
+                        <a (click)="navigateToEnterpriseProgress()" class="dropdown-item icon" style="line-height: 3; vertical-align: middle;">
+                          <img src="assets/icons/progress_tracker.svg" class="padding-for-menu-icons active" style="height: 20px; padding-left: 0px;" alt="">
+                          <img src="assets/icons/progress_tracker_hover.svg" class="padding-for-menu-icons hover" style="height: 20px; padding-left: 0px;" alt="">
+                          Progress Tracker</a>
+                        <a *ngIf="currentUserRoleId == 2" (click)="navigateToEnterprisePulseStngs()" class="dropdown-item icon" style="line-height: 3; vertical-align: middle;">
+                          <img src="assets/icons/pulse_settings_unselected.svg" class="padding-for-menu-icons active" style="height: 20px; padding-left: 0px;" alt="">
+                          <img src="assets/icons/pulse_settings_hover_selected.svg" class="padding-for-menu-icons hover" style="height: 20px; padding-left: 0px;" alt="">
+                          Pulse Settings</a>
+                        <a *ngIf="currentUserRoleId == 2" (click)="navigateToEnterpriseTeams()" class="dropdown-item icon" style="line-height: 3; vertical-align: middle;">
+                          <img src="assets/icons/teams.svg" class="padding-for-menu-icons active" style="height: 20px; padding-left: 0px;" alt="">
+                          <img src="assets/icons/teams_hover_selected.svg" class="padding-for-menu-icons hover" style="height: 20px; padding-left: 0px;" alt="">
+                          Teams</a>
+                        <a *ngIf="currentUserRoleId != 4" (click)="navigateToEnterpriseIndividuals()" class="dropdown-item icon" style="line-height: 3; vertical-align: middle;">
+                          <img src="assets/icons/individual_unselected.svg" class="padding-for-menu-icons active" style="height: 20px; padding-left: 0px;" alt="">
+                          <img src="assets/icons/individual_hover_selected.svg" class="padding-for-menu-icons hover" style="height: 20px; padding-left: 0px;" alt="">
+                          Individuals</a>
+                          <a (click)="navigateToActionCategories()" class="dropdown-item icon" style="line-height: 3; vertical-align: middle;">
+                          <img src="assets/icons/categories.svg" class="padding-for-menu-icons active" style="height: 20px; padding-left: 0px;" alt="">
+                          <img src="assets/icons/categories_hover.svg" class="padding-for-menu-icons hover" style="height: 20px; padding-left: 0px;" alt="">
+                            Categories</a>
+                      </div>
+                    </div>
+                </li>
+                <li  id="menuENTMore"  style="cursor: pointer;" class="nav-item">
+                  <a class="nav-link icon" data-toggle="dropdown" [ngClass]="{'more-active' : dropMenu}" style="height: 88px;" (click)="dropMenu = !dropMenu">
+                    <div class="row">
+                      <div class="col-12" style="margin-bottom: 6px;">
+                        <!-- <fa name="ellipsis-h fa-lg" class="padding-for-menu-icons"></fa> -->
+                        <img src="assets/icons/settings_unselected.svg" class="padding-for-menu-icons active" alt="">
+                        <img src="assets/icons/settings_selected&hover.svg" class="padding-for-menu-icons hover" alt="">
+                        <img src="assets/icons/settings_selected&hover.svg" class="padding-for-menu-icons selected" alt="">
+                      </div>
+                      <div class="col-12" style="height: 20px;">
+                        <span class="menu-title">Settings</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <nav *ngIf="dropMenu" class="navbar horizontal-layout p-0" style="width: 100%; border-bottom: 1px solid #1875ba;">
+          <div class="col-8" style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row" style="margin-bottom: unset;">
+                  <div class="col-10" style="padding-right: 0px; padding-left: 40px;">
+                    <div class="row">
+                      <div class="input-group col-md-12">
+                        <input class="form-control py-2 border-right-0 border" type="search" placeholder="Search " id="example-search-input">
+                        <span class="input-group-append">
+                            <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                                <i class="fa fa-search" style="color: #fc9310;"></i>
+                            </button>
+                          </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 text-left">
+                    <i  class="fa fa-refresh" style="color: #fc9310; vertical-align: middle; line-height: 2;"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-6">
+                    <img src="assets/icons/filter.svg" alt="" style="height: 15px;"><span style="vertical-align: middle; line-height: 2; color: #6a6f6b; font-size: 15px;">&nbsp;Filter</span>
+                  </div>
+                  <div class="col-6" (click)="openModal()">
+                    <img src="assets/icons/help-circle.svg" alt="" style="height: 15px;"><span style="vertical-align: middle; line-height: 2; color: #6a6f6b; font-size: 15px;">&nbsp;Help</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="row">
+              <div class="col-10 text-right">
+                <button  class="btn" style="background-color: #e1e2e1; border-radius: 27px; width: 96px; height: 40px; color: #6a6f6b;" (click)="signout()">
+                Log out</button>
+              </div>
+              <div class="col-2">
+                <i class="fa fa-times" style="color: #f78f11;line-height:2" (click)="dropMenu = !dropMenu"></i>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <nav *ngIf="dropMenuPowner" class="navbar horizontal-layout p-0" style="width: 100%; border-bottom: 1px solid #1875ba;">
+          <div class="col-8" style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group row" style="margin-bottom: unset;">
+                  <div class="col-10" style="padding-right: 0px; padding-left: 40px;">
+                    <div class="row">
+                      <div class="input-group col-md-12">
+                        <input class="form-control py-2 border-right-0 border" type="search" placeholder="Search " id="example-search-input">
+                        <span class="input-group-append">
+                            <button class="btn btn-outline-secondary border-left-0 border" type="button">
+                                <i class="fa fa-search" style="color: #fc9310;"></i>
+                            </button>
+                          </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 text-left">
+                    <i  class="fa fa-refresh" style="color: #fc9310; vertical-align: middle; line-height: 2;"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-6">
+                    <img src="assets/icons/help-circle.svg" alt="" style="height: 15px;"><span style="vertical-align: middle; line-height: 2; color: #6a6f6b; font-size: 15px;">&nbsp;Help</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="row">
+              <div class="col-10 text-right">
+                <button  class="btn" style="background-color: #e1e2e1; border-radius: 27px; width: 96px; height: 40px; color: #6a6f6b;" (click)="signout()">
+                Log out</button>
+              </div>
+              <div class="col-2">
+                <i class="fa fa-times" style="color: #f78f11;line-height:2" (click)="dropMenuPowner = !dropMenuPowner"></i>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    
+    <div style="padding-left:3%; padding-right:3%; background-color: #ffffff;">
+      <div class="container-fluid" style="padding:10px; min-height: 60vh;">
+        <router-outlet>
+        </router-outlet>
+      </div>
+    </div>
+
+
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #F3F3F3; padding-left: 5%; border-top:solid 1px #DEE2E6; text-align: center; color:#444444;">
+      <div style="width:100%; text-align: left; font-size: small; ">Copyright © 2020 <span style='color:#1089CE'>GoalShaper</span>. All rights reserved.</div>
+    </nav> -->
+    
+  </div>
+</div>
+<app-footer></app-footer>

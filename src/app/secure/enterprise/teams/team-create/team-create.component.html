@@ -1,0 +1,96 @@
+<form  novalidate (ngSubmit)="f.form.valid && createNewTeam()" #f="ngForm">
+    <div class="modal-header modal-lg" style="background-color: #0072BB;  color: #FFFFFF; border: 1px white;">
+       <div style="width:100%; font-size:medium; ">Team Information</div>
+       <button style="color:#ffffff;" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+       <span aria-hidden="true" style="color:#ffffff;">&times;</span>
+       </button>
+    </div>
+    <div class="modal-body modal-lg" style=" background-color: white; border: 1px white;">
+
+         <div class="form-group">
+            <label for="name">Team Name<span style="color:red;">*</span></label>
+            <input type="text" appFocus autocomplete="off" minlength="1" maxlength="100" placeholder="Name" name="name" class="form-control" [(ngModel)]="teamInfo.name" #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+            <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                <div *ngIf="name.errors.required">Team Name is required</div>
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label for="name">Description<span style="color:red;">*</span></label>
+            <input type="text" autocomplete="off" minlength="1" maxlength="200" placeholder="Description" name="description" class="form-control" [(ngModel)]="teamInfo.description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" required>
+            <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
+                <div *ngIf="description.errors.required">Description is required</div>
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label for="name">E-mail<span style="color:red;">*</span></label>
+            <input type="text" autocomplete="off" minlength="1" maxlength="50" placeholder="E-mail" name="email" class="form-control" [(ngModel)]="teamInfo.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
+            <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                <div *ngIf="email.errors.required">E-mail is required</div>
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label for="name">Select Team Manager<span style="color:red;">*</span></label>
+
+               <select (change)="triggerSelectedTeamManager()" name="team_manager_id" [(ngModel)]="teamInfo.team_manager_id"   #team_manager_id="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && team_manager_id.invalid }" required>
+                  <option value="">Select Team Manager</option>
+                 <option *ngFor="let manager of teamManagers" [value]="manager.user_id">{{manager.firstname}}</option>
+               </select>
+               <div *ngIf="f.submitted && team_manager_id.invalid" class="invalid-feedback">
+                  <div *ngIf="team_manager_id.errors.required">Team Manager is required</div>
+              </div>
+
+         </div>
+
+         <div class="form-group">
+            <label for="name">Select Team Member</label>
+            <!-- <ng-select [multiple]="true"
+                       [items]="items"
+                       [disabled]="disabled"
+                       (data)="refreshValue($event)"
+                       (selected)="selected($event)"
+                       (removed)="removed($event)"
+                       (change)="triggerSelectedusers()"
+                       name="team_members"
+                       [(ngModel)]="teamInfo.team_members"
+                       class="form-control">
+               <option *ngFor="let user of allUsers" [value]="user.user_id">{{user.firstname}}</option>
+             </ng-select> -->
+             <ng-select [multiple]="true"
+                        [disabled]="disabled"
+                        (data)="refreshValue($event)"
+                        (selected)="selected($event)"
+                        (removed)="removed($event)"
+                        (change)="triggerSelectedusers()"
+                        name="team_members"
+                        [(ngModel)]="teamInfo.team_members"
+                        placeholder="Select users">
+                        <ng-option *ngFor="let user of teamMembers" [value]="user.user_id">
+                          <div *ngIf="user.role_id != 2 && user.role_id != 3">[{{user.employee_id}}] {{user.firstname}} {{user.lastname}}</div>
+                       </ng-option>
+            </ng-select>
+             <!-- <pre>{{itemsToString(value)}}</pre> -->
+         </div>
+    </div>
+    <div class="modal-footer">
+
+
+       <button *ngIf="f.form.valid" type="submit"  class="btn btn-primary" style="background-color: #0072BB; color:#ffffff;">
+       <i class="fa fa-save"></i> {{ButtonText}}
+       </button>
+       <button  *ngIf="!f.form.valid" type="submit" class="btn btn-light" style="background-color: #0072BB;color:#ffffff;">
+       <i class="fa fa-save"></i> {{ButtonText}}
+       </button>
+
+       <!-- <button *ngIf="modalType!='NEW'" type="button" class="btn btn-danger close-button-color" (click)="deleteEnterprise()">
+         <i class="fa fa-trash"></i> Delete Individual
+      </button> -->
+
+
+       <button type="button" class="btn btn-danger close-button-color" (click)="closeModal()">
+       <i class="fa fa-close"></i> Close
+       </button>
+    </div>
+    </form>

@@ -1,0 +1,110 @@
+{
+    "user": {
+        "login": "/gs/auth/login",
+        "changePassowrd": "/gs/user/changePassword",
+        "refreshToken": "/gs/auth/refresh",
+        "roles": "/gs/user/roles",
+        "createUser":"/gs/user/create",
+        "updateUser":"/gs/user/update/{user_id}",
+        "getUsers":"/gs/user/allusers/{enterprise_id}/{role_id}?pageNumber={pageNumber}&pageSize={pageSize}&sort={sortColumn},{sortOrder}",
+        "deleteUser":"/gs/user/delete/{user_id}",
+        "allUsers":"/gs/entp/individual/lessinfo/{enterprise_id}",
+        "userLogs":"/gs/user/logs",
+        "forgotPassword":"/gs/user/forgotpassword/"
+    },
+    "enterprise":{
+        "getall": "/gs/entp/enterprises",
+        "getallCategories": "/gs/entp/categories",
+        "createEnterprise": "/gs/entp/enterprises",
+        "updateEnterprise": "/gs/entp/enterprises/{enterprise_id}",
+        "enterprisefeaturesmap": "/gs/entp/features/mapping/all",
+        "deleteEnterprise": "/gs/entp/enterprises/{enterprise_id}",
+        "mapEnterpriseFeatures":"/gs/entp/features/mapping/{enterprise_id}",
+        "togetEnterpriseInfo":"/gs/entp/enterprises/id",
+        "insertDefaultDataForEnterprise": "/gs/entp/enterprises/data/{enterprise_id}/{user_id}",
+        "homeSummary":"/gs/home/summary/{enterprise_id}?userId={userId}",
+        "homeSummaryDetails":"/gs/home/summary/detail/{enterprise_id}?userId={userId}"
+    },
+    "geolocation": {
+        "countries": "/gs/geolocation/countries/{search_string}",
+        "states": "/gs/geolocation/states/{country_id}/{search_string}",
+        "cities": "/gs/geolocation/cities/{state_id}/{search_string}"
+    },
+    "team":{
+        "getTeams":"/gs/entp/team/{enterprise_id}",
+        "createTeam":"/gs/entp/team",
+        "updateTeam":"/gs/entp/team/{team_id}",
+        "deleteTeam":"/gs/entp/team/{team_id}",
+        "getTeamManager":"/gs/entp/team/manager/{enterprise_id}",
+        "getTeamManagers":"/gs/entp/team/managers/{enterprise_id}",
+	    "getTeamMembers":"/gs/entp/individual/lessinfo/{enterprise_id}"
+    },
+    "goals":{
+        "getAllGoals":"/gs/goals/{enterprise_id}?userId={userId}&pageNumber={pageNumber}&pageSize={pageSize}&sort={sortColumn},{sortOrder}",
+        "createGoal":"/gs/goals",
+	    "deleteGoal":"/gs/goals/{enterprise_id}/{goal_id}",
+        "updateGoal":"/gs/goals/{goal_id}",
+        "getGoalsActivity":"/gs/goals/activity/{enterprise_id}/{goal_id}",
+        "getMilestonesActivity":"/gs/goals/milestone/activity/{enterprise_id}/{goal_id}",
+        "getGoalType":"/gs/goals/types/{enterprise_id}",
+        "getGoalLevel":"/gs/goals/levels/{enterprise_id}",
+        "createMilestones":"/gs/goals/milestones",
+        "createGoalsActivity":"/gs/goals/activity",
+        "getMilestones":"/gs/goals/milestones/{enterprise_id}/{goal_id}",
+        "updateMilestones":"/gs/goals/milestones/{milestone_number}",
+        "createMilestoneActivity":"/gs/goals/milestones/activity",
+        "goalType":"/gs/goals/types/{enterprise_id}",
+        "filterGoalData":"/gs/goals/{enterprise_id}?userId={userId}&searchColumn={searchColumn}&searchValue={searchValue}&pageNumber={pageNumber}&pageSize={pageSize}&sort={sortColumn},{sortOrder}"
+
+    },
+    "objectives":{
+        "getAllObjectives":"/gs/objectives/{enterprise_id}?userId={userId}&pageNumber={pageNumber}&pageSize={pageSize}&sort={sortColumn},{sortOrder}",
+        "createObjective":"/gs/objectives",
+        "updateObjective":"/gs/objectives/{objectiveId}",
+        "TogetallGoalsInObjectivePage":"/gs/goals/{enterprise_id}?userId={userId}",
+        "TogetMilestones":"/gs/goals/milestones/{enterpriseId}/{goalId}",
+        "ToDeleteObjectives":"/gs/objectives/{enterpriseId}/{objectiveId}",
+        "ToSaveObjectivesActivity":"/gs/objectives/activity",
+        "TogetObjectivesActivity":"/gs/objectives/activity/{enterpriseId}/{objectiveId}",
+        "ToFilterbasedOnObjectives":"/gs/objectives/{enterpriseId}?userId={userId}&searchColumn={searchColumn}&searchValue={searchValue}&pageNumber={pageNumber}&pageSize={pageSize}&sort={sortColumn},{sortOrder}",
+        "ToFilterbasedOnDates":"/gs/objectives/{enterpriseId}?userId={userId}&searchColumn={searchColumn}&searchValue={start_date},{end_date}&pageNumber={pageNumber}&pageSize={pageSize}&sort={sortColumn},{sortOrder}"
+
+
+    },
+    "actions":{
+        "getCategories":"/gs/actions/categories/{enterprise_id}/{user_id}",
+        "getActions":"/gs/actions/{enterprise_id}/{user_id}/{category_id}",
+        "getPriorities":"/gs/actions/priorities/{enterprise_id}",
+        "createActions":"/gs/actions",
+        "updateActions":"/gs/actions/{action_id}",
+        "deleteActions":"/gs/actions/{enterprise_id}/{action_id}",
+        "createActionsCategory":"/gs/actions/categories",
+        "updateActionsCategory":"/gs/actions/categories/{categoryId}",
+        "getActionsCategory":"/gs/actions/categories/{enterpriseId}/{userId}",
+        "ToDeleteActionsCategory":"/gs/actions/categories/{enterpriseId}/{userId}/{categoryId}",
+        "createActionsDefaultCategory":"/gs/actions/categories/default/{enterpriseId}/{userId}"
+
+
+    },
+    "gprinciples":{
+        "updategprinciples":"/gs/gprinciples",
+        "getgprinciples":"/gs/gprinciples/{enterpriseId}/{userId}"
+    },
+    "compass":{
+        "getCompass":"/gs/compass/comment/{enterpriseId}/{userId}",
+        "addCompasscomment":"/gs/compass/comment",
+        "updateCompassScore":"/gs/compass/score",
+        "getCompassScore":"/gs/compass/score/{enterpriseId}/{userId}"
+    },
+    "pulse":{
+        "getPulseQuestions":"/gs/pulse/questions/{enterpriseId}",
+        "updatePulseQuestions":"/gs/pulse/questions",
+        "getPulseUserQuestions":"/gs/pulse/user/question/{enterpriseId}/{userId}",
+        "updatePulseData":"/gs/pulse/score",
+        "updatePulseComment":"/gs/pulse/comments",
+        "updatePulseCommentAnony" :"/gs/pulse/anonymous/comments",
+        "getPulseComments":"/gs/pulse/comments/{enterpriseId}/{userId}",
+        "getPulseCommentsAnony":"/gs/pulse/anonymous/comments/{enterpriseId}",
+        "getPulseLog":"/gs/pulse/log/{enterpriseId}"
+    }
+}

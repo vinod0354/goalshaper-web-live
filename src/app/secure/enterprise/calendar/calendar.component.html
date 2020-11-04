@@ -1,0 +1,88 @@
+<div class="row mt-3">
+    <div class="col-10"></div>
+    <div class="col-2">
+      <div class="row">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="width: 100%;">
+          <li class="nav-item" style="width: 50%;" (click)="onTabChange('do')">
+            <a class="nav-link1 active" id="do-date-tab" data-toggle="pill" href="#do-date" role="tab" aria-controls="do-date" aria-selected="false" style="justify-content: center;">Do Date</a>
+          </li>
+          <li class="nav-item" style="width: 50%;" (click)="onTabChange('due')">
+            <a class="nav-link1" id="due-date-tab" data-toggle="pill" href="#due-date" role="tab" aria-controls="due-date" aria-selected="true" style="justify-content: center;">Due Date</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-4">
+      <div class="row">
+        <div class="col-6">
+          <h4 style="color: #104a84;" *ngIf="tab == 'do'">Do Today</h4>
+          <h4 style="color: #104a84;" *ngIf="tab != 'do'">Due Today</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <div class="card-sort" style="max-height: 60vh; background-color: transparent;">
+        <div class="card-body" style="overflow-y: auto;overflow-x: hidden;">
+          <div class="form-group row">
+            <div class="col-10">
+                <input type="text" class="default-input" placeholder="Add Action" [(ngModel)]='quickActionDo' type="text"  (keyup.enter)="triggerQUickActionDo($event)">
+            </div>
+            <label class="col-2 col-form-label"><i class="fa fa-plus" style="color: #f18a11;" type="submit" (click)="openActionsModal('create',quickActionDo)"></i></label>
+          </div>
+          <div *ngFor="let item2 of todayActionList | searchpipe: searchBy " (click)="openActionsModal('edit',item2)" class="card" style="margin-bottom: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);">
+            <span style="padding:10px;cursor: pointer;">
+              <div class="row" >
+                <div class="col-12">
+                  <span>
+                    <img class="item-tag" *ngIf="(item2.completed_date == '' || item2.completed_date.includes('1900'))" [style.border-color]="item2.color">
+                    <i class="fa fa-check item-done" *ngIf="(item2.completed_date != '' && ! item2.completed_date.includes('1900'))" [style.color]="item2.color"></i>
+                    {{item2.action | slice:0:30}}</span>
+                </div>
+              </div>
+            </span>
+          </div>
+          <!-- Over Due -->
+          <div class="card" style="margin-bottom: 10px; border: none; background: transparent; box-shadow: none;" >
+            <div style="color: #FF5252; cursor: pointer;font-weight: bolder; font-size: 18px; border: none; background: transparent;" (click)="calender_below_overdue = !calender_below_overdue" class="card-header">Overdue 
+                <span  style="float: right;">
+                    <i class="fa fa-angle-down" *ngIf="calender_below_overdue == false" aria-hidden="true" style="color: #FF5252;"></i>
+                    <i class="fa fa-angle-up" *ngIf="calender_below_overdue == true" aria-hidden="true" style="color: #FF5252;"></i>
+                </span>
+            </div>
+            <div *ngIf="calender_below_overdue">
+              <div *ngFor="let item1 of overdueActionList | searchpipe: searchBy " (click)="openActionsModal('edit',item1)" class="card" style="margin-bottom: 10px; border: none; box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.08), 0 -6px 12px 0 rgba(255, 255, 255, 0.5);">
+                <span style="padding:10px;cursor: pointer;">
+                  <div class="row">
+                    <div class="col-12">
+                      <div>
+                        <span>
+                          <img class="item-tag" *ngIf="(item1.completed_date == '' || item1.completed_date.includes('1900'))" [style.border-color]="item1.color">
+                          {{item1.action | slice:0:30}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="card" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+        <div class="card-body" style="padding: 10px 15px 10px 15px !important;overflow-y: auto">
+            <div class="mbsc-col-sm-12 mbsc-col-md-4">
+                <mbsc-form-group style="background-color: white !important;">
+                    <mbsc-calendar  style="background-color: white !important;cursor: pointer;" (onSet)="getDetailsofClick($event)" [(ngModel)]="markedDay" display="inline"></mbsc-calendar>
+                </mbsc-form-group>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

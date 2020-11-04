@@ -1,0 +1,21 @@
+<div class="modal-header modal-lg" style="background-color: #0072BB;  color: #FFFFFF; border: 1px white;">
+    <div style="width:100%; font-size:medium; ">Pulse Question</div>
+    <button style="color:#ffffff;" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true" style="color:#ffffff;">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body modal-lg" style=" background-color: white; border: 1px white;">
+    <div class="form-group">
+        <label for="title">Title<span style="color:red;">*</span></label>
+        <textarea appFocus autocomplete="off" minlength="1" maxlength="100" placeholder="Question" name="question" class="form-control"  [(ngModel)]="question" required></textarea>
+    </div>
+</div>
+<div class="modal-footer">
+    <button  type="button" class="btn btn-primary" style="background-color: #0072BB; color:#ffffff;" (click)="updateQuestion()">
+        <i class="fa fa-save"></i> Update
+    </button>
+    <button type="button" class="btn btn-danger close-button-color" (click)="closeModal()">
+        <i class="fa fa-close"></i> Cancel
+    </button>
+</div>

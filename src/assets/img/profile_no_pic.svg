@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="85px" height="85px" viewBox="0 0 85 85" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 25</title>
+    <defs>
+        <linearGradient x1="24.8632812%" y1="13.2617187%" x2="80.6640625%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#C354A3" offset="0%"></stop>
+            <stop stop-color="#4466A4" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-55.0%" y="-55.0%" width="210.0%" height="210.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="7" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-2.5%" y="-2.5%" width="105.0%" height="105.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <circle id="path-4" cx="20.3243243" cy="20.5405405" r="20"></circle>
+        <filter x="-55.0%" y="-55.0%" width="210.0%" height="210.0%" filterUnits="objectBoundingBox" id="filter-6">
+            <feGaussianBlur stdDeviation="7" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-2.5%" y="-2.5%" width="105.0%" height="105.0%" filterUnits="objectBoundingBox" id="filter-7">
+            <feGaussianBlur stdDeviation="0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="25.8815456%" y1="11.9774071%" x2="77.3754223%" y2="88.5293497%" id="linearGradient-8">
+            <stop stop-color="#C354A3" offset="0%"></stop>
+            <stop stop-color="#4D64A4" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Teams" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="New_syle_header" transform="translate(-908.000000, 12.000000)">
+            <g id="Group-22" transform="translate(930.000000, 10.000000)">
+                <g id="Group-6">
+                    <g id="Group-Copy" transform="translate(0.324324, 0.540541)" stroke="url(#linearGradient-1)" stroke-width="2">
+                        <circle id="Oval-Copy-2" filter="url(#filter-2)" cx="20" cy="20" r="20"></circle>
+                        <circle id="Oval-Copy-2" filter="url(#filter-3)" cx="20" cy="20" r="20"></circle>
+                    </g>
+                    <mask id="mask-5" fill="white">
+                        <use xlink:href="#path-4"></use>
+                    </mask>
+                    <g id="Mask"></g>
+                    <circle id="Oval-Copy-2" stroke="url(#linearGradient-1)" stroke-width="2" filter="url(#filter-6)" mask="url(#mask-5)" cx="20.3243243" cy="20.5405405" r="20"></circle>
+                    <circle id="Oval-Copy-2" stroke="url(#linearGradient-1)" stroke-width="2" filter="url(#filter-7)" mask="url(#mask-5)" cx="20.3243243" cy="20.5405405" r="20"></circle>
+                </g>
+                <circle id="Oval" fill-opacity="0.8" fill="url(#linearGradient-8)" cx="20" cy="20" r="20"></circle>
+                <g id="user-(5)" transform="translate(15.000000, 14.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+                    <g id="Group-5">
+                        <path d="M10.6666667,12 L10.6666667,10.6666667 C10.6666667,9.19390733 9.47275933,8 8,8 L2.66666667,8 C1.19390733,8 0,9.19390733 0,10.6666667 L0,12" id="Path"></path>
+                        <circle id="Oval" cx="5.33333333" cy="2.66666667" r="2.66666667"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

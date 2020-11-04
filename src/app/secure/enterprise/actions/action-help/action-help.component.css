@@ -1,0 +1,14 @@
+.btn-outline-save {
+    background: none;
+    color: #ed7702;
+    border-color: #ed7702;
+    border: 2px solid;
+    width: 175px;
+    height: 72px;
+    border-radius: 36px;
+    box-shadow: 5px 5px 15px -4px #a05016;
+}
+
+.close {
+    opacity: 1;
+}

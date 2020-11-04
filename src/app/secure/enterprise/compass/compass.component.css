@@ -1,0 +1,97 @@
+table, tr, td {  
+    border: 1px solid #ddd;
+    text-align: left;
+}
+  
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+/* tr:hover {border:2px solid #1089CE; color: #1089CE; font-weight: bold;} */
+  
+th, td {
+    padding: 10px;
+}
+  
+.card{
+    /* background-color: #F3F3F3; */
+    box-shadow:inset -10px -10px 10px 0 #ffffff, inset 10px 10px 10px 0 #ededed;
+
+}
+.buttons{
+    height: 72px;
+    width: 175px;
+    border-radius: 36px;
+    box-shadow: 5px 5px 15px -4px #688510;
+    margin-right: 0px;
+    background-color:#9ac81b;
+}
+
+.input-class{
+    border-color:#e98604;
+    min-height: 80px;
+    box-shadow: inset -10px -10px 10px 0 #ffffff, inset 10px 10px 10px 0 #ededed;
+    
+}
+
+.wrap {
+    box-sizing: border-box;
+    height: 100px;
+    margin: 0 auto;
+    padding: 30px 10px;
+    width: 460px;
+  }
+  
+  .wrap .label {
+    text-align: center;
+  }
+
+  /* td:active{
+      color:#1089CE;
+  } */
+
+  .box {
+    border-radius: 0px;
+    padding-left:5px;
+    padding-right:5px;
+    border:1px solid #dee2e6;
+    background-color:  #F3F3F3;
+    width:40px;
+    height:30px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(221, 221, 221); 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(114deg, #c354a3 22%, #3668a4 82%);
+    border-radius: 10px;
+    
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(114deg, #c354a3 22%, #3668a4 82%);
+  }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,102 @@
+
+<div>
+    <!-- <div class="row">
+      <div class="col-3" style="padding:28px; padding-left: 3%;">
+        <div class="row">
+          <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+          <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+            CATEGORIES
+          </span>
+        </div>
+      </div>
+      <div class="col-9" style="padding-top:15px;">
+        <table style="width:100%;">
+          <tr>
+            <td style="align-content: right; text-align: right; float: right;">
+              <table>
+                <tr>
+                  <td>
+                    <div class="form-group has-search" style="padding-right:10px;">
+                    <select (change)="refreshSearch()" [(ngModel)]="filterBy" class="form-control">
+                      <option value="">Search By - All</option>
+                    </select>
+                    </div>
+                  </td>
+                  <td style="line-height: 3">
+                      <div class="form-group has-search" >
+                          <span class="fa fa-search form-control-feedback fa-xs" style="font-size: small; line-height: 2.5;"></span>
+                          <input type="text" (keyup)="refreshSearch()" class="form-control" [(ngModel)]="searchText" #txtSearch placeholder="Search ">
+                      </div>
+                  </td>
+                  <td style="line-height: 3; padding-right: 10px;">
+                    &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="refreshPageData()" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                      <i class="fa fa-refresh "></i>
+                      &nbsp;Refresh</button>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <hr> -->
+</div>
+  
+    <!-- Body Continues from here -->
+  
+  
+  <!-- table display -->
+  <div class="row" style="padding-left:10px; padding-right: 10px; margin-top: 20px;">
+    <table id="individualstable " class="table table-striped table-bordered " style="width:100%; overflow-x: auto; font-size: small; text-align: center; ">
+      <thead>
+        <tr>
+          <th>#</th>
+  
+          <th style="cursor: pointer;" (click)="sortBykey('name')">Category Name
+            <i class="fa" [ngClass]="{'fa-sort': column != 'name',
+                      'fa-sort-asc': (column == 'name' && !isDesc),
+                      'fa-sort-desc': (column == 'name' && isDesc) }" aria-hidden="true"></i>
+          </th>
+          <th>Description</th>
+          <th>Color</th>
+          <th>Create Date</th>
+          <th>Modified Date</th>
+          <th>Edit</th>
+          <!-- <th>Delete</th> -->
+        </tr>
+      </thead>
+      <tbody>
+  
+        <tr *ngFor="let category of categories  | searchpipe: searchBy  | sortpipe : {property: column, direction: direction} | slice: (currentPage-1) * pageSize : (currentPage-1) * pageSize + pageSize; let rowNumber = index">
+          <td style="text-align: center; vertical-align: middle;">{{pageSize * (currentPage - 1) + rowNumber + 1}}</td>
+  
+          <td style="text-align: center; vertical-align: middle;">{{ category.name ? category.name: '_' }}</td>
+          <td style="text-align: center; vertical-align: middle;">{{ category.description ? category.description: '_' }}</td>
+          <td style="text-align: center; vertical-align: middle;"><fa [ngStyle]="{'color': category.color}" name="circle" class="fa-lg"></fa></td>
+          <td style="text-align: center; vertical-align: middle;">{{ category.created_date ? (category.created_date | date: 'dd-MM-yyyy') : '_' }}</td>
+          <td style="text-align: center; vertical-align: middle;">{{ category.modified_date ? (category.modified_date | date: 'dd-MM-yyyy') : '_' }}</td>
+          <td  style="text-align: center; vertical-align: middle;">
+            <fa *ngIf="category.name != 'Miscellaneous'"  style="cursor: pointer;" name="edit" (click)="editCategory(category)"></fa>
+          </td>
+          <!-- <td style="text-align: center; vertical-align: middle;">
+            <fa style="cursor: pointer;" name="trash" (click)="deleteCategory(category)"></fa>
+          </td> -->
+        </tr>
+        <tr style="color:#0B59B0; font-weight: bold;">
+          <td colspan="10" *ngIf="categories.length == 0"> No Data Available</td>
+          <td colspan="10" *ngIf="(categories | searchpipe: searchBy ).length == 0 && categories.length > 0"> No Matches
+            Found</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <table style="width:100%; ">
+      <tr>
+          <td algin="right" style="width:100%; align-content: right; text-align: right; ">
+              <pagination style="float:right;color:#0B59B0; " [totalItems]="totalItems" [itemsPerPage]="pageSize" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event) "></pagination>
+          </td>
+      </tr>
+  </table>
+  </div>
+  

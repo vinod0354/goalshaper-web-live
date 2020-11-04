@@ -1,0 +1,126 @@
+<div>
+    <form  novalidate (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+    <!-- <form> -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12" style="padding-top:20px; ">
+                                <div class="col-3" style="padding-left: 2%;">
+                                    <div class="row">
+                                        <div
+                                            style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;">
+                                        </div>
+                                        <span
+                                            style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+                                            PROFILE
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-center" style="align-content: center; text-align: center;">
+
+                                <table style="width:100%; text-align: center; align-content: center;">
+                                    <tr>
+                                        <td align="center">
+                                              <!-- Upload image -->
+                                              <img style="width:125px;height: 125px; padding: 5px; border-radius: 50%; background: linear-gradient(147deg, #c354a3 18%, #4466a4 92%);" src="{{currentUserInfo.profile_photo}}"
+                                                alt="">
+
+                                           <!-- <div id="img-preview-block" class="img-circle avatar avatar-original" [style.backgroundImage]="'url('+ imageUrl +')'"></div> -->
+                                            <!-- <div id="img-preview-block" class="img-circle avatar avatar-original" style="
+                                                    background-image:url('./assets/img/account.png')"></div> -->
+                                            <br>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <span class="btn btn-link btn-file">Edit <input type="file"
+                                        id="upload-img" (change)="onSelectFile($event)" accept="image/*"></span> <br/>
+                                <span *ngIf="currentUserInfo.profile_photo != '' && currentUserInfo.profile_photo != 'assets/img/account.svg'" class="btn btn-link btn-file" style="cursor: pointer;" (click)="deleteProfilePhoto()">Delete </span>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="user_last_name">User name <span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" value="{{currentUserInfo.user_name}}"
+                                        disabled id="user_name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="user_last_name">Role <span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" value="{{currentUserInfo.role_name}}"
+                                        disabled id="role_name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="user_first_name">First name <span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" [(ngModel)]="currentUserInfo.firstname" name="user_first_name" value="{{currentUserInfo.firstname}}" #user_first_name="ngModel" [ngClass]="{ 'is-invalid':  f.submitted && user_first_name.invalid }" required
+                                        id="user_first_name">
+                                        <div *ngIf="f.submitted && user_first_name.invalid" class="invalid-feedback">
+                                                <div *ngIf="user_first_name.errors.required">First Name is required</div>
+                                        </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="user_last_name">Last name <span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" [(ngModel)]="currentUserInfo.lastname" name="user_last_name" value="{{currentUserInfo.lastname}}" #user_last_name="ngModel" [ngClass]="{ 'is-invalid':  f.submitted && user_last_name.invalid }" required
+                                        id="user_last_name">
+                                        <div *ngIf="f.submitted && user_last_name.invalid" class="invalid-feedback">
+                                                <div *ngIf="user_last_name.errors.required">Last Name is required</div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user_middle_name">Email <span style="color:red;">*</span></label>
+                                    <input type="email" class="form-control" [(ngModel)]="currentUserInfo.email" name="user_email" value="{{currentUserInfo.email}}" #user_email="ngModel" [ngClass]="{ 'is-invalid':  f.submitted && user_email.invalid }" email required
+                                        id="user_email">
+                                        <div *ngIf="f.submitted && user_email.invalid" class="invalid-feedback">
+                                                <div *ngIf="user_email.errors.required">Email is required</div>
+                                                <div *ngIf="user_email.errors.email">Email must be a valid email address</div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user_designation">Designation <span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" [(ngModel)]="currentUserInfo.designation" name="user_designation" value="{{currentUserInfo.designation}}" #user_designation="ngModel" [ngClass]="{ 'is-invalid':  f.submitted && user_designation.invalid }" required
+                                        id="user_designation">
+                                        <div *ngIf="f.submitted && user_designation.invalid" class="invalid-feedback">
+                                                <div *ngIf="user_designation.errors.required">Designation is required</div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user_employee_id">Employee Id <span style="color:red;">*</span></label>
+                                    <input type="text" class="form-control" [(ngModel)]="currentUserInfo.employee_id" name="user_employee_id" value="{{currentUserInfo.employee_id}}" #user_employee_id="ngModel" [ngClass]="{ 'is-invalid':  f.submitted && user_employee_id.invalid }" required
+                                        id="user_employee_id">
+                                        <div *ngIf="f.submitted && user_employee_id.invalid" class="invalid-feedback">
+                                                <div *ngIf="user_employee_id.errors.required">Employee Id is required</div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user_phone_number">Phone Number <span style="color:red;">*</span></label>
+                                    <input type="number" class="form-control" [(ngModel)]="currentUserInfo.phone_number" name="user_phone_number" value="{{currentUserInfo.phone_number}}" #user_phone_number="ngModel" [ngClass]="{ 'is-invalid':  f.submitted && user_phone_number.invalid }" required
+                                        id="user_phone_number">
+                                        <div *ngIf="f.submitted && user_phone_number.invalid" class="invalid-feedback">
+                                                <div *ngIf="user_phone_number.errors.required">Phone Number is required</div>
+                                        </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary pull-right"
+                                    style="background-color: #1089CE;">
+                                    <i class="fa fa-save"></i>
+                                    &nbsp;Save Changes</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

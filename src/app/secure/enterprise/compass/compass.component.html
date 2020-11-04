@@ -1,0 +1,77 @@
+<div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <div id="chart" style="padding-bottom: 30px;">
+                        <canvas id="yudhatp-chart"   width="400" height="200"></canvas>
+                    </div>
+                    <div class="row" *ngFor="let item of categories; let i = index">
+                        <div class="col-8 mx-auto">
+                            <div class="row">
+                                <div class="col-10">
+                                    <i class="fa fa-circle" aria-hidden="true"  [ngStyle]= "{'color':item.color}" style="padding-right:10px"></i>
+                                    <label>{{item.name}}</label>
+                                </div>
+                                <div class="col-2">
+                                    <input type="number" id="rating1" class="form-control box" name="firstnumber"  min="0" max="5"
+                                    (change)="scoreChanged($event.target.value,i)"  [value]="categories[i]['score']" [(ngModel)]="item.score" style="background: white;width: 40px; text-align: center;" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-8 mx-auto">
+                            <div class="row">
+                                <div class="col-10" style="font-weight: bold;">
+                                    <label>Overall Average </label>
+                                </div>
+                                <div class="col-2" style="text-align: center;">
+                                    <label>{{overallAverage| number:'1.2-2'}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form #form="ngForm" (ngSubmit)="quickComment()">
+                        <div class="row">
+                            <div class="col-10 mx-auto">
+                                <div class="form-group">
+                                    <textarea type="text" maxlength="500" placeholder="Add Comments" name="comment" [(ngModel)]="CompassComments.comment" #comment="ngModel" class="form-control input-class" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group" style="padding-right: 10px;text-align: center;">
+                                <button type="submit" class="btn buttons">
+                                    <i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 26px; color:#ffffff; margin-right: 16px; vertical-align: middle;"></i><span style="font-size: 20px; color:#ffffff; vertical-align: middle;">Add</span>
+                                </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6" >
+                    <label style="padding-left:10px; font-weight: bold; font-size: 20px;">History</label>
+                    <div class="card" style="max-height:95vh;border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; background-color: #ffffff;">
+                        <div class="card-body" style="padding: 10px 15px 10px 15px !important;overflow-y: scroll">
+                            <div class="col-12">
+                            <label style="padding-top:10px; padding-bottom: 5px; font-size: 20px;">2020</label>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <tbody>
+                                        <tr *ngFor="let comment of Comments; let rowNumber = index">
+                                            <td style="width: 85px;">{{ comment.created_date ? (comment.created_date | date: 'MMM dd') : '-'  }}</td>                   
+                                            <td>{{ comment.comment }}</td>                   
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

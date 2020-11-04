@@ -1,0 +1,368 @@
+<div class="col-3" style="padding-top: 2%;">
+  <div class="row">
+    <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+    <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+      Enterprise Information
+    </span>
+  </div>
+</div>
+<hr>
+<form novalidate (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+  <div style=" border: 1px white; padding: 10px;">
+    <div class="row">
+      <div class="col-8 ">
+        <div class="row ">
+          <div class="col-12">
+            <div class="form-group border-bottom border-primary">
+              <label for="" style="font-weight: bold;">General Info</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="role_id">Enterprise Name<span style="color:red;">*</span></label>
+              <input type="text" minlength="3" maxlength="100" autocomplete="off" placeholder="Enterprise Name"
+                name="name" class="form-control" [(ngModel)]="enterpriseInfo.name" #name="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+              <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                <div *ngIf="name.errors.required">Enterprise Name is required</div>
+                <div *ngIf="name.errors.minlength">Name is minimum {{ name.errors.minlength.requiredLength }}
+                  characters.</div>
+                <div *ngIf="name.errors.maxlength">Name is maximum 100 characters.</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6" style="padding-left:3px ;">
+            <div class="form-group">
+              <label for="role_id">Category<span style="color:red;">*</span></label>
+              <select name="category_id" (change)="setCategory()" class="form-control"
+                [(ngModel)]="enterpriseInfo.category_id" #category_id="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && category_id.invalid }" required>
+                <option value="">Select Category</option>
+                <option *ngFor="let category of enterpriseCategories" value={{category.category_id}}>
+                  {{category.name}}
+                </option>
+              </select>
+              <div *ngIf="f.submitted && category_id.invalid" class="invalid-feedback">
+                <div *ngIf="category_id.errors.required">Category is required</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="role_id">Email<span style="color:red;">*</span></label>
+              <input type="text" autocomplete="off" minlength="5" maxlength="100" placeholder="Email" name="email"
+                class="form-control" [(ngModel)]="enterpriseInfo.email" #email="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email disabled>
+              <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.email">Email is not valid</div>
+                <div *ngIf="email.errors.minlength">Email is minimum {{ email.errors.minlength.requiredLength }}
+                  characters.</div>
+                <div *ngIf="email.errors.maxlength">Email is maximum 100 characters.</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6" style="padding-left:3px ;">
+            <div class="form-group">
+              <label for="role_id">Website<span style="color:red;">*</span></label>
+              <input type="text" autocomplete="off" minlength="5" maxlength="100" placeholder="Website" name="website"
+                class="form-control" [(ngModel)]="enterpriseInfo.website" #website="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && website.invalid }" required>
+              <div *ngIf="f.submitted && website.invalid" class="invalid-feedback">
+                <div *ngIf="website.errors.required">Website is required</div>
+                <div *ngIf="website.errors.minlength">Website is minimum {{ website.errors.minlength.requiredLength }}
+                  characters.</div>
+                <div *ngIf="website.errors.maxlength">Website is maximum 100 characters.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="row ">
+          <div class="col-12">
+            <div class="form-group border-bottom border-primary">
+              <label for="" style="font-weight: bold;">Company Logo</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-12 text-center">
+              <figure class="figure">
+                <img style="max-width:100px;max-height: 100px;" src="{{enterpriseInfo.logo}}"
+                  class="figure-img img-fluid rounded" alt="">
+              </figure>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 text-center" id="uploadImg">
+              <input style="display: none" type="file" (change)="onFileChanged($event)" accept="image/*" #fileInput>
+              <button type="button" class="btn btn-light " style="border: 1px grey !important;"
+                (click)="fileInput.click()">Select Logo</button> <br />
+              <span style="font-size: xx-small; color: red;">
+                Logo max size is 500KB
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8 ">
+        <div class="row ">
+          <div class="col-12">
+            <div class="form-group border-bottom border-primary">
+              <label for="" style="font-weight: bold;">Location Info</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="role_id">Address Line 1<span style="color:red;">*</span></label>
+              <input type="text" autocomplete="off" minlength="5" maxlength="100" placeholder="Address Line 1"
+                name="address_line1" class="form-control" [(ngModel)]="enterpriseInfo.address_line1"
+                #address_line1="ngModel" [ngClass]="{ 'is-invalid': f.submitted && address_line1.invalid }" required>
+              <div *ngIf="f.submitted && address_line1.invalid" class="invalid-feedback">
+                <div *ngIf="address_line1.errors.required">Address Line 1 is required</div>
+                <div *ngIf="address_line1.errors.minlength">Address Line 1 is minimum
+                  {{ address_line1.errors.minlength.requiredLength }} characters.</div>
+                <div *ngIf="address_line1.errors.maxlength">Address Line 1 is maximum 100 characters.</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-6" style="padding-left:3px ;">
+            <div class="form-group">
+              <label for="role_id">Address Line 2<span style="color:red;">*</span></label>
+              <input type="text" minlength="5" maxlength="100" autocomplete="off" placeholder="Address Line 2"
+                name="address_line2" class="form-control" [(ngModel)]="enterpriseInfo.address_line2"
+                #address_line2="ngModel" [ngClass]="{ 'is-invalid': f.submitted && address_line2.invalid }" required>
+              <div *ngIf="f.submitted && address_line2.invalid" class="invalid-feedback">
+                <div *ngIf="address_line2.errors.required">Address Line 2 is required</div>
+                <div *ngIf="address_line2.errors.minlength">Address Line 2 is minimum
+                  {{ address_line2.errors.minlength.requiredLength }} characters.</div>
+                <div *ngIf="address_line2.errors.maxlength">Address Line 2 is maximum 100 characters.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="role_id">Country<span style="color:red;">*</span></label>
+              <input autocomplete="off" [(ngModel)]="selectedCountry" [typeahead]="countries" [typeaheadMinLength]="1"
+                [typeaheadOptionsLimit]="8" (typeaheadLoading)="typeaheadLoadingMethodForCountries($event)"
+                typeaheadOptionField="name" (typeaheadOnSelect)="onSelectCountry($event)" placeholder="Country"
+                name="country_id" id="country_id" [isAnimated]="true" class="form-control" required
+                #country_id="ngModel" [ngClass]="{ 'is-invalid': f.submitted && country_id.invalid }">
+              <div class="alert alert-primary" *ngIf="typeaheadLoadingForCountries===true">Loading</div>
+              <div class="alert alert-danger" *ngIf="noResultForCountries">No Results Found</div>
+              <div *ngIf="f.submitted && country_id.invalid" class="invalid-feedback">
+                <div *ngIf="country_id.errors.required">Country is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6" style="padding-left:3px ;">
+            <div class="form-group">
+              <label for="role_id">State<span style="color:red;">*</span></label>
+              <input autocomplete="off" [(ngModel)]="selectedState" [typeahead]="states" [typeaheadMinLength]="1"
+                [typeaheadOptionsLimit]="8" (typeaheadLoading)="typeaheadLoadingMethodForStates($event)"
+                (typeaheadOnSelect)="onSelectState($event)" placeholder="State" typeaheadOptionField="name"
+                name="state_id" id="state_id" [isAnimated]="true" class="form-control" required #state_id="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && state_id.invalid }">
+              <div class="alert alert-primary" *ngIf="typeaheadLoadingForStates===true">Loading</div>
+              <div class="alert alert-danger" *ngIf="noResultForStates">No Results Found</div>
+              <div *ngIf="f.submitted && state_id.invalid" class="invalid-feedback">
+                <div *ngIf="state_id.errors.required">State is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="role_id">City<span style="color:red;">*</span></label>
+              <input autocomplete="off" [(ngModel)]="selectedCity" [typeahead]="cities" [typeaheadMinLength]="1"
+                [typeaheadOptionsLimit]="8" (typeaheadLoading)="typeaheadLoadingMethodForCities($event)"
+                (typeaheadOnSelect)="onSelectCity($event)" placeholder="City" typeaheadOptionField="name" name="city_id"
+                id="city_id" [isAnimated]="true" class="form-control" required #city_id="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && city_id.invalid }">
+              <div class="alert alert-primary" *ngIf="typeaheadLoadingForCities===true">Loading</div>
+              <div class="alert alert-danger" *ngIf="noResultForCities">No Results Found</div>
+              <div *ngIf="f.submitted && city_id.invalid" class="invalid-feedback">
+                <div *ngIf="city_id.errors.required">City is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6" style="padding-left:3px ;">
+            <div class="form-group">
+              <label for="role_id">Pincode<span style="color:red;">*</span></label>
+              <input autocomplete="off" type="number" onKeyPress="if(this.value.length==10) return false;"
+                placeholder="Pincode" name="pincode" [(ngModel)]="enterpriseInfo.pincode" class="form-control" required
+                #pincode="ngModel" [ngClass]="{ 'is-invalid': f.submitted && pincode.invalid }">
+              <div *ngIf="f.submitted && pincode.invalid" class="invalid-feedback">
+                <div *ngIf="pincode.errors.required">Pincode is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="row ">
+          <div class="col-12">
+            <div class="form-group border-bottom border-primary">
+              <label for="" style="font-weight: bold;">Contact Info</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <label for="role_id">Title<span style="color:red;">*</span></label>
+                <select style="padding: 0px;" (change)="setContactTitle()" [(ngModel)]="enterpriseInfo.contact_title"
+                  name="contact_title" class="form-control" required #contact_title="ngModel">
+                  <option value="Mr">Mr</option>
+                  <option value="Mrs">Mrs</option>
+                  <option value="Miss">Miss</option>
+                  <option value="Ms">Ms</option>
+                  <option value="Sir">Sir</option>
+                  <option value="Dr">Dr</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-8" style="padding-left:2px ;">
+              <div class="form-group">
+                <label for="role_id">Contact Name<span style="color:red;">*</span></label>
+                <input autocomplete="off" minlength="5" maxlength="100" type="text" placeholder="Name" id="contact_name"
+                  class="form-control" [(ngModel)]="enterpriseInfo.contact_name" name="contact_name" required
+                  #contact_name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && contact_name.invalid }">
+                <div *ngIf="f.submitted && contact_name.invalid" class="invalid-feedback">
+                  <div *ngIf="contact_name.errors.required">Name is required</div>
+                  <div *ngIf="contact_name.errors.minlength">Name is minimum
+                    {{ contact_name.errors.minlength.requiredLength }} characters.</div>
+                  <div *ngIf="contact_name.errors.maxlength">Name is maximum 100 characters.</div>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-danger"
+              *ngIf="contact_title.errors && (contact_title.dirty || contact_title.touched)">
+              Title is required
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="role_id">Contact Email<span style="color:red;">*</span></label>
+                <input minlength="5" maxlength="100" autocomplete="off" type="text" placeholder="Email"
+                  id="contact_email" [(ngModel)]="enterpriseInfo.contact_email" class="form-control"
+                  name="contact_email" required #contact_email="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && contact_email.invalid }" email>
+                <div *ngIf="f.submitted && contact_email.invalid" class="invalid-feedback">
+                  <div *ngIf="contact_email.errors.required">Email is required</div>
+                  <div *ngIf="contact_email.errors.email">Email is not valid</div>
+                  <div *ngIf="contact_email.errors.minlength">Email is minimum
+                    {{ contact_email.errors.minlength.requiredLength }} characters.</div>
+                  <div *ngIf="contact_email.errors.maxlength">Email is maximum 100 characters.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="role_id">Contact Phone<span style="color:red;">*</span></label>
+                <input autocomplete="off" type="number" onKeyPress="if(this.value.length==10) return false;"
+                  placeholder="Phone Number" id="contact_phone" name="contact_phone"
+                  [(ngModel)]="enterpriseInfo.contact_phone" class="form-control" required #contact_phone="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && contact_phone.invalid }">
+                <div *ngIf="f.submitted && contact_phone.invalid" class="invalid-feedback">
+                  <div *ngIf="contact_phone.errors.required">Phone is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 ">
+        <div class="row ">
+          <div class="col-12">
+            <div class="form-group border-bottom border-primary">
+              <label for="" style="font-weight: bold;">Features Info</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" style="color:#495057;">
+          <div class="row">
+            <div class="col-4 text-left">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="email_notification" name="email_notification"
+                    [(ngModel)]="enterpriseInfo.email_notification" #email_notification="ngModel"> &nbsp;Email
+                  Notifications
+                </label>
+              </div>
+            </div>
+            <div class="col-4 text-left">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="push_notification" name="push_notification"
+                    [(ngModel)]="enterpriseInfo.push_notification"> &nbsp;Push Notifications
+                </label>
+              </div>
+            </div>
+            <div class="col-4 text-left">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="goalsmanagement_notification" name="goalsmanagement_notification"
+                    [(ngModel)]="enterpriseInfo.goalsmanagement_notification"> &nbsp;Goals Management
+                </label>
+              </div>
+            </div>
+
+          </div>
+          <div class="row" style="padding-top:5px;">
+            <div class="col-4 text-left">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="objectivesmanagement_notification" name="objectivesmanagement_notification"
+                    [(ngModel)]="enterpriseInfo.objectivesmanagement_notification"> &nbsp;Objectives Management
+                </label>
+              </div>
+            </div>
+            <div class="col-4 text-left">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="actionsmanagement_notification" name="actionsmanagement_notification"
+                    [(ngModel)]="enterpriseInfo.actionsmanagement_notification"> &nbsp;Actions Management
+                </label>
+              </div>
+            </div>
+            <div class="col-4 text-left">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="themechanges_notification" name="themechanges_notification"
+                    [(ngModel)]="enterpriseInfo.themechanges_notification"> &nbsp;Theme Changes
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr style="background-color: #007bff!important;">
+    <button *ngIf="f.form.valid" type="submit" class="btn btn-primary"
+      style="margin-left:89%;background-color: #0072BB; color:#ffffff;">
+      <i class="fa fa-save"></i> {{mainButtonText}}
+    </button>
+  </div>
+</form>

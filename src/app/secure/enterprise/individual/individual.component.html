@@ -1,0 +1,178 @@
+<div>
+  <!-- <div class="row">
+    <div class="col-3" style="padding:28px; padding-left: 3%;">
+      <div class="row">
+        <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+        <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+          INDIVIDUALS
+        </span>
+      </div>
+    </div>
+    <div class="col-9" style="padding-top:15px;">
+      <table style="width:100%;">
+        <tr>
+          <td style="align-content: right; text-align: right; float: right;">
+            <table>
+              <tr>
+                <td>
+                  <div class="form-group has-search" style="padding-right:10px;">
+                    <select (change)="refreshSearch()" [(ngModel)]="filterBy" class="form-control">
+                      <option value="">Search By - All</option>
+                      <option value="firstname">Search By - First Name</option>
+                      <option value="lastname">Search By - Last Name</option>
+                      <option value="email">Search By - Email</option>
+                      <option value="role_name">Search By - Role</option>
+                      <option value="designation">Search By - Designation</option>
+                      <option value="phone_number">Search By - Phone Number</option>
+
+                    </select>
+                  </div>
+                </td>
+                <td style="line-height: 3">
+                  <div class="form-group has-search">
+                    <span (click)="getSearchDetailsFromServer()" class="fa fa-search form-control-feedback fa-xs"
+                      style="font-size: small; cursor: pointer; line-height: 2.5;"></span>
+                    <input type="text" (keyup)="refreshSearch()" class="form-control" [(ngModel)]="searchText"
+                      #txtSearch placeholder="Search ">
+                  </div>
+                </td>
+                <td style="line-height: 3; ">
+                  &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="createUser()" class="btn btn-primary pull-right"
+                    style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                    <i class="fa fa-plus "></i>
+                    &nbsp;Create</button>
+                </td>
+                <td style="line-height: 3; padding-right: 10px;">
+                  &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="refreshPageData()" class="btn btn-primary pull-right"
+                    style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                    <i class="fa fa-refresh "></i>
+                    &nbsp;Refresh</button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <hr> -->
+  <div class="row">
+    <div class="col-12" style="padding: 20px;">
+      <button (click)="createUser()" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+        <i class="fa fa-plus "></i>&nbsp;Create
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Body Continues from here -->
+<!-- <div *ngIf="allIndividuals.length == 0" style="width:100%; padding-left:1%">
+  <div class="alert alert alert-danger fade show"
+    style="background-color: #1089CE; border:solid 1px #1089CE; color:#ffffff;">
+    <strong>Info!</strong> No Individuals yet. Create to explore more.
+    <button type="button" class="close" data-dismiss="alert"></button>
+  </div>
+</div> -->
+
+<div class="row" style="padding-left:10px; padding-right: 10px;">
+  <table id="individualstable " class="table table-striped table-bordered " style="width:100%; overflow-x: auto; font-size: small; text-align: center; ">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Photo</th>
+        <!-- <th style="cursor: pointer;" (click)="sortBykey('user_name');">Username
+
+          <i class="fa" [ngClass]="{'fa-sort': column != 'user_name',
+                      'fa-sort-asc': (column == 'user_name' && !isDesc),
+                      'fa-sort-desc': (column == 'user_name' && isDesc) }" aria-hidden="true"> </i>
+        </th> -->
+        <th style="cursor: pointer;" (click)="sortBykey('firstname')">First Name
+          <i class="fa" [ngClass]="{'fa-sort': column != 'firstname',
+                      'fa-sort-asc': (column == 'firstname' && !isDesc),
+                      'fa-sort-desc': (column == 'firstname' && isDesc) }" aria-hidden="true"> </i>
+
+        </th>
+        <th style="cursor: pointer;" (click)="sortBykey('lastname')">Last Name
+          <i class="fa" [ngClass]="{'fa-sort': column != 'lastname',
+                    'fa-sort-asc': (column == 'lastname' && !isDesc),
+                    'fa-sort-desc': (column == 'lastname' && isDesc) }" aria-hidden="true"> </i>
+
+        </th>
+        <th style="cursor: pointer;" (click)="sortBykey('email')">Email
+          <i class="fa" [ngClass]="{'fa-sort': column != 'email',
+                  'fa-sort-asc': (column == 'email' && !isDesc),
+                  'fa-sort-desc': (column == 'email' && isDesc) }" aria-hidden="true"> </i>
+
+        </th>
+        <th style="cursor: pointer;" (click)="sortBykey('role_name')">Role
+          <i class="fa" [ngClass]="{'fa-sort': column != 'role_name',
+                'fa-sort-asc': (column == 'role_name' && !isDesc),
+                'fa-sort-desc': (column == 'role_name' && isDesc) }" aria-hidden="true"> </i>
+
+        </th>
+
+        <th style="cursor: pointer;" (click)="sortBykey('designation')">Designation
+          <i class="fa" [ngClass]="{'fa-sort': column != 'designation',
+              'fa-sort-asc': (column == 'designation' && !isDesc),
+              'fa-sort-desc': (column == 'designation' && isDesc) }" aria-hidden="true"> </i>
+
+        </th>
+        <!-- <th style="cursor: pointer;" (click)="sortBykey('employee_id')">Employee ID
+          <i class="fa" [ngClass]="{'fa-sort': column != 'employee_id',
+            'fa-sort-asc': (column == 'employee_id' && !isDesc),
+            'fa-sort-desc': (column == 'employee_id' && isDesc) }" aria-hidden="true"> </i>
+
+        </th> -->
+
+        <th style="cursor: pointer;" (click)="sortBykey('phone_number')">Phone Number
+          <i class="fa" [ngClass]="{'fa-sort': column != 'phone_number',
+          'fa-sort-asc': (column == 'phone_number' && !isDesc),
+          'fa-sort-desc': (column == 'phone_number' && isDesc) }" aria-hidden="true"> </i>
+
+        </th>
+
+        <th>Edit</th>
+        <th>Delete</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr
+        *ngFor="let user of allIndividuals  | searchpipe: searchBy  | sortpipe : {property: column, direction: direction} ; let rowNumber = index">
+        <td>{{pageSize * (currentPage - 1) + rowNumber + 1}}</td>
+        <td style="text-align: center; vertical-align: middle;">
+          <img *ngIf="user.profile_photo == 'null' || user.profile_photo == '' || user.profile_photo == null" src="assets/img/account.svg" style="padding: 3px; border-radius: 50% !important; border: 1px solid white; background: linear-gradient(147deg, #c354a3 18%, #4466a4 92%);">
+          <img *ngIf="user.profile_photo != 'null' && user.profile_photo != '' && user.profile_photo != null" src="{{user.profile_photo}}" style="padding: 3px; border-radius: 50% !important; border: 1px solid white; background: linear-gradient(147deg, #c354a3 18%, #4466a4 92%);" />
+        </td>
+        <td style="text-align: center; vertical-align: middle;">{{user.firstname ? user.firstname : '-'}}</td>
+        <td style="text-align: center; vertical-align: middle;">{{user.lastname ? user.lastname : '-'}}</td>
+        <td style="text-align: center; vertical-align: middle;">{{user.email ? user.email : '-'}}</td>
+        <td style="text-align: center; vertical-align: middle;">{{user.role_name ? user.role_name : '-'}}</td>
+        <td style="text-align: center; vertical-align: middle;">{{user.designation ? user.designation : '-'}}</td>
+        <!-- <td style="text-align: center; vertical-align: middle;">{{user.employee_id ? user.employee_id : '-'}}</td> -->
+        <td style="text-align: center; vertical-align: middle;">{{user.phone_number ? user.phone_number : '-'}}</td>
+
+        <td style="text-align: center; vertical-align: middle;">
+          <fa style="cursor: pointer;" name="edit" (click)="editStore(user)"></fa>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <fa style="cursor: pointer;" name="trash" (click)="openDeleteConfirmDialog(user)"></fa>
+        </td>
+      </tr>
+      <tr style="color:#0B59B0; font-weight: bold;">
+        <td colspan="11" *ngIf="allIndividuals.length == 0"> No Data Available</td>
+        <td colspan="11" *ngIf="(allIndividuals | searchpipe: searchBy ).length == 0 && allIndividuals.length > 0"> No Matches
+          Found</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width:100%;">
+    <tr>
+        <td algin="right" style="width:100%; align-content: right; text-align: right; ">
+            <pagination style="float:right;color:#0B59B0; " [totalItems]="totalItems" [itemsPerPage]="pageSize" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event) "></pagination>
+        </td>
+    </tr>
+</table>
+</div>

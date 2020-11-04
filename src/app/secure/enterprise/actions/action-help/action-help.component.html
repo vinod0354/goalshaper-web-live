@@ -1,0 +1,74 @@
+<div class="modal-header modal-lg" style="border-bottom: none;">
+    <button style="color:#ffffff;" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" style="color:#f78f11;">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body modal-lg" style="padding-top: 10px;" *ngIf="(modalType == 'find')">
+    <div class="row">
+        <div class="col-12">
+            <span style="font-size: 24px; color: #363648;">Find help</span>
+        </div>
+        <div class="col-12 mt-3">
+            <div>
+                <span style="font-size: 16px; color: #363648;">Find all of your actions from emails, post-its etc and put them here.</span>
+            </div>
+            <div>
+                <span style="font-size: 16px; color: #363648;">Good actions are small and achievable.</span>
+            </div>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <button class="btn-outline-save">OK</button>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <span style="font-size: 24px; color: #363648;">Need More Help?</span>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <span style="font-size: 16px; color: #ed7702;">Visit the online FAQs</span>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body modal-lg" style="padding-top: 10px;" *ngIf="(modalType == 'sort')">
+    <div class="row">
+        <div class="col-12">
+            <span style="font-size: 24px; color: #363648;">Sort help</span>
+        </div>
+        <div class="col-12 mt-3">
+            <div>
+                <span style="font-size: 16px; color: #363648;">Sort actions by category, priority and date. Simply drag and drop into the correct bucket.</span>
+            </div>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <button class="btn-outline-save">OK</button>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <span style="font-size: 24px; color: #363648;">Need More Help?</span>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <span style="font-size: 16px; color: #ed7702;">Visit the online FAQs</span>
+        </div>
+    </div>
+</div>
+
+<div class="modal-body modal-lg" style="padding-top: 10px;" *ngIf="(modalType == 'do')">
+    <div class="row">
+        <div class="col-12">
+            <span style="font-size: 24px; color: #363648;">Do help</span>
+        </div>
+        <div class="col-12 mt-3">
+            <div>
+                <span style="font-size: 16px; color: #363648;">Show actions in each category on the selected date and can be ordered by priority. Overdue actions are highlighted at the top.</span>
+            </div>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <button class="btn-outline-save">OK</button>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <span style="font-size: 24px; color: #363648;">Need More Help?</span>
+        </div>
+        <div class="col-12 mt-3 text-center">
+            <span style="font-size: 16px; color: #ed7702;">Visit the online FAQs</span>
+        </div>
+    </div>
+</div>

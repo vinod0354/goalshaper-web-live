@@ -1,0 +1,105 @@
+<div>
+  <div class="row">
+    <div class="col-3" style="padding:28px; padding-left: 3%;">
+      <div class="row">
+        <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+        <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+          TEAM INFO
+        </span>
+      </div>
+    </div>
+    <div class="col-9" style="padding-top:15px;">
+      <table style="width:100%;">
+        <tr>
+          <td style="align-content: right; text-align: right; float: right;">
+            <table>
+              <tr>
+                <td>
+                  <div class="form-group has-search" style="padding-right:10px;">
+                    <select (change)="refreshSearch()" [(ngModel)]="filterBy" class="form-control">
+                      <option value="">Search By - All</option>
+                      <option value="name">Search By -Team Name</option>
+                      <option value="email">Search By - Email</option>
+                    </select>
+                  </div>
+                </td>
+                <td style="line-height: 3">
+                  <div class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback fa-xs"
+                      style="font-size: small; line-height: 2.5;"></span>
+                    <input type="text" (keyup)="refreshSearch()" class="form-control" [(ngModel)]="searchText"
+                      #txtSearch placeholder="Search ">
+                  </div>
+                </td>
+                <!-- <td style="line-height: 3; ">
+                            &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="createTeam()" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                              <i class="fa fa-plus "></i>
+                              &nbsp;Create</button>
+                          </td> -->
+
+                <td style="line-height: 3; padding-right: 10px;">
+                  &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="refreshPageData()" class="btn btn-primary pull-right"
+                    style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                    <i class="fa fa-refresh "></i>
+                    &nbsp;Refresh</button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <hr>
+</div>
+<table id="individualstable " class="table table-striped table-bordered "
+  style="width:100%; overflow-x: auto; font-size: small; text-align: center; ">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th style="cursor: pointer;">Team Name
+      </th>
+      <th>Team manager
+      </th>
+      <th style="cursor: pointer;">Email
+      </th>
+      <th>Description
+      </th>
+      <th>Team Members
+      </th>
+      <!-- <th>Edit</th> -->
+      <!-- <th>Delete</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of TogetTeam| searchpipe: searchBy ;let i = index ">
+      <td style="text-align: center; vertical-align: middle;">{{i+1}}</td>
+      <td style="text-align: center; vertical-align: middle;">{{user.name ? user.name : '-'}}</td>
+      <td style="text-align: center; vertical-align: middle;">{{user.teamManager.firstname }}
+        {{user.teamManager.lastname}}</td>
+      <td style="text-align: center; vertical-align: middle;">{{user.email ? user.email : '-'}}</td>
+      <td style="text-align: center; vertical-align: middle;">{{user.description ? user.description : '-'}}</td>
+      <td style="text-align: center; vertical-align: middle;">
+        <div *ngFor="let member of user.teamMembers">
+          <span style="line-height: 2;">[{{member.employee_id}}]</span> {{member.firstname}}&nbsp; {{member.lastname}}
+        </div>
+        <div *ngIf="user.teamMembers.length == 0">
+          -
+        </div>
+      </td>
+      <!-- <td style="text-align: center; vertical-align: middle;"> -->
+        <!-- <fa style="cursor: pointer;" name="edit" ></fa> -->
+        <!-- (click)="editTeam(user)" -->
+      <!-- </td> -->
+      <!-- <td style="text-align: center; vertical-align: middle;">
+          <fa style="cursor: pointer;" name="trash" (click)="openDeleteConfirmDialog(user)"></fa>
+        </td> -->
+    </tr>
+    <tr style="color:#0B59B0; font-weight: bold;">
+      <td colspan="10" *ngIf="TogetTeam.length == 0"> No Data Available</td>
+      <td colspan="10" *ngIf="(TogetTeam | searchpipe: searchBy ).length == 0 && TogetTeam.length > 0"> No
+        Matches Found
+      </td>
+    </tr>
+  </tbody>
+</table>

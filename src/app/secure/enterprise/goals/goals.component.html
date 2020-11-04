@@ -1,0 +1,395 @@
+<div>
+  <!-- <div class="row">
+      <div class="col-2" style="padding:28px; padding-left: 3%;">
+          <div class="row">
+              <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+              <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+        GOALS &nbsp;&nbsp;
+      </span>
+
+              <span *ngIf="displayStyle == 'grid'" style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;" (click)="setStyle('list')">
+          <a class="btnr as"><i class="fa fa-bars" ></i> &nbsp;&nbsp;
+          </a>
+        </span>
+
+              <span *ngIf="displayStyle == 'list'" style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;" (click)="setStyle('list')">
+          <a class="btnr as"><i class="fa fa-bars" style="color:#1089CE;" ></i> &nbsp;&nbsp;
+          </a>
+        </span>
+              <span *ngIf="displayStyle == 'list'" style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;" (click)="setStyle('grid')">
+          <a class="btnr as"><i class="fa fa-th-large" ></i>
+          </a>
+        </span>
+              <span *ngIf="displayStyle == 'grid'" style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;" (click)="setStyle('grid')">
+          <a class="btnr as"><i class="fa fa-th-large" style="color:#1089CE;"></i>
+          </a>
+        </span>
+
+          </div>
+      </div>
+      <div class="col-10" style="padding-top:15px;">
+          <table style="width:100%;">
+              <tr>
+                  <td style="align-content: right; text-align: right; float: right;">
+                      <table>
+                          <tr>
+
+                                <td *ngIf="displayStyle == 'grid'">
+                                    <div class="form-group has-sort" style="padding-right:10px;">
+                                        <select  (change)="gridSort()" [(ngModel)]="filterBySort" class="form-control">
+                                            <option  value="goal_title,asc">Sort By - Goal Title ⬆</option>
+                                            <option  value="goal_title,desc">Sort By - Goal Title ⬇</option>
+                                            <option  value="target_date,asc">Sort By - Target Date ⬆</option>
+                                            <option  value="target_date,desc">Sort By - Target Date ⬇</option>
+                                            <option value="completed_date,asc">Sort By - Completed Date ⬆</option>
+                                            <option value="completed_date,desc">Sort By - Completed Date ⬇</option>
+                                        </select>
+                                    </div>
+                                </td>
+
+                              <td>
+                                  <div class="form-group " style="padding-right:10px;">
+                                      <select (change)="refreshSearch()" [(ngModel)]="filterBy" class="form-control">
+                                          <option value="goal_title">Search By - Goal Title</option>
+                                          <option value="goal_level_id">Search By - Goal Level</option>
+                                          <option value="target_date">Search By - Target Date</option>
+                                          <option value="completed_date">Search By - Completed Date</option>
+                                      </select>
+                                  </div>
+                              </td>
+
+                              <td>
+                                <div *ngIf="filterBy == 'goal_level_id'" class="form-group" style="padding-right:10px;">
+                                    <select (change)="selectGoalLevel()" [(ngModel)]="goal_level_selection" class="form-control">
+                                        <option value=''>Select Level</option>
+                                        <option *ngFor="let level of goalLevels" value="{{level.level_id}}">{{level.level_name}}</option>
+
+                                    </select>
+                                </div>
+                            </td>
+
+                              <td *ngIf="(filterBy == 'target_date') || (filterBy == 'completed_date')" style="line-height: 3">
+
+                                <div class="input-group">
+                                    <input (keyup)="triggerForEmpty()"  placeholder="Select Date"  [(ngModel)]="searchText"
+                                      type="text" placement="bottom-left"
+                                  (ngModelChange)="changeDate($event)"
+                                      bsDaterangepicker
+                                      triggers="keydown click"
+                                      class="form-control"
+                                  [bsConfig]="{showWeekNumbers:false,rangeInputFormat : 'DD-MM-YYYY', dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue'}">
+                                    <div class="input-group-append" style="margin-bottom: 16px;">
+                                      <button class="btn" style="background-color: #1089CE;" type="button" (click)="getSearchDetailsFromServer()" >
+                                        <i class="fa fa-search" style="color: white;"></i>
+                                      </button>
+                                    </div>
+                                  </div>
+
+                              </td>
+
+                              <td *ngIf="filterBy =='goal_title'" style="line-height: 3">
+                                <div class="input-group">
+                                    <input (keyup)="triggerForEmpty()" type="text" class="form-control" [(ngModel)]="searchText" #txtSearch placeholder="Search " style="padding:6px 12px 6px 12px; margin-bottom: 16px;">
+                                    <div class="input-group-append" style="margin-bottom: 16px;">
+                                      <button class="btn" style="background-color: #1089CE;" type="button" (click)="getSearchDetailsFromServer()" >
+                                        <i class="fa fa-search" style="color: white;"></i>
+                                      </button>
+                                    </div>
+                                  </div>
+                              </td>
+                              <td style="line-height: 3; ">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <button (click)="openGoalsModal('create','')" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                                      <i class="fa fa-plus "></i> &nbsp;Create
+                                  </button>
+                              </td>
+                              <td style="line-height: 3;">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <button (click)="refreshPageData()" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                                      <i class="fa fa-refresh "></i> &nbsp;Refresh
+                                  </button>
+                              </td>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+          </table>
+      </div>
+  </div>
+  <hr> -->
+  <div class="row">
+      <div class="col-12" style="padding: 20px;">
+        <button (click)="openGoalsModal('create','')" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+            <i class="fa fa-plus "></i> &nbsp;Create
+        </button>
+      </div>
+  </div>
+</div>
+
+<!-- Body starts from here  GRID -->
+<div *ngIf="displayStyle == 'grid'" style="width:100%; padding-left:1%">
+    <div class="row">
+        <div *ngIf="allGoals.length == 0" style="width:100%; padding-left:1%">
+            <div  class="alert alert alert-danger fade show" style="background-color: #1089CE; border:solid 1px #1089CE; color:#ffffff;">
+              <strong>Info!</strong> Goals Not Yet Created.
+              <button type="button" class="close" data-dismiss="alert"></button>
+            </div>
+          </div>
+    </div>
+
+  <div class="row" *ngIf = "enterpiseGoals.length > 0">
+    <div style="padding-bottom: 10px;"><strong> Enterprise Goals</strong> <br></div>
+      <div class="col-12">
+          <div class="row">
+            <!-- <div *ngIf="allGoals.length == 0"> No Data Available</div> -->
+
+            <!-- <div *ngIf="allGoals.length == 0" style="width:100%; padding-left:1%">
+                <div  class="alert alert alert-danger fade show" style="background-color: #1089CE; border:solid 1px #1089CE; color:#ffffff;">
+                  <strong>Info!</strong> Goals Not Yet Created.
+                  <button type="button" class="close" data-dismiss="alert"></button>
+                </div>
+              </div> -->
+
+            <!-- <div style="text-align: center;"
+              *ngIf="allGoals.length == 0"> <b>No Matches
+                Found</b>
+              </div> -->
+              <div class="col-12 col-sm-6 col-md-3 grid-margin stretch-card" *ngFor="let goal of enterpiseGoals ; let rowNumber = index">
+                  <div class="card" style="border-radius: 15px;">
+                      <div class="card-header" (click)="openGoalsModal('update',goal)">
+
+                          <div class="row">
+                              <div class="col-12">
+                                  <h3 class="card-title">{{goal.goal_title ? goal.goal_title : '-'}}</h3>
+                              </div>
+                              <div class="col-12 text-right">
+                                  <i class="fa fa-calendar fa-xs"></i> <span style="color:#6c757d; padding-left: 5px; font-size: small;">{{goal.target_date ? (goal.target_date | date: 'dd-MM-yyyy') : '-'}}</span>
+                              </div>
+                          </div>
+
+                      </div>
+                      <div class="card-body" (click)="openGoalsModal('update',goal)">
+
+                          <p style="font-size: small;">{{goal.description ? goal.description : '-'}}</p>
+                          <br>
+
+                      </div>
+
+                      <div class="card-footer">
+
+                          <div class="row" style="color: #6c757d!important;">
+                              <div class="col-md-6" style="font-size: small;">
+                                  Milestones <span class="badge bg-secondary" style="color: white; font-size: small;">{{goal.milestone_count ? goal.milestone_count : '0'}}</span>
+                              </div>
+                              <div class="col-md-6">
+                                  <fa class="GoalEdit" name="edit" data-toggle="tooltip" data-placement="top" title="Edit" (click)="openGoalsModal('update',goal)">
+                                  </fa>
+                                  <fa *ngIf="user_id == goal.created_user_id" class="GoalDelete" name="trash" data-toggle="tooltip" data-placement="top" title="Delete" (click)="openDeleteConfirmDialog(goal)"></fa>
+                                  <fa *ngIf="user_id != goal.created_user_id" class="GoalDelete" name="trash" data-toggle="tooltip" data-placement="top" title="Delete" (click)="openDeleteAccessConfirm()"></fa>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row" *ngIf = "teamGoals.length > 0">
+    <div style="padding-bottom: 10px;"><strong> Team Goals</strong> <br></div>
+      <div class="col-12">
+          <div class="row">
+            <!-- <div *ngIf="allGoals.length == 0"> No Data Available</div> -->
+
+            <!-- <div *ngIf="allGoals.length == 0" style="width:100%; padding-left:1%">
+                <div  class="alert alert alert-danger fade show" style="background-color: #1089CE; border:solid 1px #1089CE; color:#ffffff;">
+                  <strong>Info!</strong> Goals Not Yet Created.
+                  <button type="button" class="close" data-dismiss="alert"></button>
+                </div>
+              </div> -->
+
+            <!-- <div style="text-align: center;"
+              *ngIf="allGoals.length == 0"> <b>No Matches
+                Found</b>
+              </div> -->
+              <div class="col-12 col-sm-6 col-md-3 grid-margin stretch-card" *ngFor="let goal of teamGoals ; let rowNumber = index">
+                  <div class="card" style="border-radius: 15px;">
+                      <div class="card-header" (click)="openGoalsModal('update',goal)">
+
+                          <div class="row">
+                              <div class="col-12">
+                                  <h3 class="card-title">{{goal.goal_title ? goal.goal_title : '-'}}</h3>
+                              </div>
+                              <div class="col-12 text-right">
+                                  <i class="fa fa-calendar fa-xs"></i> <span style="color:#6c757d; padding-left: 5px; font-size: small;">{{goal.target_date ? (goal.target_date | date: 'dd-MM-yyyy') : '-'}}</span>
+                              </div>
+                          </div>
+
+                      </div>
+                      <div class="card-body" (click)="openGoalsModal('update',goal)">
+
+                          <p style="font-size: small;">{{goal.description ? goal.description : '-'}}</p>
+                          <br>
+
+                      </div>
+
+                      <div class="card-footer">
+
+                          <div class="row" style="color: #6c757d!important;">
+                              <div class="col-md-6" style="font-size: small;">
+                                  Milestones <span class="badge bg-secondary" style="color: white; font-size: small;">{{goal.milestone_count ? goal.milestone_count : '0'}}</span>
+                              </div>
+                              <div class="col-md-6">
+                                  <fa class="GoalEdit" name="edit" data-toggle="tooltip" data-placement="top" title="Edit" (click)="openGoalsModal('update',goal)">
+                                  </fa>
+                                  <fa *ngIf="user_id == goal.created_user_id" class="GoalDelete" name="trash" data-toggle="tooltip" data-placement="top" title="Delete" (click)="openDeleteConfirmDialog(goal)"></fa>
+                                  <fa *ngIf="user_id != goal.created_user_id" class="GoalDelete" name="trash" data-toggle="tooltip" data-placement="top" title="Delete" (click)="openDeleteAccessConfirm()"></fa>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row" *ngIf="individualGoals.length > 0">
+    <div style="padding-bottom: 10px;"><strong> Individual Goals</strong> <br></div>
+      <div class="col-12">
+          <div class="row">
+            <!-- <div *ngIf="allGoals.length == 0"> No Data Available</div> -->
+
+            <!-- <div *ngIf="allGoals.length == 0" style="width:100%; padding-left:1%">
+                <div  class="alert alert alert-danger fade show" style="background-color: #1089CE; border:solid 1px #1089CE; color:#ffffff;">
+                  <strong>Info!</strong> Goals Not Yet Created.
+                  <button type="button" class="close" data-dismiss="alert"></button>
+                </div>
+              </div> -->
+
+            <!-- <div style="text-align: center;"
+              *ngIf="allGoals.length == 0"> <b>No Matches
+                Found</b>
+              </div> -->
+              <div class="col-12 col-sm-6 col-md-3 grid-margin stretch-card" *ngFor="let goal of individualGoals ; let rowNumber = index">
+                  <div class="card" style="border-radius: 15px;">
+                      <div class="card-header" (click)="openGoalsModal('update',goal)">
+
+                          <div class="row">
+                              <div class="col-12">
+                                  <h3 class="card-title">{{goal.goal_title ? goal.goal_title : '-'}}</h3>
+                              </div>
+                              <div class="col-12 text-right">
+                                  <i class="fa fa-calendar fa-xs"></i> <span style="color:#6c757d; padding-left: 5px; font-size: small;">{{goal.target_date ? (goal.target_date | date: 'dd-MM-yyyy') : '-'}}</span>
+                              </div>
+                          </div>
+
+                      </div>
+                      <div class="card-body" (click)="openGoalsModal('update',goal)">
+
+                          <p style="font-size: small;">{{goal.description ? goal.description : '-'}}</p>
+                          <br>
+
+                      </div>
+
+                      <div class="card-footer">
+
+                          <div class="row" style="color: #6c757d!important;">
+                              <div class="col-md-6" style="font-size: small;">
+                                  Milestones <span class="badge bg-secondary" style="color: white; font-size: small;">{{goal.milestone_count ? goal.milestone_count : '0'}}</span>
+                              </div>
+                              <div class="col-md-6">
+                                  <fa class="GoalEdit" name="edit" data-toggle="tooltip" data-placement="top" title="Edit" (click)="openGoalsModal('update',goal)">
+                                  </fa>
+                                  <fa *ngIf="user_id == goal.created_user_id" class="GoalDelete" name="trash" data-toggle="tooltip" data-placement="top" title="Delete" (click)="openDeleteConfirmDialog(goal)"></fa>
+                                  <fa *ngIf="user_id != goal.created_user_id" class="GoalDelete" name="trash" data-toggle="tooltip" data-placement="top" title="Delete" (click)="openDeleteAccessConfirm()"></fa>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <table style="width:100%; ">
+    <tr>
+        <td algin="right" style="width:100%; align-content: right; text-align: right; ">
+            <pagination style="float:right;color:#0B59B0; " [totalItems]="totalItems" [itemsPerPage]="pageSize" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event) "></pagination>
+        </td>
+    </tr>
+</table>
+</div>
+
+<!-- Body starts from here  LIST VIEW-->
+<div *ngIf="displayStyle == 'list'" style="width:100%; padding-left:1%">
+  <div class="row" style="padding-left:10px; padding-right: 10px;">
+      <table id="goalsactivity" class="table table-striped table-bordered " style="width:100%; overflow-x: auto; font-size: small; text-align: center; ">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th style="cursor: pointer;" (click)="sortBykey('goal_title');">Goal Title
+
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'goal_title',
+                    'fa-sort-asc': (column == 'goal_title' && !isDesc),
+                    'fa-sort-desc': (column == 'goal_title' && isDesc) }" aria-hidden="true"> </i>
+                  </th>
+                  <th style="cursor: pointer;" (click)="sortBykey('target_date')">Target Date
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'target_date',
+                    'fa-sort-asc': (column == 'target_date' && !isDesc),
+                    'fa-sort-desc': (column == 'target_date' && isDesc) }" aria-hidden="true"> </i>
+
+                  </th>
+                  <th style="cursor: pointer;" >Description
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'description',
+                  'fa-sort-asc': (column == 'description' && !isDesc),
+                  'fa-sort-desc': (column == 'description' && isDesc) }" aria-hidden="true"> </i>
+
+                  </th>
+                  <th style="cursor: pointer;" >Milestones
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'milestone_count',
+                  'fa-sort-asc': (column == 'milestone_count' && !isDesc),
+                  'fa-sort-desc': (column == 'milestone_count' && isDesc) }" aria-hidden="true"> </i>
+
+                  </th>
+
+                  <th>Edit</th>
+                  <th>Delete</th>
+
+              </tr>
+          </thead>
+          <tbody>
+
+              <tr *ngFor="let goal of allGoals  | sortpipe : {property: column, direction: direction}; let rowNumber = index">
+                  <td>{{pageSize * (currentPage - 1) + rowNumber + 1}}</td>
+
+                  <td (click)="openGoalsModal('update',goal)" style="cursor: pointer;text-align: center; vertical-align: middle;">{{goal.goal_title ? goal.goal_title : '-'}}</td>
+                  <td (click)="openGoalsModal('update',goal)" style="cursor: pointer;text-align: center; vertical-align: middle;">{{goal.target_date ? (goal.target_date | date: 'dd-MM-yyyy') : '-'}}</td>
+                  <td (click)="openGoalsModal('update',goal)" style="cursor: pointer;text-align: center; vertical-align: middle;">{{goal.description ? goal.description : '-'}}</td>
+                  <td (click)="openGoalsModal('update',goal)" style="cursor: pointer;text-align: center; vertical-align: middle;">{{goal.milestone_count ? goal.milestone_count : '0'}}</td>
+                  <td style="text-align: center; vertical-align: middle;">
+                      <fa style="cursor: pointer;" name="edit" (click)="openGoalsModal('update',goal)"></fa>
+                  </td>
+                  <td style="text-align: center; vertical-align: middle;">
+                      <fa style="cursor: pointer;" name="trash" (click)="openDeleteConfirmDialog(goal)"></fa>
+                  </td>
+              </tr>
+              <tr style="color:#0B59B0; font-weight: bold;">
+                  <td colspan="11" *ngIf="allGoals.length == 0"> No Data Available</td>
+                  <!-- <td colspan="11" *ngIf="(allGoals | searchpipe: searchBy ).length == 0 && allGoals.length > 0"> No Matches Found
+                  </td> -->
+              </tr>
+          </tbody>
+      </table>
+
+      <table style="width:100%; ">
+          <tr>
+              <td algin="right" style="width:100%; align-content: right; text-align: right; ">
+                  <pagination style="float:right;color:#0B59B0; " [totalItems]="totalItems" [itemsPerPage]="pageSize" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event) "></pagination>
+              </td>
+          </tr>
+      </table>
+  </div>
+
+</div>

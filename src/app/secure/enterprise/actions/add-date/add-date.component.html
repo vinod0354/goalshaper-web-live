@@ -1,0 +1,26 @@
+<div class="modal-header modal-lg" style="border-bottom: none;">
+    <div style="width:100%; text-align: center; color: #363648; font-size: 26px;">{{ modalData.action }}</div>
+    <button style="color:#ffffff;" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" style="color:#f78f11;">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body modal-lg" style="padding-top: 10px;">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <span style="color: #363648; font-size: 26px;">Choose a due date</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <mbsc-form-group style="background-color: white !important;">
+                <mbsc-calendar  style="background-color: white !important;cursor: pointer;" [min]="min_date" (onSet)="getDetailsofClick($event)" [(ngModel)]="markedDay" display="inline" [marked]="markedDays"></mbsc-calendar>
+            </mbsc-form-group>
+        </div>
+    </div>
+    <div class="row">
+        <div style="width: 100%; text-align: center;" (click)="updateScheduledDate()">
+            <button type="button" class="btn btn-outline-save"><span style="font-size: 20px;">Ok</span></button>
+        </div>
+    </div>
+</div>

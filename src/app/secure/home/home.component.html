@@ -1,0 +1,132 @@
+
+
+
+<div>
+<div class="row">
+
+
+
+  <div class="col-3" style="padding:28px; padding-left: 3%;">
+    <div class="row">
+      <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+      <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+        ENTERPRISES ({{allEnterprises.length}})
+      </span>
+    </div>
+  </div>
+
+
+    <div class="col-9" style="padding-top:15px;">
+        <table style="width:100%;">
+            <tr>
+
+                <td style="align-content: right; text-align: right; float: right;">
+
+                  <table>
+                    <tr>
+
+                      <!-- <td >
+                        <div class="form-group has-search" style="padding-right:10px;">
+                        <select (change)="refreshSearch()" [(ngModel)]="filterBy" class="form-control">
+                          <option value="">Search By - All</option>
+                          <option value="name">Search By - Enterprise Name</option>
+                          <option value="country">Search By - Country</option>
+                        </select>
+                        </div>
+                      </td> -->
+                        <!-- <td style="line-height: 3">
+                            <div class="form-group has-search" >
+                                <span class="fa fa-search form-control-feedback fa-xs" style="font-size: small; line-height: 2.5;"></span>
+                                <input type="text" (keyup)="refreshSearch()" class="form-control" [(ngModel)]="searchText" #txtSearch placeholder="Search ">
+                            </div>
+                        </td> -->
+                        <td style="line-height: 3; ">
+                          &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="openEnterpriseDetailsModel()" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                            <i class="fa fa-plus "></i>
+                            &nbsp;Create</button>
+                        </td>
+
+                        <!-- <td style="line-height: 3; padding-right: 10px;">
+                          &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="refreshPageData()" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                            <i class="fa fa-refresh "></i>
+                            &nbsp;Refresh</button>
+                        </td> -->
+
+                    </tr>
+                </table>
+
+
+
+                </td>
+            </tr>
+        </table>
+
+
+
+    </div>
+
+
+
+</div>
+<hr>
+
+
+
+</div>
+
+
+<!-- OLD Code -->
+
+<div class="row">
+
+
+
+
+  <div *ngFor="let enterprise of allEnterprises  | searchpipe: searchBy" class="col-xl-2 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+    <div class="card text-center cardHeaderSettings cardBodySettings">
+      <div class="card-header cardHeaderSettings" style="align-content: center; text-align: center; padding:10px;">
+
+        <div class="enterpriseLogo" style="margin:0 auto;">
+          <img id="imgEnterpriseLogo" src="{{enterprise.logo}}"/>
+      </div>
+
+
+      </div>
+      <div class="card-body cardBodySettings cardBodyBackColor">
+        <div class="truncate"
+          style="width:100%;vertical-align: middle; font-weight: bold; color: #ffffff; background-color: #1089CE; padding:10px;  text-align: center;">
+          {{enterprise.name}}
+        </div>
+        <div style="width:100%; line-height: 2.0; color: #ffffff; padding:5px; height: 100px; text-align: center;">
+          {{enterprise.website}} <br />
+          {{enterprise.email}}<br />
+          {{enterprise.country_name}}<br />
+
+        </div>
+        <div (click)="sendEnterpriseInfoForEdit(enterprise)" class="cardBodySettings" style="width:100%" style="background-color: #1089CE; cursor: pointer;  opacity: 0.8;">
+          <a class="small-box-footer" style="color:#ffffff;line-height: 2.2;">View More&nbsp;
+            <i class="fa fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div *ngIf="allEnterprises.length == 0" style="width:100%; padding-left:1%">
+    <div  class="alert alert alert-danger fade show" style="background-color: #1089CE; border:solid 1px #1089CE; color:#ffffff;">
+      <strong>Info!</strong> No enterprises yet. Create to explore more.
+      <button type="button" class="close" data-dismiss="alert"></button>
+    </div>
+  </div>
+  <div *ngIf="(allEnterprises | searchpipe: searchBy ).length == 0 && allEnterprises.length > 0" style="width:100%; padding-left:1%">
+    <div class="alert alert-warning fade show" style="background-color: #1089CE; border:solid 1px #1089CE;  color:#ffffff;">
+      <strong>No Matches Found</strong>
+      <button type="button" class="close" data-dismiss="alert"></button>
+    </div>
+  </div>
+
+</div>

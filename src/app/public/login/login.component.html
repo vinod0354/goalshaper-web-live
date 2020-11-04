@@ -1,0 +1,131 @@
+<!-- <div class="row" style="border-radius:15px; margin-top:5%; ">
+
+
+    <div class="col-sm-7 col-md-6 col-lg-4 mx-auto" style="border-radius:15px; ">
+
+        <div class="card card-signin my-5" style=" background-color: #26323F; opacity: 0.7;">
+            <div class="card-body" style="padding:40px;">
+                <div style="width:100%; text-align:center; align-content: center;">
+                    <img src="assets/img/GoalShaper.png" style="width:200px; margin: 0 auto; padding: 0 auto; " />
+                </div>
+                <br/>
+                
+                <form [formGroup]="angForm" novalidate (ngSubmit)="login(user_name.value, password.value)">
+
+                    <div class="form-group">
+                        <div class="input-container" style="border: 1px solid #fff;border-radius: 20px;">
+                            <label class="fa fa-user icon" style="color:#ffffff; margin-top: 10px; margin-left: 15px;"></label>
+                            <input type="text" placeholder="Username" class="form-control" style=" outline: none;background: transparent;border: none;color: #ffffff;font-size: 14px;" formControlName="user_name" #user_name />
+                        </div>
+                    </div>
+                    <div *ngIf="angForm.controls['user_name'].invalid && (angForm.controls['user_name'].dirty || angForm.controls['user_name'].touched)" class="alert alert-danger">
+                        <div *ngIf="angForm.controls['user_name'].errors.required">
+                            Username required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-container" style="border: 1px solid #fff;border-radius: 20px;">
+                            <label class="fa fa-lock icon" style="color:#ffffff; margin-top: 10px; margin-left: 15px;"></label>
+                            <input type="password" placeholder="Password" class="form-control" style=" outline: none;background: transparent;border: none;color: #ffffff;font-size: 14px;" formControlName="password" #password />
+                        </div>
+                        <p (click)="forgotPassword()" class="text-right" style="color:#ffffff; margin-top: 10px; cursor: pointer;">Forgot Password</p>
+                    </div>
+                    <div *ngIf="angForm.controls['password'].invalid && (angForm.controls['password'].dirty || angForm.controls['password'].touched)" class="alert alert-danger">
+                        <div *ngIf="angForm.controls['password'].errors.required">
+                            Password required
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="form-group">
+                        <button *ngIf="btnSubmitStatus" type="submit" [disabled]="angForm.pristine || angForm.invalid" style="color: #133593;border-radius: 20px; background-color: #ffffff;font-size: 11px;border-color: #ffffff;letter-spacing: 4px; height:40px;" class="btn btn-primary btn-block text-uppercase">Sign In</button>
+                        <button *ngIf="!btnSubmitStatus" type="submit" [disabled]="angForm.pristine || angForm.invalid" style="color: #133593;border-radius: 20px; background-color: #ffffff;font-size: 11px;border-color: #ffffff;letter-spacing: 4px; height:40px;" class="btn btn-primary btn-block text-uppercase" disabled>Please Wait <i class="fa fa-spinner fa-spin"></i></button>
+                    </div>
+                </form>
+
+                <div *ngIf="failedtoSignIn" class="alert alert-danger">
+                    <strong>Failed to Sign In</strong> Please check your credentials and try again!
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div> -->
+<div class="row" style="background-image: url('assets/img/bg-login.jpg');">
+    <div class="col-12 text-center" style="padding: 70px;">
+        <img src="assets/img/GoalShaper.png" alt="">
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 text-center" style="padding: 20px;">
+        <span style="color: #363648; font-size: 26px;">Login</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4 mx-auto">
+        <form [formGroup]="angForm" novalidate (ngSubmit)="login(user_name.value, password.value)">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="username" style="color: #363648; font-size: 18px;">Username</label>
+                        <input type="text" class="form-control" id="username" formControlName="user_name" #user_name placeholder="">
+                    </div>
+                    <div *ngIf="angForm.controls['user_name'].invalid && (angForm.controls['user_name'].dirty || angForm.controls['user_name'].touched)" class="alert alert-danger">
+                        <div *ngIf="angForm.controls['user_name'].errors.required">
+                            Username required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username" style="color: #363648; font-size: 18px;">Password</label>
+                        <input type="password" class="form-control" id="password" formControlName="password" #password placeholder="">
+                        
+                    </div>
+                    <div *ngIf="angForm.controls['password'].invalid && (angForm.controls['password'].dirty || angForm.controls['password'].touched)" class="alert alert-danger">
+                        <div *ngIf="angForm.controls['password'].errors.required">
+                            Password required
+                        </div>
+                    </div>
+                    <div *ngIf="failedtoSignIn" class="alert alert-danger">
+                        <strong>Failed to Sign In</strong> Please check your credentials and try again!
+                    </div>
+                    <div class="form-group text-right">
+                        <span (click)="forgotPassword()" style="color:#464644; font-size: 14px; margin-top: 10px; cursor: pointer;">Forgot Password</span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group text-center">
+                        <button *ngIf="btnSubmitStatus" type="submit" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-add">Login</button>
+                        <button *ngIf="!btnSubmitStatus" type="submit" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-add" disabled>Please Wait <i class="fa fa-spinner fa-spin"></i></button>
+                    </div>
+                </div>
+                <div class="col-4 mx-auto">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row" style="background-color: #e6e7e8; padding: 40px; margin-top: 5%;">
+    <div class="col-7 mx-auto">
+        <div class="row">
+            <div class="col-4 text-center">
+                <span style="color: #363648; font-size: 18px;">Terms and conditions</span>
+            </div>
+            <div class="col-4 text-center">
+                <span style="color: #363648; font-size: 18px;">Privacy policy</span>
+            </div>
+            <div class="col-4 text-center">
+                <span style="color: #363648; font-size: 18px;">Use of cookies</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-8 mx-auto text-center" style="margin-top: 30px;">
+        <span style="color: #464644; font-size: 14px;">All content appearing on this website is proprietary, copyrighted and owned or licensed by Coaching Principles Ltd. Any unauthorized use of trademarks or content from this website is strictly prohibited. All Rights Reserved.</span>
+    </div>
+</div>

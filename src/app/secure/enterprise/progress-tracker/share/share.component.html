@@ -1,0 +1,27 @@
+<div class="modal-header modal-lg" style="border-bottom: none;">
+    <!-- <div style="width:100%; text-align: center; color: #363648; font-size: 18px;">Progress Tracker</div> -->
+    <button style="color:#ffffff;" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" style="color:#f78f11;">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body modal-lg" style="padding-top: 10px;">
+    <div class="row" style="margin-bottom: 20px;">
+        <div style="width:100%; text-align: center; color: #363648; font-size: 20px;">Share</div>
+    </div>
+    <div class="row" style="justify-content: center; margin-bottom: 15px;">
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-add"><i class="fa fa-arrow-down add-icon"></i>&nbsp;<span style="font-size: 20px;">Copy to clipboard</span></button>
+        </div>
+    </div>
+    <div class="row" style="justify-content: center; margin-bottom: 15px;">
+        <div style="text-align: center;" (click)="exportToCSV()">
+            <button type="button" class="btn btn-add"><i class="fa fa-arrow-down add-icon"></i>&nbsp;<span style="font-size: 20px;">Export CSV</span></button>
+        </div>
+    </div>
+    <div class="row" style="justify-content: center;">
+        <div style="text-align: center;" (click)="print()">
+            <button type="button" class="btn btn-add"><i class="fa fa-arrow-down add-icon"></i>&nbsp;<span style="font-size: 20px;">Print</span></button>
+        </div>
+    </div>
+</div>

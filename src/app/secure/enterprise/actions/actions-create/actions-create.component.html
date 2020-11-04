@@ -1,0 +1,304 @@
+<!-- 
+<form  novalidate (ngSubmit)="f.form.valid && saveActions()" #f="ngForm">
+    <div class="modal-header modal-lg" style="background-color: #0072BB;  color: #FFFFFF; border: 1px white;">
+       <div style="width:100%; font-size:medium; ">Action Information</div>
+       <button style="color:#ffffff;" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+       <span aria-hidden="true" style="color:#ffffff;">&times;</span>
+       </button>
+    </div>
+    <div class="modal-body modal-lg" style=" background-color: white; border: 1px white;">
+        <div class="form-group">
+            <label for="title">Title<span style="color:red;">*</span></label>
+            <input type="text" appFocus autocomplete="off" minlength="1" maxlength="100" placeholder="Title" name="title" class="form-control" [(ngModel)]="actions.action" #title="ngModel" [ngClass]="{ 'is-invalid': f.submitted && title.invalid }" required>
+            <div *ngIf="f.submitted && title.invalid" class="invalid-feedback">
+                <div *ngIf="title.errors.required">Title is required</div>
+            </div>
+        </div>
+        <div class="container" [class.show]="visible">
+            <div class="form-group">
+                <label for="description">Description (Optional)</label>
+                <textarea autocomplete="off" minlength="1" maxlength="100" placeholder="Description" name="description" class="form-control" [(ngModel)]="actions.description" #description="ngModel"> </textarea>
+            </div>
+
+        <div *ngIf="visible" class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="target_date">Target Date</label>
+                    <div class="input-group" >
+                        <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                        <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Target Date" name="target_date" class="form-control" [(ngModel)]="actions.target_date" #target_date="ngModel"  bsDatepicker placement="bottom-left" [minDate]="targetMinDate"  [bsValue]="actions.target_date" [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                    </div>
+                </div>
+            </div>
+            <div  *ngIf="visible" class="col-4">
+                <div class="form-group">
+                    <label for="completed_date">Completion Date</label>
+                    <div class="input-group" >
+                        <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                        <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Completion Date" name="completed_date" class="form-control" [(ngModel)]="actions.completed_date" #completed_date="ngModel"  bsDatepicker placement="bottom-left" [minDate]="completedMinDate"  [bsValue]="actions.completed_date" [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                    </div>
+                </div>
+            </div>
+            <div  *ngIf="visible" class="col-4">
+                <div class="form-group">
+                    <label for="scheduled_date">Scheduled Date</label>
+                    <div class="input-group" >
+                        <span class="input-group-addon" style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                        <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100" placeholder="Scheduled Date" name="scheduled_date" class="form-control" [(ngModel)]="actions.scheduled_date" #scheduled_date="ngModel"  bsDatepicker placement="bottom-left" [minDate]="scheduledMinDate"  [bsValue]="actions.scheduled_date" [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="category" >Category</label>
+                    <select name="category"  [(ngModel)]="actions.action_category_id"  class="form-control" (change)="onChangeCategory($event)">
+                        <option *ngIf="(modalData.target_date.includes('1900') || modalType == 'create' || modalData.target_date == '') && actions.action_category_id != miscellaneousCatogeryID"   value="">None</option>
+                        <option *ngIf='actions.action_category_id == miscellaneousCatogeryID' value="{{actions.action_category_id}}">None</option>
+                        <option  *ngFor="let catogery of modalCatogeries" value="{{catogery.category_id}}">{{catogery.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="title">Priority</label>
+                    <select name="priority" class="form-control" [(ngModel)]="actions.priority_id"  (change)="onChangePriority($event)">
+                        <option value=''>Select Priority</option>
+                        <option *ngFor="let priority of modalActions" value="{{priority.priority_id}}">{{priority.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="goal">Goal(Optional)</label>
+                    <select name="goal" class="form-control" [(ngModel)]="actions.goal_id" (change)="onChangeGoals($event)">
+                        <option value=''>Select Goal</option>
+                        <option *ngFor="let goal of modalGoals" [value]="goal.goal_id">{{goal.goal_title}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="milestone">Milestones(Optional)</label>
+                    <select name="milestone" class="form-control" [(ngModel)]="actions.milestone_id" (change)="onChangeMileStones($event)">
+                        <option value=''>Select Milestones</option>
+                        <option *ngFor="let item of allMilestones" [value]="item.milestone_id">{{item.milestone}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="objective">Objectives(Optional)</label>
+                    <select name="objective" class="form-control"  [(ngModel)]="actions.objective_id"   (change)="onChangeObjectives($event)">
+                        <option value=''>Select Objective</option>
+                        <option *ngFor="let objective of modalObjectives" [value]="objective.objective_id">{{objective.objective}}</option>
+                    </select>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+<div *ngIf="show_expander" class="text-center" style=" margin-bottom: 20px;">
+    <button type="button" class="btn btn-primary" (click)="visible = !visible">{{ visible ? 'Show less': 'Show More' }}</button> 
+  </div>
+ 
+
+    <div class="modal-footer">
+       <button *ngIf="(modalType == 'create') || (modalType == 'sortplus') " type="submit"   class="btn btn-primary" style="background-color: #0072BB; color:#ffffff;">
+       <i class="fa fa-save"></i> Save
+       </button>
+      
+       <button *ngIf="(modalType == 'edit') || (modalType == 'find')" type="submit"   class="btn btn-primary" style="background-color: #0072BB; color:#ffffff;">
+        <i class="fa fa-save"></i> Update
+        </button>
+       <button *ngIf="(modalType != 'create') &&( modalType != 'sortplus')" type="button" class="btn btn-danger" (click)="openDeleteConfirmDialog()">
+       <i class="fa fa-trash"></i> Delete
+       </button>
+       <button type="button" class="btn btn-danger close-button-color" (click)="closeModal()">
+       <i class="fa fa-close"></i> Cancel
+       </button>
+    </div>
+</form> -->
+
+<!-- New Form -->
+<form novalidate (ngSubmit)="f.form.valid && saveActions()" #f="ngForm">
+    <div class="modal-header modal-lg" style="border-bottom: none;">
+        <div class="row" style="justify-content: center; width: 100%;" *ngIf="(modalType == 'edit') || (modalType == 'find')">
+            <div style="font-size:medium; text-align: center; color: #363648; font-size: 26px; cursor: pointer;" *ngIf="isEdit" (click)="onEdit()">{{actions.action}}</div>
+        </div>
+        <button style="color:#ffffff;" type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+            <span aria-hidden="true" style="color:#f78f11;">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body modal-lg" style=" background-color: white; border: 1px white; padding: 35px 100px;">
+        <div class="form-group" *ngIf="isEditable">
+            <div class="col-9 mx-auto">
+                <input type="text" appFocus autocomplete="off" minlength="1" maxlength="100" placeholder="Title" name="title" class="form-control" (blur)="onBlur($event)" [(ngModel)]="actions.action" #title="ngModel" [ngClass]="{ 'is-invalid': f.submitted && title.invalid }" required style="border: none;">
+                <div *ngIf="f.submitted && title.invalid" class="invalid-feedback">
+                    <div *ngIf="title.errors.required">Title is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="(modalType == 'create') || (modalType == 'sortplus')">
+            <div class="col-9 mx-auto">
+                <input type="text" appFocus autocomplete="off" minlength="1" maxlength="100" placeholder="Title" name="title" class="form-control" [(ngModel)]="actions.action" #title="ngModel" [ngClass]="{ 'is-invalid': f.submitted && title.invalid }" required style="border: none;">
+                <div *ngIf="f.submitted && title.invalid" class="invalid-feedback">
+                    <div *ngIf="title.errors.required">Title is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 10px;">
+            <div class="col-9 mx-auto">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-3 col-form-label"><h6 style="padding: 10px;">Do</h6></label>
+                            <div class="col-sm-6" style="padding: 10px;">
+                              <input type="text" autocomplete="off" minlength="1" maxlength="100" placeholder="Do date" name="scheduled_date" class="form-control" [(ngModel)]="actions.scheduled_date" #scheduled_date="ngModel" #dp="bsDatepicker"  bsDatepicker placement="bottom-left" [minDate]="scheduledMinDate"  [bsValue]="actions.scheduled_date" [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}" style="border: none;">
+                            </div>
+                            <div class="col-sm-3">
+                                <span (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen">
+                                    <i class="fa fa-calendar fa-1x des-icon" style="padding: 10px;"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-3 col-form-label"><h6 style="padding: 10px;">Due</h6></label>
+                            <div class="col-sm-6" style="padding: 10px;">
+                              <input type="text" autocomplete="off" minlength="1" maxlength="100" placeholder="Add date" name="target_date" class="form-control" [(ngModel)]="actions.target_date" #target_date="ngModel" #duep="bsDatepicker"  bsDatepicker placement="bottom-left" [minDate]="targetMinDate"  [bsValue]="actions.target_date" [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}" style="border: none;">
+                            </div>
+                            <div class="col-sm-3">
+                                <span (click)="duep.toggle()" [attr.aria-expanded]="duep.isOpen">
+                                    <i class="fa fa-calendar fa-1x des-icon" style="padding: 10px;"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="form-group row" style="margin-bottom: 10px;">
+            <div class="col-9 mx-auto">
+                <div class="row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">
+                        <i class="fa fa-list-ul des-icon"></i>
+                    </label>
+                    <div class="col-sm-10">
+                        <textarea autocomplete="off" minlength="1" maxlength="100" placeholder="Add a Description" name="description" class="form-control" [(ngModel)]="actions.description" #description="ngModel" style="border: none;"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="form-group row" style="margin-bottom: 10px;">
+            <div class="col-9 mx-auto">
+                <div class="row">
+                    <label for="inputPassword" class="col-sm-8 col-form-label"><h6>Priority</h6></label>
+                    <div class="col-sm-4">
+                        <select name="priority" class="form-control" [(ngModel)]="actions.priority_id"  (change)="onChangePriority($event)" style="border: none;">
+                            <option value=''>Select Priority</option>
+                            <option *ngFor="let priority of modalActions" value="{{priority.priority_id}}">{{priority.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="form-group row" style="margin-bottom: 10px;">
+            <div class="col-9 mx-auto">
+                <div class="row">
+                    <label for="inputPassword" class="col-sm-8 col-form-label"><h6>Category</h6></label>
+                    <div class="col-sm-4">
+                        <select name="category"  [(ngModel)]="actions.action_category_id"  class="form-control" (change)="onChangeCategory($event)" style="border: none;">
+                            <option *ngIf="(modalData.target_date.includes('1900') || modalType == 'create' || modalData.target_date == '') && actions.action_category_id != miscellaneousCatogeryID"   value="">None</option>
+                            <option *ngIf='actions.action_category_id == miscellaneousCatogeryID' value="{{actions.action_category_id}}">None</option>
+                            <option  *ngFor="let catogery of modalCatogeries" value="{{catogery.category_id}}">{{catogery.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 10px;">
+            <div class="col-9 mx-auto">
+                <div class="row">
+                    <label for="inputPassword" class="col-sm-8 col-form-label"><h6>Action Type</h6></label>
+                    <div class="col-sm-4">
+                        <select name="type" class="form-control" [(ngModel)]="actions.action_type" (change)="onChangeActiontype($event)" style="border: none;">
+                            <option value=''>Select</option>
+                            <option *ngFor="let type of modalActionType" value="{{type.goal_type_id}}">{{type.type_name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 10px;">
+            <div class="col-9 mx-auto">
+                <div class="row">
+                    <label for="inputPassword" class="col-sm-8 col-form-label"><h6>Goal</h6></label>
+                    <div class="col-sm-4">
+                        <select name="goal" class="form-control" [(ngModel)]="actions.goal_id" (change)="onChangeGoals($event)" style="border: none;">
+                            <option value=''>Select</option>
+                            <option *ngFor="let goal of modalGoals" [value]="goal.goal_id">{{goal.goal_title}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 10px;">
+            <div class="col-9 mx-auto">
+                <div class="row">
+                    <label for="inputPassword" class="col-sm-8 col-form-label"><h6>Milestone</h6></label>
+                    <div class="col-sm-4">
+                        <select name="milestone" class="form-control" [(ngModel)]="actions.milestone_id" (change)="onChangeMileStones($event)" style="border: none;">
+                            <option value=''>Select</option>
+                            <option *ngFor="let item of allMilestones" [value]="item.milestone_id">{{item.milestone}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 33px; justify-content: center;" *ngIf="(modalType != 'create') &&( modalType != 'sortplus')">
+            <span style="text-align: center; font-size: 14px; cursor: pointer;" (click)="openDeleteModal()"><i class="fa fa-minus des-icon" style="padding: 8px 10px 8px 10px; color: #e25f5f;"></i>&nbsp;&nbsp;Delete Action</span>
+        </div>
+        <div class="form-group row" *ngIf="(modalType == 'edit') && (actions.completed_date == '' || actions.completed_date.includes('1900'))" style="margin-bottom: 33px; justify-content: center">
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-add" (click)="markActionDone()"><i class="fa fa-check add-icon"></i>&nbsp;<span style="font-size: 20px;">Action Done</span></button>
+            </div>
+        </div>
+        <div *ngIf="(modalType == 'edit') && (actions.completed_date != '' && ! actions.completed_date.includes('1900'))" style="margin-bottom: 33px; justify-content: center">
+            <div style="text-align: center;">
+                <div>
+                    <i class="fa fa-check des-icon" style="padding: 8px 10px 8px 10px; color: #9ac81b;"></i>
+                </div>
+                <div>
+                    <span style="color: #9ac81b; font-size: 28px;">Completed</span>
+                </div>
+                <div>
+                    <span style="color: #757575; font-size: 14px;">{{actions.completed_date ? (actions.completed_date | date: 'dd/MM/yyyy') : ''}}</span>
+                </div>
+                <div style="margin-top: 10px;">
+                    <span style="color: #f78f11; font-size: 14px; cursor: pointer;" (click)="markUnDone()">Mark incomplete</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" *ngIf="(modalType == 'edit') || (modalType == 'find')" style="justify-content: center">
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-outline-save"><span style="font-size: 20px;">Save Changes</span></button>
+            </div>
+        </div>
+        <div class="form-group row" *ngIf="(modalType == 'create') || (modalType == 'sortplus')" style="justify-content: center">
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-outline-save"><span style="font-size: 20px;">Save</span></button>
+            </div>
+        </div>
+    </div>
+</form>

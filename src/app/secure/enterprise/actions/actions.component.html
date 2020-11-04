@@ -1,0 +1,114 @@
+<div >
+    <div class="row">
+
+
+
+      <div class="col-3" style="padding:28px; padding-left: 3%;">
+        <div class="row">
+          <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+          <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+            ACTIONS
+          </span>
+        </div>
+      </div>
+
+
+      <div class="col-9" style="padding-top:15px;">
+        <table style="width:100%;">
+          <tr>
+
+            <td style="align-content: right; text-align: right; float: right;">
+
+              <table>
+                <tr>
+                  <!-- <td>
+                    <div class="md-form" style="padding-right:10px; margin-top: -16px;">
+                      <input type="text" placeholder="Select Date" class="form-control" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}" #dp="bsDatepicker" bsDatepicker>
+                      <i  style="margin-top: -25px;
+                      position: absolute;
+                      margin-left: -21px; color:#2196f3" class="fa fa-calendar" aria-hidden="true"></i>
+                    </div>
+                  </td> -->
+
+                  <td>
+                    <div class="form-group has-search" style="padding-right:10px;">
+                      <select (change)="refreshSearch()" [(ngModel)]="filterBy" class="form-control">
+                        <option value="">Search By - All</option>
+                        <option value="firstname">Search By - Title</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td style="line-height: 3">
+                    <div class="form-group has-search">
+                      <span (click)="getSearchDetailsFromServer()" class="fa fa-search form-control-feedback fa-xs"
+                        style="font-size: small; cursor: pointer; line-height: 2.5;"></span>
+                      <input type="text" (keyup)="refreshSearch()" class="form-control" [(ngModel)]="searchText"
+                        #txtSearch placeholder="Search ">
+                    </div>
+                  </td>
+                  <td style="line-height: 3; ">
+                    &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="openActionsModal('create','')" class="btn btn-primary pull-right"
+                      style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                      <i class="fa fa-plus "></i>
+                      &nbsp;Create</button>
+                  </td>
+                  <!-- <td style="line-height: 3;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button (click)="refreshPageData()" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                        <i class="fa fa-refresh "></i> &nbsp;Refresh
+                    </button>
+                </td> -->
+                </tr>
+              </table>
+
+
+
+            </td>
+          </tr>
+        </table>
+
+
+
+      </div>
+
+
+
+    </div>
+    <hr>
+  </div>
+
+  <!-- Body starts from here -->
+  <div class="row" >
+    <div class="col-12">
+      <div class="row">
+        <div *ngFor="let action of allCatogeriesActions" class="col-12 col-sm-6 col-md-3 grid-margin stretch-card" >
+          <div  class="card" style="border-radius: 15px;">
+            <div class="card-header text-white" [ngStyle]="{backgroundColor:action.color}">
+              {{action.name}}
+            </div>
+            <div class="card-body">
+              <table class="card-table table">
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="action.actions.length == 0">
+                  <span style="font-size:smaller; text-align: center;">*No Data Avialable</span>
+                </tbody>
+                <tbody *ngIf="action.actions.length != 0">
+                  <tr *ngFor="let item of action.actions" (click)="openActionsModal('edit',item)">
+                    <td>{{item.created_date ? (item.created_date | date: 'dd-MM-yyyy') : '-'}}</td>
+                    <td>{{item.priority_name}}</td>
+                    <td>{{item.action ? item.action: '-'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

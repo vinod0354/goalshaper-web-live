@@ -1,0 +1,180 @@
+<!-- <div>
+  <div class="row">
+
+
+
+    <div class="col-3" style="padding:28px; padding-left: 3%;">
+      <div class="row">
+        <div style="width: 10px; height: 10px; line-height: 2.5; background-color: #1089CE;"></div>
+        <span style="font-weight: bold; color:#1089CE; padding-left: 5px; line-height: 0.8;">
+          ENTERPRISE FEATURES ({{EnterpriseMap.length}})
+        </span>
+      </div>
+    </div>
+
+
+    <div class="col-9" style="padding-top:15px;">
+      <table style="width:100%;">
+        <tr>
+
+          <td style="align-content: right; text-align: right; float: right;">
+
+            <table>
+              <tr>
+
+                <td>
+                  <div class="form-group has-search" style="padding-right:10px;">
+                    <select (change)="refreshSearch()" [(ngModel)]="filterBy" class="form-control">
+                      <option value="name">Search By - Enterprise Name</option>
+                    </select>
+                  </div>
+                </td>
+                <td style="line-height: 3;">
+                  <div class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback fa-xs"
+                      style="font-size: small; line-height: 2.5;"></span>
+                    <input type="text" (keyup)="refreshSearch()" class="form-control" [(ngModel)]="searchText"
+                      #txtSearch placeholder="Search ">
+                  </div>
+                </td>
+
+                <td style="line-height: 3; padding-right: 10px;">
+                  &nbsp;&nbsp;&nbsp;&nbsp; <button (click)="refreshPageData()" class="btn btn-primary pull-right" style="line-height: 1.5; font-size: small; background-color: #1089CE;">
+                    <i class="fa fa-refresh "></i>
+                    &nbsp;Refresh</button>
+                </td>
+
+              </tr>
+            </table>
+
+
+
+          </td>
+        </tr>
+      </table>
+
+
+
+    </div>
+
+
+
+  </div>
+  <hr>
+
+
+
+</div> -->
+
+
+
+
+<div class="row" style="margin-top: 20px;">
+
+
+  <div class="col-12 table-responsive fixed-table-body" style="max-width:99%; margin: 0 auto;">
+    <div>
+      <table class="table">
+        <thead>
+          <tr style="background-color: #1089CE; height: 50px; color: #ffffff;">
+            <th class="table-header" style="line-height: 2.4;">S. No</th>
+            <th class="table-header" style="line-height: 2.4;">Logo</th>
+            <th class="table-header" style="line-height: 2.4; text-align: left; padding-left:2%;">Enterprise Name</th>
+            <th class="table-header">Email<br />Notifications</th>
+            <th class="table-header">Push<br />Notifications</th>
+            <th class="table-header">Goals<br />Management</th>
+            <th class="table-header">Objectives<br />Management</th>
+            <th class="table-header">Actions<br />Management</th>
+            <th class="table-header">Theme<br />Changes</th>
+            <!-- <th class="table-header" style="line-height: 2.4;">Edit</th> -->
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngIf="EnterpriseMap.length == 0">
+            <td align="center" colspan="9" >
+              No enterprises available to see features
+            </td>
+          </tr>
+
+          <tr *ngIf="EnterpriseMap.length == 0">
+            <td align="center" colspan="9" >
+
+            </td>
+          </tr>
+
+          <tr *ngFor="let item of EnterpriseMap  | searchpipe: searchBy ; index as i; ">
+            <td style="text-align: center; vertical-align: middle;">
+              {{i+1}}
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+              <img src="{{item.logo}}">
+            </td>
+            <td style="text-align: left; padding-left:10px; padding-left:2%; vertical-align: middle;">
+              {{item.name}}
+            </td>
+
+            <td style="text-align: center; vertical-align: middle;">
+              <!-- <input  type="checkbox" style="font-size: xx-large;" id="map" value="1"> -->
+              <fa *ngIf="item.mapArray[0]==0" name="times fa-lg" style='color:#dc3545;' class="padding-for-menu-icons">
+              </fa>
+              <fa *ngIf="item.mapArray[0]==1" name="check fa-lg" style='color:#1089CE;' class="padding-for-menu-icons">
+              </fa>
+
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+              <!-- <input  type="checkbox" style="font-size: xx-large;" id="map" value="1"> -->
+              <fa *ngIf="item.mapArray[1]==0" name="times fa-lg" style='color:#dc3545;' class="padding-for-menu-icons">
+              </fa>
+              <fa *ngIf="item.mapArray[1]==1" name="check fa-lg" style='color:#1089CE;' class="padding-for-menu-icons">
+              </fa>
+
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+              <!-- <input  type="checkbox" style="font-size: xx-large;" id="map" value="1"> -->
+              <fa *ngIf="item.mapArray[2]==0" name="times fa-lg" style='color:#dc3545;' class="padding-for-menu-icons">
+              </fa>
+              <fa *ngIf="item.mapArray[2]==1" name="check fa-lg" style='color:#1089CE;' class="padding-for-menu-icons">
+              </fa>
+
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+              <!-- <input  type="checkbox" style="font-size: xx-large;" id="map" value="1"> -->
+              <fa *ngIf="item.mapArray[3]==0" name="times fa-lg" style='color:#dc3545;' class="padding-for-menu-icons">
+              </fa>
+              <fa *ngIf="item.mapArray[3]==1" name="check fa-lg" style='color:#1089CE;' class="padding-for-menu-icons">
+              </fa>
+
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+              <!-- <input  type="checkbox" style="font-size: xx-large;" id="map" value="1"> -->
+              <fa *ngIf="item.mapArray[4]==0" name="times fa-lg" style='color:#dc3545;' class="padding-for-menu-icons">
+              </fa>
+              <fa *ngIf="item.mapArray[4]==1" name="check fa-lg" style='color:#1089CE;' class="padding-for-menu-icons">
+              </fa>
+
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+              <!-- <input  type="checkbox" style="font-size: xx-large;" id="map" value="1"> -->
+              <fa *ngIf="item.mapArray[5]==0" name="times fa-lg" style='color:#dc3545;' class="padding-for-menu-icons">
+              </fa>
+              <fa *ngIf="item.mapArray[5]==1" name="check fa-lg" style='color:#1089CE;' class="padding-for-menu-icons">
+              </fa>
+
+            </td>
+            <!-- <td style="text-align: center; vertical-align: middle;">
+              <fa style="cursor: pointer;" name="edit"></fa>
+            </td> -->
+          </tr>
+
+
+        </tbody>
+      </table>
+
+
+
+    </div>
+  </div>
+
+
+</div>

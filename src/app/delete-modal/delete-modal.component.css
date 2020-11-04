@@ -1,0 +1,14 @@
+.close {
+    opacity: 1;
+}
+
+.btn-delete {
+    color: #fff;
+    background-color: #e25f5f;
+    border-color: #e25f5f;
+    box-shadow: 5px 5px 15px -4px #e25f5f ;
+    width: 175px;
+    height: 72px;
+    border-radius: 36px;
+    font-size: 20px !important;
+  }

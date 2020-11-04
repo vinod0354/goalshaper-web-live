@@ -1,0 +1,73 @@
+.input-group {
+    border-collapse: separate;
+}
+
+.border-primary{
+
+    color: #0072BB !important;
+}
+
+.container {
+    /* font-size: 16px;
+    line-height: 16px; */
+    padding: 0px;
+    margin:0px;
+    height: 0px;
+    overflow: hidden;
+  }
+  
+  .show {
+    overflow: visible;
+    height: auto;
+  }
+
+  .modal-body modal-lg{
+    padding-bottom: 3px !important;
+  }
+
+.des-icon {
+  padding: 10px;
+  border: 1px solid #fbfbfb;
+  border-radius: 50%;
+  box-shadow: 10px 10px 20px 0 rgba(174, 174, 192, 0.4), inset 4px 4px 6px 0 #fbfbfb;
+}
+
+.add-icon {
+  padding: 10px;
+  border: 1px solid #fafafa;
+  border-radius: 50%;
+  background-color: white;
+  color: #9ac81b;
+}
+
+.save-btn {
+  width: 230px;
+  height: 72px;
+  border-radius: 36px;
+  border: solid 2px #ed7702;
+  background-color: #ffffff;
+}
+
+.btn-outline-save {
+  color: #ed7702;
+  border-color: #ed7702;
+  border: 2px solid;
+  width: 230px;
+  height: 72px;
+  border-radius: 36px;
+  box-shadow: 5px 5px 15px -4px #a05016;
+}
+
+.btn-add {
+  color: #fff;
+  background-color: #9ac81b;
+  border-color: #9ac81b;
+  box-shadow: 5px 5px 15px -4px #688510;
+  width: 231px;
+  height: 72px;
+  border-radius: 36px;
+}
+
+.close {
+  opacity: 1;
+}

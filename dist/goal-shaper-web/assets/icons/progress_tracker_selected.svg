@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>pie-chart</title>
+    <g id="New-functionality" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Desktop" transform="translate(-822.000000, -15.000000)" stroke="#FFFFFF" stroke-width="2">
+            <g id="pie-chart" transform="translate(823.000000, 16.000000)">
+                <path d="M19.21,13.89 C17.4598492,18.028883 13.1638237,20.4920434 8.70777262,19.9115357 C4.25172156,19.3310281 0.730142759,15.8494369 0.0987870662,11.4003055 C-0.532568627,6.95117409 1.88137274,2.62730068 6,0.83" id="Path"></path>
+                <path d="M20,10 C20,7.3478351 18.9464316,4.80429597 17.0710678,2.92893219 C15.195704,1.0535684 12.6521649,0 10,0 L10,10 L20,10 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

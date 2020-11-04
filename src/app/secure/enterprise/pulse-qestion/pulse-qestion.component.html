@@ -1,0 +1,38 @@
+<div class="" style="margin-top: 20px;">
+    <div class="row" style="border-bottom: 1px solid #dedede;">
+        <div class="col-6">
+          <h4 style="color: #2171ab;">Manage Pulse Questions</h4>
+        </div>
+        <div class="col-6">
+          <div class="text-right">
+            <button class="btn btn-primary" routerLink="/ent/pulse-log" style="background-color: #2372ab;">Pulse Log</button>
+          </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px;" *ngIf="questions">
+      <table class="table table-borderless" style="width: 100%;">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th colspan="2">Title</th>
+            <th scope="col" class="text-center">Modified Date</th>
+            <th scope="col" class="text-center">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of questions | paginate: { itemsPerPage: 10, currentPage: Page }; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td colspan="2">{{item.question}}</td>
+            <td class="text-center" *ngIf="item.last_modified">{{item.last_modified | date: 'MMM d y'}}</td>
+            <td class="text-center" *ngIf="!item.last_modified"> - </td>
+            <td class="text-center"  *ngIf ="item.is_mandatory !='Y'" (click)="editQsn(item)"><fa name="edit"></fa></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-12 mt-2 text-right">
+        <pagination-controls (pageChange)="Page=$event"></pagination-controls>
+      </div>
+    </div>
+</div>

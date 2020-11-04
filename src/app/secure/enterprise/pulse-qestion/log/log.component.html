@@ -1,0 +1,38 @@
+<div style="margin-top: 20px;">
+    <div class="row" style="border-bottom: 1px solid #dedede;">
+        <h4 style="color: #2171ab;">Pulse log</h4>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th colspan="1">Title</th>
+                  <th scope="col" class="text-center">5</th>
+                  <th scope="col" class="text-center">4</th>
+                  <th scope="col" class="text-center">3</th>
+                  <th scope="col" class="text-center">2</th>
+                  <th scope="col" class="text-center">1</th>
+                  <!-- <th scope="col" class="text-center">Average Score</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of log | paginate: { itemsPerPage: 10, currentPage: Page }; let i = index">
+                    <th>{{i+1}}</th>
+                    <td colspan="1">{{item.question}}</td>
+                    <td class="text-center">{{item.countOf5Rating}}</td>
+                    <td class="text-center">{{item.countOf4Rating}}</td>
+                    <td class="text-center">{{item.countOf3Rating}}</td>
+                    <td class="text-center">{{item.countOf2Rating}}</td>
+                    <td class="text-center">{{item.countOf1Rating}}</td>
+                    <!-- <td class="text-center">{{item.log}}</td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-12 mt-2 text-right">
+            <pagination-controls (pageChange)="Page=$event"></pagination-controls>
+        </div>
+    </div>
+</div>

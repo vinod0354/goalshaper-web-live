@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="14px" viewBox="0 0 17 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 10</title>
+    <g id="Teams" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="New_syle_header" transform="translate(-488.000000, -176.000000)" stroke="#6A6F6B">
+            <g id="Group-12" transform="translate(400.000000, 175.000000)">
+                <g id="Group-11" transform="translate(89.000000, 0.000000)">
+                    <g id="Group-10" transform="translate(0.000000, 2.000000)">
+                        <path d="M10.6666667,12 L10.6666667,10.6666667 C10.6666667,9.19390733 9.47275933,8 8,8 L2.66666667,8 C1.19390733,8 -7.63833441e-14,9.19390733 -7.63833441e-14,10.6666667 L-7.63833441e-14,12" id="Path"></path>
+                        <circle id="Oval" cx="5.33333333" cy="2.66666667" r="2.66666667"></circle>
+                        <path d="M14.6666667,12 L14.6666667,10.6666667 C14.6657602,9.45141183 13.8433325,8.39048012 12.6666667,8.08666667" id="Path"></path>
+                        <path d="M10,0.0866666667 C11.1799432,0.388779858 12.0052288,1.4519941 12.0052288,2.67 C12.0052288,3.8880059 11.1799432,4.95122014 10,5.25333333" id="Path"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

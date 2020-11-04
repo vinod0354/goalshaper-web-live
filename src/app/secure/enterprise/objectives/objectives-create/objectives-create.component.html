@@ -1,0 +1,144 @@
+<form novalidate (ngSubmit)="f.form.valid && saveObjectives()" #f="ngForm">
+    <div class="modal-header modal-lg" style="background-color: #0072BB;  color: #FFFFFF; border: 1px white;">
+        <div style="width:100%; font-size:medium; ">Objective Information</div>
+        <button style="color:#ffffff;" type="button" class="close pull-right" aria-label="Close"
+            (click)="bsModalRef.hide()">
+            <span aria-hidden="true" style="color:#ffffff;">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body modal-lg" style=" background-color: white; border: 1px white;">
+        <div class="row ">
+            <div class="col-12">
+                <div class="form-group border-bottom border-primary">
+                    <label for="" style="font-weight: bold;">Basic Info</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="title">Objective Title<span style="color:red;">*</span></label>
+            <input  type="text" appFocus autocomplete="off" minlength="1" maxlength="100" placeholder="Title" name="objective"
+                class="form-control" [(ngModel)]="ObjectiveInfo.objective" #objective="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && objective.invalid }" required>
+            <div *ngIf="f.submitted && objective.invalid" class="invalid-feedback">
+                <div *ngIf="objective.errors.required">Objective Title is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description (Optional)</label>
+            <textarea  autocomplete="off" minlength="1" maxlength="100" placeholder="Description" name="description"
+                class="form-control" [(ngModel)]="ObjectiveInfo.description" #description="ngModel"> </textarea>
+        </div>
+
+        <div *ngIf="currentRoleID == '4'  && ((globaluserID == modalData.created_user_id) || (modalType == 'create'))" class="form-group">
+            <label for="goal_category_id">Objective Category (Optional)</label>
+            <select name="goal_category_id" [(ngModel)]="ObjectiveInfo.goal_category_id" #title="ngModel"
+                class="form-control">
+                <option value=''>Select Category</option>
+                <option *ngFor="let goal of Objectivecategory" [value]="goal.category_id">{{goal.name}}</option>
+            </select>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="title">Objective Type<span style="color:red;">*</span></label>
+            <br>
+            <label class="form-check-input" *ngFor="let type of objectivetype;let i = index" style="margin-top: 10px; float: left;
+            padding-left: 2%;" class="radio-inline">
+                <input  style="margin-right: 10px;" type="radio" [(ngModel)]="ObjectiveInfo.objective_type"
+                    [value]="type.goal_type_id" name="objective_type"
+                    [checked]="(modalData.objective_type == ObjectiveInfo.objective_type) ? 'checked' : ''">{{type.type_name}}
+            </label>
+
+        </div>
+        <br>
+
+
+
+        <!-- <div class="form-group">
+            <label for="scheduledDate">Scheduled Date<span style="color:red;">*</span></label>
+            <div class="input-group">
+                <span class="input-group-addon"
+                    style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                    <i class="fa fa-calendar"></i>
+                </span>
+                <input type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100"
+                    placeholder="Scheduled Date" name="scheduledDate" class="form-control"
+                    [(ngModel)]=" ObjectiveInfo.scheduledDate" #scheduledDate="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && scheduledDate.invalid }" required bsDatepicker
+                    placement="bottom-left"  [bsValue]="ObjectiveInfo.scheduledDate"
+                    (ngModelChange)="changeDate($event)"
+                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue',minDate:scheduledMinDate}">
+                <div *ngIf="f.submitted && scheduledDate.invalid" class="invalid-feedback">
+                    <div *ngIf="scheduledDate.errors.required">Scheduled Date is Required</div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="form-group">
+            <label for="targetDate">Target Date<span style="color:red;">*</span></label>
+            <div class="input-group">
+                <span class="input-group-addon"
+                    style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                    <i class="fa fa-calendar"></i>
+                </span>
+                <input  type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100"
+                    placeholder="Target Date" name="targetDate" class="form-control"
+                    [(ngModel)]=" ObjectiveInfo.targetDate" #targetDate="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && targetDate.invalid }" required bsDatepicker
+                    placement="bottom-left" [bsValue]="ObjectiveInfo.targetDate" (ngModelChange)="changeDate($event)"
+                    [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'DD-MM-YYYY',minDate: targetMinDate, containerClass: 'theme-dark-blue'}">
+                <div *ngIf="f.submitted && targetDate.invalid" class="invalid-feedback">
+                    <div *ngIf="targetDate.errors.required">Target Date is Required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="completedDate">Completion Date (Optional)</label>
+            <div class="input-group">
+                <span class="input-group-addon"
+                    style="border:solid 1px #ced4da; padding-left: 10px; padding-right: 10px; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-right: none; line-height: 1.8;">
+                    <i class="fa fa-calendar"></i>
+                </span>
+                <input   type="text" style="z-index: 500;" autocomplete="off" minlength="1" maxlength="100"
+                    placeholder="Completion Date" name="completedDate" class="form-control"
+                    [(ngModel)]="ObjectiveInfo.completedDate" #completedDate="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && completedDate.invalid }" bsDatepicker
+                    placement="bottom-left" [bsValue]="ObjectiveInfo.completedDate"
+                    [bsConfig]="{showWeekNumbers:false, dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-dark-blue',minDate:completedMinDate}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="goal_id">Select Goal (Optional)</label>
+            <select  name="goal_id" [(ngModel)]="ObjectiveInfo.goal_id" (change)="ToloadMilestones()" #title="ngModel"
+                class="form-control">
+                <option value=''>Select Goal</option>
+                <option *ngFor="let goal of ToSelectGoalId" [value]="goal.goal_id">{{goal.goal_title}}</option>
+            </select>
+        </div>
+
+        <div *ngIf="allMileStones.length != 0" class="form-group">
+            <label for="milestone">Select Milestones (Optional)</label>
+            <select  name="milestone" [(ngModel)]="ObjectiveInfo.milestone_id" #title="ngModel" class="form-control">
+                <option value=''>Select Milestone</option>
+                <option *ngFor="let goal of allMileStones" [value]="goal.milestone_id">{{goal.milestone}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button [disabled]="modalData.created_user_id != globaluserID && modalType == 'update' ? true : null" *ngIf="f.form.valid" type="submit" class="btn btn-primary"
+            style="background-color: #0072BB; color:#ffffff;">
+            <i class="fa fa-save"></i> {{ButtonText}}
+        </button>
+        <button *ngIf="!f.form.valid" type="submit" class="btn btn-light"
+            style="background-color: #0072BB;color:#ffffff;">
+            <i class="fa fa-save"></i> {{ButtonText}}
+        </button>
+        <button type="button" class="btn btn-danger close-button-color" (click)="closeModal()">
+            <i class="fa fa-close"></i> Close
+        </button>
+    </div>
+</form>
